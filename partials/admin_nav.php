@@ -3,7 +3,7 @@
         <ul class="navbar-item theme-brand flex-row  text-center">
             <li class="nav-item theme-logo">
                 <a href="dashboard.php">
-                    <img src="../public/uploads/sys_logo/logo-2.svg" class="navbar-logo" alt="logo">
+                    <img src="../public/uploads/sys_logo/Logo.svg" class="navbar-logo" alt="logo">
                 </a>
             </li>
 
@@ -28,7 +28,7 @@
 
             <li class="nav-item dropdown user-profile-dropdown">
                 <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    <img src="../public/uploads/sys_logo/logo-2.svg">
+                    <img src="../public/uploads/sys_logo/Logo.svg">
                 </a>
                 <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                     <div class="">
