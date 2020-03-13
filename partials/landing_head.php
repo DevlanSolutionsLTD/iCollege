@@ -14,8 +14,8 @@
     <!-- CSS -->
     <link href="../public/css/reset.css" rel="stylesheet">
     <link href="../public/css/fonts.css" rel="stylesheet">
-    <link href="../public/css/landing_assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../public/css/landing_assets/select2/css/select2.min.css" rel="stylesheet">
+    <link href="../public/landing_assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/landing_assets/select2/css/select2.min.css" rel="stylesheet">
     <link href="../public/landing_assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="../public/landing_assets/magnific-popup/css/magnific-popup.css" rel="stylesheet">
     <link href="../public/landing_assets/iconmoon/css/iconmoon.css" rel="stylesheet">
