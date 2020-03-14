@@ -6,7 +6,7 @@
     <!-- ==============================================
     ** Header **
     =================================================== -->
-    <?php require_once('..partials/landing_header.php');?>
+    <?php require_once('../partials/landing_header.php');?>
 
     <!-- ==============================================
     ** Banner Carousel **
