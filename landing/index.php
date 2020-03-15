@@ -53,7 +53,7 @@
         <div class="container">
             <ul class="row our-links">
                 <li class="col-sm-4 apply-online clearfix equal-hight">
-                    <div class="icon"><img src="images/apply-online-ico.png" class="img-responsive" alt=""></div>
+                    <div class="icon"><img src="./public/uploads/sys_data/images/apply-online-ico.png" class="img-responsive" alt=""></div>
                     <div class="detail">
                         <h3>Apply Online</h3>
                         <p>Lorem Ipsum is simply dummy text of the printing...</p>
@@ -61,7 +61,7 @@
                     </div>
                 </li>
                 <li class="col-sm-4 prospects clearfix equal-hight">
-                    <div class="icon"><img src="images/prospects-ico.png" class="img-responsive" alt=""></div>
+                    <div class="icon"><img src="./public/uploads/sys_data/images/prospects-ico.png" class="img-responsive" alt=""></div>
                     <div class="detail">
                         <h3><span>Download</span>Prospects</h3>
                         <p>Lorem Ipsum is simply dummy text of the printing...</p>
@@ -69,7 +69,7 @@
                     </div>
                 </li>
                 <li class="col-sm-4 certification clearfix equal-hight">
-                    <div class="icon"><img src="images/certification-ico.png" class="img-responsive" alt=""></div>
+                    <div class="icon"><img src="./public/uploads/sys_data/images/certification-ico.png" class="img-responsive" alt=""></div>
                     <div class="detail">
                         <h3>Certification</h3>
                         <p>Lorem Ipsum is simply dummy text of the printing...</p>
@@ -87,7 +87,7 @@
                 </div>
                 <div class="col-sm-5 col-sm-pull-7">
                     <div class="video-block">
-                        <div id="thumbnail_container"> <img src="images/about-video.jpg" id="thumbnail" class="img-responsive" alt=""> </div>
+                        <div id="thumbnail_container"> <img src="../public/uploads/sys_data/images/about-video.jpg" id="thumbnail" class="img-responsive" alt=""> </div>
                         <a href="https://www.youtube.com/watch?v=i11RXCJVEnw" class="start-video video"><img src="images/play-btn.png" alt=""></a>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
             <ul class="course-list owl-carousel">
                 <li>
                     <div class="inner">
-                        <figure><img src="images/course-img1.jpg" alt=""></figure>
+                        <figure><img src="../public/uploads/sys_data/images/course-img1.jpg" alt=""></figure>
                         <h3>Online <span>MBA General</span></h3>
                         <p>A comprehensive study of modern business...</p>
                         <div class="bottom-txt clearfix">
@@ -118,7 +118,7 @@
                 </li>
                 <li>
                     <div class="inner">
-                        <figure><img src="images/course-img2.jpg" alt=""></figure>
+                        <figure><img src="../public/uploads/sys_data/images/course-img2.jpg" alt=""></figure>
                         <h3>Online MBA <span>Operations</span></h3>
                         <p>A comprehensive study of modern business...</p>
                         <div class="bottom-txt clearfix">
@@ -132,7 +132,7 @@
                 </li>
                 <li>
                     <div class="inner">
-                        <figure><img src="images/course-img3.jpg" alt=""></figure>
+                        <figure><img src="../public/uploads/sys_data/images/course-img3.jpg" alt=""></figure>
                         <h3>Online MBA <span>Marketing</span></h3>
                         <p>A comprehensive study of modern business...</p>
                         <div class="bottom-txt clearfix">
@@ -146,7 +146,7 @@
                 </li>
                 <li>
                     <div class="inner">
-                        <figure><img src="images/course-img4.jpg" alt=""></figure>
+                        <figure><img src="../public/uploads/sys_data/images/course-img4.jpg" alt=""></figure>
                         <h3>Online MBA <span>Human</span><span>Resource</span></h3>
                         <p>A comprehensive study of modern business...</p>
                         <div class="bottom-txt clearfix">
@@ -169,37 +169,37 @@
         <div class="container">
             <ul class="row">
                 <li class="col-sm-4 equal-hight">
-                    <div class="inner"> <img src="images/study-time-ico.jpg" alt="Malleable Study Time">
+                    <div class="inner"> <img src="../public/uploads/sys_data/images/study-time-ico.jpg" alt="Malleable Study Time">
                         <h3>Malleable Study Time</h3>
                         <p>Study material available online 24/7. Study in your free time, no time management issues, perfect balance between work and study time.</p>
                     </div>
                 </li>
                 <li class="col-sm-4 equal-hight">
-                    <div class="inner"> <img src="images/placement-ico.jpg" alt="Placement Assistance">
+                    <div class="inner"> <img src="../public/uploads/sys_data/images/placement-ico.jpg" alt="Placement Assistance">
                         <h3>Placement Assistance</h3>
                         <p>Edumart University Online has access to all of Edumart Group’s placement resources and alumni network, through which thousands of job opportunities are generated.</p>
                     </div>
                 </li>
                 <li class="col-sm-4 equal-hight">
-                    <div class="inner"> <img src="images/easy-access-ico.jpg" alt="Easy To Access">
+                    <div class="inner"> <img src="../public/uploads/sys_data/images/easy-access-ico.jpg" alt="Easy To Access">
                         <h3>Easy To Access</h3>
                         <p>There is easy accessibility to online help in terms of online teachers and online forums. Teachers can be contacted with the help of video chats and e-mails.</p>
                     </div>
                 </li>
                 <li class="col-sm-4 equal-hight">
-                    <div class="inner"> <img src="images/study-go-ico.jpg" alt="Study on the Go">
+                    <div class="inner"> <img src="../public/uploads/sys_data/images/study-go-ico.jpg" alt="Study on the Go">
                         <h3>Study on the Go</h3>
                         <p>LMS that is easily accessible on a number of devices such as mobile phones, I-pads, computers and other such devices. Availability of ready reckoners such that students can remember the key points of the session learnt.</p>
                     </div>
                 </li>
                 <li class="col-sm-4 equal-hight">
-                    <div class="inner"> <img src="images/get-innovative-ico.jpg" alt="Get an Innovative, In-depth Transition">
+                    <div class="inner"> <img src="../public/uploads/sys_data/images/get-innovative-ico.jpg" alt="Get an Innovative, In-depth Transition">
                         <h3>Get an Innovative, <span>In-depth Transition</span></h3>
                         <p>The transition to an environment of learning becomes easy with the availability of multiple sources of learning such as text books, power-point presentations, and story boards on various subjects.</p>
                     </div>
                 </li>
                 <li class="col-sm-4 equal-hight">
-                    <div class="inner"> <img src="images/practical-ico.jpg" alt="Practical & Interactive Participation">
+                    <div class="inner"> <img src="../public/uploads/sys_data/images/practical-ico.jpg" alt="Practical & Interactive Participation">
                         <h3>Practical & Interactive <span>Participation</span></h3>
                         <p>Assessments and interactivities are given at the end of every session such that the practical application of theory learnt can be gauged.</p>
                     </div>
@@ -224,7 +224,7 @@
                         </div>
                         <a href="#" class="more"><i class="fa fa-caret-right" aria-hidden="true"></i></a>
                     </div>
-                    <figure><img src="images/how-study-img1.jpg" class="img-responsive" alt=""></figure>
+                    <figure><img src="../public/uploads/sys_data/images/how-study-img1.jpg" class="img-responsive" alt=""></figure>
                 </li>
                 <li class="col-sm-4">
                     <div class="overly">
@@ -235,7 +235,7 @@
                         </div>
                         <a href="#" class="more"><i class="fa fa-caret-right" aria-hidden="true"></i></a>
                     </div>
-                    <figure><img src="images/how-study-img2.jpg" class="img-responsive" alt=""></figure>
+                    <figure><img src="../public/uploads/sys_data/images/how-study-img2.jpg" class="img-responsive" alt=""></figure>
                 </li>
                 <li class="col-sm-4">
                     <div class="overly">
@@ -246,7 +246,7 @@
                         </div>
                         <a href="#" class="more"><i class="fa fa-caret-right" aria-hidden="true"></i></a>
                     </div>
-                    <figure><img src="images/how-study-img3.jpg" class="img-responsive" alt=""></figure>
+                    <figure><img src="../public/uploads/sys_data/images/how-study-img3.jpg" class="img-responsive" alt=""></figure>
                 </li>
             </ul>
         </div>
@@ -292,7 +292,7 @@
             <ul class="row cs-style-3">
                 <li class="col-sm-4">
                     <div class="inner">
-                        <figure> <img src="images/new-event-img1.jpg" class="img-responsive">
+                        <figure> <img src="../public/uploads/sys_data/images/new-event-img1.jpg" class="img-responsive">
                             <figcaption>
                                 <div class="cnt-block"> <a href="news.html" class="plus-icon">+</a>
                                     <h3>We have added new features to Dream Palace</h3>
@@ -313,7 +313,7 @@
                 </li>
                 <li class="col-sm-4">
                     <div class="inner">
-                        <figure> <img src="images/new-event-img2.jpg" class="img-responsive">
+                        <figure> <img src="../public/uploads/sys_data/images/new-event-img2.jpg" class="img-responsive">
                             <figcaption>
                                 <div class="cnt-block"> <a href="news.html" class="plus-icon">+</a>
                                     <h3>We have added new features to Dream Palace</h3>
@@ -334,7 +334,7 @@
                 </li>
                 <li class="col-sm-4">
                     <div class="inner">
-                        <figure> <img src="images/new-event-img3.jpg" class="img-responsive">
+                        <figure> <img src="../public/uploads/sys_data/images/new-event-img3.jpg" class="img-responsive">
                             <figcaption>
                                 <div class="cnt-block"> <a href="news.html" class="plus-icon">+</a>
                                     <h3>We have added new features to Dream Palace</h3>
@@ -370,7 +370,7 @@
                 <div class="overlay">
                     <h3>Lorem ipsum</h3>
                     <p>Lorem ipsum</p>
-                    <a class="galleryItem" href="images/tour-lg1.jpg"><span class="icon-enlarge-icon"></span></a>
+                    <a class="galleryItem" href="../public/uploads/sys_data/images/tour-lg1.jpg"><span class="icon-enlarge-icon"></span></a>
                     <a href="gallery.html" class="more"><span class="icon-gallery-more-arrow"></span></a>
                 </div>
                 <figure><img src="images/tour1.jpg" class="img-responsive" alt=""></figure>
@@ -379,16 +379,16 @@
                 <div class="overlay">
                     <h3>Lorem ipsum</h3>
                     <p>Lorem ipsum</p>
-                    <a class="galleryItem" href="images/tour-lg2.jpg"><span class="icon-enlarge-icon"></span></a>
+                    <a class="galleryItem" href="../public/uploads/sys_data/images/tour-lg2.jpg"><span class="icon-enlarge-icon"></span></a>
                     <a href="gallery.html" class="more"><span class="icon-gallery-more-arrow"></span></a>
                 </div>
-                <figure><img src="images/tour2.jpg" class="img-responsive" alt=""></figure>
+                <figure><img src="../public/uploads/sys_data/images/tour2.jpg" class="img-responsive" alt=""></figure>
             </li>
             <li>
                 <div class="overlay">
                     <h3>Lorem ipsum</h3>
                     <p>Lorem ipsum</p>
-                    <a class="galleryItem" href="images/tour-lg3.jpg"><span class="icon-enlarge-icon"></span></a>
+                    <a class="galleryItem" href="../public/uploads/sys_data/images/tour-lg3.jpg"><span class="icon-enlarge-icon"></span></a>
                     <a href="gallery.html" class="more"><span class="icon-gallery-more-arrow"></span></a>
                 </div>
                 <figure><img src="images/tour3.jpg" class="img-responsive" alt=""></figure>
@@ -397,7 +397,7 @@
                 <div class="overlay">
                     <h3>Lorem ipsum</h3>
                     <p>Lorem ipsum</p>
-                    <a class="galleryItem" href="images/tour-lg4.jpg"><span class="icon-enlarge-icon"></span></a>
+                    <a class="galleryItem" href="../public/uploads/sys_data/images/tour-lg4.jpg"><span class="icon-enlarge-icon"></span></a>
                     <a href="gallery.html" class="more"><span class="icon-gallery-more-arrow"></span></a>
                 </div>
                 <figure><img src="images/tour4.jpg" class="img-responsive" alt=""></figure>
@@ -406,55 +406,55 @@
                 <div class="overlay">
                     <h3>Lorem ipsum</h3>
                     <p>Lorem ipsum</p>
-                    <a class="galleryItem" href="images/tour-lg5.jpg"><span class="icon-enlarge-icon"></span></a>
+                    <a class="galleryItem" href="../public/uploads/sys_data/images/tour-lg5.jpg"><span class="icon-enlarge-icon"></span></a>
                     <a href="gallery.html" class="more"><span class="icon-gallery-more-arrow"></span></a>
                 </div>
-                <figure><img src="images/tour5.jpg" class="img-responsive" alt=""></figure>
+                <figure><img src="../public/uploads/sys_data/images/tour5.jpg" class="img-responsive" alt=""></figure>
             </li>
             <li>
                 <div class="overlay">
                     <h3>Lorem ipsum</h3>
                     <p>Lorem ipsum</p>
-                    <a class="galleryItem" href="images/tour-lg6.jpg"><span class="icon-enlarge-icon"></span></a>
+                    <a class="galleryItem" href="../public/uploads/sys_data/images/tour-lg6.jpg"><span class="icon-enlarge-icon"></span></a>
                     <a href="gallery.html" class="more"><span class="icon-gallery-more-arrow"></span></a>
                 </div>
-                <figure><img src="images/tour6.jpg" class="img-responsive" alt=""></figure>
+                <figure><img src="../public/uploads/sys_data/images/tour6.jpg" class="img-responsive" alt=""></figure>
             </li>
             <li>
                 <div class="overlay">
                     <h3>Lorem ipsum</h3>
                     <p>Lorem ipsum</p>
-                    <a class="galleryItem" href="images/tour-lg7.jpg"><span class="icon-enlarge-icon"></span></a>
+                    <a class="galleryItem" href="../public/uploads/sys_data/images/tour-lg7.jpg"><span class="icon-enlarge-icon"></span></a>
                     <a href="gallery.html" class="more"><span class="icon-gallery-more-arrow"></span></a>
                 </div>
-                <figure><img src="images/tour7.jpg" class="img-responsive" alt=""></figure>
+                <figure><img src="../public/uploads/sys_data/images/tour7.jpg" class="img-responsive" alt=""></figure>
             </li>
             <li>
                 <div class="overlay">
                     <h3>Lorem ipsum</h3>
                     <p>Lorem ipsum</p>
-                    <a class="galleryItem" href="images/tour-lg8.jpg"><span class="icon-enlarge-icon"></span></a>
+                    <a class="galleryItem" href="../public/uploads/sys_data/images/tour-lg8.jpg"><span class="icon-enlarge-icon"></span></a>
                     <a href="gallery.html" class="more"><span class="icon-gallery-more-arrow"></span></a>
                 </div>
-                <figure><img src="images/tour8.jpg" class="img-responsive" alt=""></figure>
+                <figure><img src="../public/uploads/sys_data/images/tour8.jpg" class="img-responsive" alt=""></figure>
             </li>
             <li>
                 <div class="overlay">
                     <h3>Lorem ipsum</h3>
                     <p>Lorem ipsum</p>
-                    <a class="galleryItem" href="images/tour-lg9.jpg"><span class="icon-enlarge-icon"></span></a>
+                    <a class="galleryItem" href="../public/uploads/sys_data/images/tour-lg9.jpg"><span class="icon-enlarge-icon"></span></a>
                     <a href="gallery.html" class="more"><span class="icon-gallery-more-arrow"></span></a>
                 </div>
-                <figure><img src="images/tour9.jpg" class="img-responsive" alt=""></figure>
+                <figure><img src="../public/uploads/sys_data/images/tour9.jpg" class="img-responsive" alt=""></figure>
             </li>
             <li>
                 <div class="overlay">
                     <h3>Lorem ipsum</h3>
                     <p>Lorem ipsum</p>
-                    <a class="galleryItem" href="images/tour-lg10.jpg"><span class="icon-enlarge-icon"></span></a>
+                    <a class="galleryItem" href="../public/uploads/sys_data/images/tour-lg10.jpg"><span class="icon-enlarge-icon"></span></a>
                     <a href="gallery.html" class="more"><span class="icon-gallery-more-arrow"></span></a>
                 </div>
-                <figure><img src="images/tour10.jpg" class="img-responsive" alt=""></figure>
+                <figure><img src="../public/uploads/sys_data/images/tour10.jpg" class="img-responsive" alt=""></figure>
             </li>
         </ul>
     </section>
@@ -465,12 +465,12 @@
     <section class="logos">
         <div class="container">
             <ul class="owl-carousel clearfix">
-                <li><a href="#"><img src="images/logo1.jpg" class="img-responsive" alt=""></a></li>
-                <li><a href="#"><img src="images/logo2.jpg" class="img-responsive" alt=""></a></li>
-                <li><a href="#"><img src="images/logo3.jpg" class="img-responsive" alt=""></a></li>
-                <li><a href="#"><img src="images/logo4.jpg" class="img-responsive" alt=""></a></li>
-                <li><a href="#"><img src="images/logo5.jpg" class="img-responsive" alt=""></a></li>
-                <li><a href="#"><img src="images/logo6.jpg" class="img-responsive" alt=""></a></li>
+                <li><a href="#"><img src="../public/uploads/sys_data/images/logo1.jpg" class="img-responsive" alt=""></a></li>
+                <li><a href="#"><img src="../public/uploads/sys_data/images/logo2.jpg" class="img-responsive" alt=""></a></li>
+                <li><a href="#"><img src="../public/uploads/sys_data/images/logo3.jpg" class="img-responsive" alt=""></a></li>
+                <li><a href="#"><img src="../public/uploads/sys_data/images/logo4.jpg" class="img-responsive" alt=""></a></li>
+                <li><a href="#"><img src="../public/uploads/sys_data/images/logo5.jpg" class="img-responsive" alt=""></a></li>
+                <li><a href="#"><img src="../public/uploads/sys_data/images/logo6.jpg" class="img-responsive" alt=""></a></li>
             </ul>
         </div>
     </section>
@@ -497,9 +497,9 @@
                     </li>
                 </ul>
                 <div id="bx-pager">
-                    <a data-slide-index="0" href="#"><img src="images/testimonial-thumb1.jpg" class="img-circle" alt="" /></a>
-                    <a data-slide-index="1" href="#"><img src="images/testimonial-thumb2.jpg" class="img-circle" alt="" /></a>
-                    <a data-slide-index="2" href="#"><img src="images/testimonial-thumb3.jpg" class="img-circle" alt="" /></a>
+                    <a data-slide-index="0" href="#"><img src="../public/uploads/sys_data/images/testimonial-thumb1.jpg" class="img-circle" alt="" /></a>
+                    <a data-slide-index="1" href="#"><img src="../public/uploads/sys_data/images/testimonial-thumb2.jpg" class="img-circle" alt="" /></a>
+                    <a data-slide-index="2" href="#"><img src="../public/uploads/sys_data/images/testimonial-thumb3.jpg" class="img-circle" alt="" /></a>
                 </div>
             </div>
         </div>
@@ -555,7 +555,7 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <div class="footer-logo hidden-xs"><a href="index-2.html"><img src="images/footer-logo.png" class="img-responsive" alt=""></a></div>
+                    <div class="footer-logo hidden-xs"><a href="index-2.html"><img src="../public/uploads/sys_data/images/footer-logo.png" class="img-responsive" alt=""></a></div>
                     <p>© 2020 <span>Edumart</span>. All rights reserved</p>
                     <ul class="terms clearfix">
                         <li><a href="terms.html">TERMS OF USE</a></li>
@@ -609,22 +609,22 @@
                             <h3>@INSTAGRAM</h3>
                             <ul class="clearfix">
                                 <li><a href="#">
-                                        <figure><img src="images/insta-img1.jpg" class="img-responsive" alt=""></figure>
+                                        <figure><img src="../public/uploads/sys_data/images/insta-img1.jpg" class="img-responsive" alt=""></figure>
                                     </a></li>
                                 <li><a href="#">
-                                        <figure><img src="images/insta-img2.jpg" class="img-responsive" alt=""></figure>
+                                        <figure><img src="../public/uploads/sys_data/images/insta-img2.jpg" class="img-responsive" alt=""></figure>
                                     </a></li>
                                 <li><a href="#">
-                                        <figure><img src="images/insta-img3.jpg" class="img-responsive" alt=""></figure>
+                                        <figure><img src="../public/uploads/sys_data/images/insta-img3.jpg" class="img-responsive" alt=""></figure>
                                     </a></li>
                                 <li><a href="#">
-                                        <figure><img src="images/insta-img4.jpg" class="img-responsive" alt=""></figure>
+                                        <figure><img src="../public/uploads/sys_data/images/insta-img4.jpg" class="img-responsive" alt=""></figure>
                                     </a></li>
                                 <li><a href="#">
-                                        <figure><img src="images/insta-img5.jpg" class="img-responsive" alt=""></figure>
+                                        <figure><img src="../public/uploads/sys_data/images/insta-img5.jpg" class="img-responsive" alt=""></figure>
                                     </a></li>
                                 <li><a href="#">
-                                        <figure><img src="images/insta-img6.jpg" class="img-responsive" alt=""></figure>
+                                        <figure><img src="../public/uploads/sys_data/images/insta-img6.jpg" class="img-responsive" alt=""></figure>
                                     </a></li>
                             </ul>
                         </div>
