@@ -7,8 +7,8 @@
             <div class="col-xs-6 col-sm-9">
                 <div class="contact clearfix">
                     <ul class="hidden-xs">
-                        <li> <span>Email</span> <a href="mailto:info@edumart.org">info@edumart.org</a> </li>
-                        <li> <span>Toll Free</span> 1800 000 0000 </li>
+                        <li> <span>Email</span> <a href="mailto:<?php echo $sys->sys_mail;?>"><?php echo $sys->sys_mail;?></a> </li>
+                        <li> <span>Toll Free</span> <?php echo $sys->sys_phone_contact;?> </li>
                     </ul>
                     <a href="../staff/" target="_blank" class="login">Staff Portal <span class="icon-more-icon"></span></a>
                     <a href="../student/" target="_blank" class="login">Student Portal <span class="icon-more-icon"></span></a>

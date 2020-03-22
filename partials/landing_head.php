@@ -8,8 +8,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-    <title>iCollege Mis - Instilling Innovation In Learning</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../public/uploads/sys_logo/<?php echo $sys->sys_logo; ?>">
+    <title><?php echo $sys->sys_name; ?> - <?php echo $sys->sys_tagline; ?></title>
 
     <!-- CSS -->
     <link href="../public/css/reset.css" rel="stylesheet">
