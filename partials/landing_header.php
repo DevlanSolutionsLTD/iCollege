@@ -2,7 +2,7 @@
 
     <!-- Start Header Middle -->
     <div class="container header-middle">
-        <div class="row"> <span class="col-xs-6 col-sm-3"><a href="index.php"><img src="../public/uploads/sys_data/images/logo.png" class="img-responsive" alt=""></a></span>
+        <div class="row"> <span class="col-xs-6 col-sm-3"><a href="index.php"><img src="../public/uploads/sys_logo/<?php echo $sys->sys_logo; ?>" class="img-responsive" alt=""></a></span>
             <div class="col-xs-6 col-sm-3"></div>
             <div class="col-xs-6 col-sm-9">
                 <div class="contact clearfix">
