@@ -28,8 +28,8 @@ while ($sys = $res->fetch_object()) {
                     <div class="container">
                         <div class="content animated fadeInRight">
                             <div class="fl-right">
-                                <h1 class="animated fadeInRight"><?php echo $sys->sys_tagline; ?></h1>
-                                <p class="animated fadeInRight"><?php echo $sys->sys_name; ?></p>
+                                <h1 class="animated fadeInRight"><?php echo $sys->sys_name; ?></h1>
+                                <p class="animated fadeInRight"><?php echo $sys->sys_tagline; ?></p>
                                 <a href="about.php" class="btn animated fadeInRight">Know More <span class="icon-more-icon"></span></a>
                             </div>
                         </div>
