@@ -7,7 +7,8 @@ $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
 while ($sys = $res->fetch_object()) {
-    require('../partials/landing_head.php'); ?>
+    require('../partials/landing_head.php');
+?>
 
     <body>
 
