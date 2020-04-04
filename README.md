@@ -48,13 +48,15 @@ To view your assigned tasks, kindly log on <a target="_blank" href="http://pm.wc
 # Demo Auth Credentials
 ```
 1. System Administrator
-    Email:     
-    Password:
+    Email:     sysadmin@iCollege.org
+    Password:  demo
+
 2. Staff
-    Email:    
-    Password:  
+    Email:     lec001@icollege.001
+    Password:  demo
+
 3. Student
-    Admission Number:
-    Password:
+    Admission Number:  N0OY5-73169
+    Password:          demo
 
 ```
