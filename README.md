@@ -44,3 +44,17 @@ To view your assigned tasks, kindly log on <a target="_blank" href="http://pm.wc
 
 # Glance
 <img src="https://raw.githubusercontent.com/Trans-DevLan/iCollege/main/Glance.png">
+
+# Demo Auth Credentials
+```
+1. System Administrator
+    Email:     
+    Password:
+2. Staff
+    Email:    
+    Password:  
+3. Student
+    Admission Number:
+    Password:
+
+```
