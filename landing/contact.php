@@ -7,7 +7,22 @@ $stmt = $mysqli->prepare($ret);
 $stmt->execute(); //ok
 $res = $stmt->get_result();
 while ($sys = $res->fetch_object()) {
-    require('../partials/landing_head.php'); ?>
+    /* Send Mail */
+    if (!empty($_POST["Send Mail"])) {
+        $name = $_POST["name"];
+        $email = $_POST["email"];
+        $subject = $_POST["subject"];
+        $message = $_POST["message"];
+
+        $toEmail = "martdevelopers254@gmail.com";
+        $mailHeaders = "From: " . $name . "<" . $email . ">\r\n";
+        if (mail($toEmail, $subject, $message, $mailHeaders)) {
+            echo  "Your contact information is received successfully.";
+            //$type = "success";
+        }
+    }
+    require('../partials/landing_head.php');
+?>
 
     <body>
 
@@ -37,34 +52,28 @@ while ($sys = $res->fetch_object()) {
     =================================================== -->
         <section class="form-wrapper padding-lg">
             <div class="container">
-                <form name="contact-form" id="ContactForm">
+                <form name="contact-form" method="post" id="ContactForm">
                     <div class="row input-row">
-                        <div class="col-sm-6">
-                            <input name="first_name" type="text" placeholder="First Name">
+                        <div class="col-sm-4">
+                            <input name="name" type="text" required placeholder="Full Name">
                         </div>
-                        <div class="col-sm-6">
-                            <input name="last_name" type="text" placeholder="Last Name">
+                        <div class="col-sm-4">
+                            <input name="email" type="email" required placeholder="Email">
+                        </div>
+                        <div class="col-sm-4">
+                            <input name="subject" type="text" required placeholder="Subject">
                         </div>
                     </div>
+                    <br>
                     <div class="row input-row">
-                        <div class="col-sm-6">
-                            <input name="company" type="text" placeholder="Company">
-                        </div>
-                        <div class="col-sm-6">
-                            <input name="phone_number" type="text" placeholder="Phone Number">
+                        <div class="col-sm-12">
+                            <input name="message" type="text" required placeholder="Message">
                         </div>
                     </div>
-                    <div class="row input-row">
-                        <div class="col-sm-6">
-                            <input name="business_email" type="text" placeholder="Business Email">
-                        </div>
-                        <div class="col-sm-6">
-                            <input name="job_title" type="text" placeholder="Job Tittle">
-                        </div>
-                    </div>
+                    <br>
                     <div class="row">
                         <div class="col-sm-12">
-                            <button class="btn">Send Message <span class="icon-more-icon"></span></button>
+                            <button type="submit" name="Send Mail" class="btn">Send Message <span class="icon-more-icon"></span></button>
                             <div class="msg"></div>
                         </div>
                     </div>
