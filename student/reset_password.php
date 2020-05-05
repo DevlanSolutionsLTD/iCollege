@@ -80,7 +80,7 @@ while ($sys = $res->fetch_object()) {
             </div>
             <div class="form-image">
                 <div class="">
-                    <img src="../public/uploads/sys_logo/<?php echo $sys->sys_logo; ?>" alt="System Logo" height="700" width="700">
+                    <img src="../public/uploads/sys_logo/<?php echo $sys->sys_logo; ?>" alt="System Logo" height="500" width="600">
                 </div>
             </div>
         </div>
