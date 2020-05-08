@@ -24,12 +24,12 @@ if (isset($_POST['Save_System_Details'])) {
         $err = 'System Tagline Cannot  Be Empty';
     }
 
-    if (isset($_POST['sys_about']) && !empty($_POST['sys_about'])) {
+    /* if (isset($_POST['sys_about']) && !empty($_POST['sys_about'])) {
         $sys_about = mysqli_real_escape_string($mysqli, trim($_POST['sys_about']));
     } else {
         $error = 1;
         $err = 'System About Cannot Be Empty';
-    }
+    } */
 
     if (isset($_POST['sys_id']) && !empty($_POST['sys_id'])) {
         $sys_id = mysqli_real_escape_string($mysqli, trim($_POST['sys_id']));
@@ -37,6 +37,8 @@ if (isset($_POST['Save_System_Details'])) {
         $error = 1;
         $err = 'System ID Cannot Be Empty';
     }
+
+    $sys_about = $_POST['sys_about'];
 
 
     /* Load System Logo */
@@ -238,7 +240,7 @@ require_once '../partials/head.php';
 
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">System About</label>
-                                                                <textarea required name="sys_about" rows="7" class="form-control"><?php echo $sys->sys_about; ?></textarea>
+                                                                <textarea required name="sys_about" id="ck_editor" rows="7" class="form-control"><?php echo $sys->sys_about; ?></textarea>
                                                             </div>
 
                                                         </div>
