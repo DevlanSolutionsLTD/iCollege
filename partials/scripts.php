@@ -188,3 +188,9 @@
         $('body').html(restorepage);
     }
 </script>
+<!-- CK Editor -->
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<!-- Load This Editor -->
+<script>
+    CKEDITOR.replace('ck_editor');
+</script>
