@@ -53,7 +53,7 @@
                         <div class="widget-content widget-content-area br-6">
                             <div class="text-right">
                                 <button data-toggle="modal" data-target="#import_courses" class="btn btn-outline-primary mb-2">Import Courses </button>
-                                <button class="btn btn-outline-secondary mb-2">Add Course</button>
+                                <button data-toggle="modal" data-target="#add_course" class="btn btn-outline-secondary mb-2">Add Course</button>
                             </div>
                             <hr>
                             <!-- Import Modals -->
@@ -96,10 +96,57 @@
                                     </div>
                                 </div>
                             </div>
-
                             <!-- End Import Modal -->
 
                             <!-- Add Course Modal -->
+                            <div class="modal animated zoomInUp custo-zoomInUp" id="add_course" role="dialog">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="text-center">
+                                                Fill All Required Fields
+                                            </h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Form -->
+                                            <form method="post" enctype="multipart/form-data">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Course Code</label>
+                                                            <input type="text" required name="code" value="" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Course Name</label>
+                                                            <input type="text" required name="name" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">HOD Name</label>
+                                                            <select type="text" required name="hod" class="form-control basic">
+                                                                <option>Select HOD</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="exampleInputPassword1">Course Details</label>
+                                                            <textarea required name="details" rows="5" class="form-control"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <button type="submit" name="add_course" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- End Course Modal -->
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="default-ordering" class="table table-hover" style="width:100%">

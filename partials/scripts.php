@@ -60,3 +60,10 @@
         bsCustomFileInput.init();
     });
 </script>
+<!-- Select -->
+<script src="../public/plugins/select2/select2.min.js"></script>
+<script>
+    var ss = $(".basic").select2({
+        tags: true,
+    });
+</script>

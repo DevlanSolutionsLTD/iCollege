@@ -34,5 +34,6 @@
     <!-- CustomModals -->
     <link href="../public/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
     <link href="../public/css/components/custom-modal.css" rel="stylesheet" type="text/css" />
-
+    <!-- Select -->
+    <link rel="stylesheet" type="text/css" href="../public/plugins/select2/select2.min.css">
 </head>
