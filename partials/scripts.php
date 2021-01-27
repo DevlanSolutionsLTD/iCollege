@@ -49,3 +49,14 @@
         }
     });
 </script>
+<!-- Scroll Spy -->
+<script src="../public/js/scrollspyNav.js"></script>
+<!-- Highlight -->
+<script src="../public/plugins/highlight/highlight.pack.js"></script>
+<!-- Custom File Uploads -->
+<script src="../public/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<script>
+    $(document).ready(function() {
+        bsCustomFileInput.init();
+    });
+</script>

@@ -8,6 +8,7 @@
     <title>iCollege Information Management System</title>
     <link rel="icon" type="image/x-icon" href="../public/img/favicon.ico" />
     <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+
     <!-- Bootstrap -->
     <link href="../public/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <!-- Plugis -->
@@ -28,5 +29,10 @@
     <!-- Data Tables -->
     <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/datatables.css">
     <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/dt-global_style.css">
+    <!-- Animate -->
+    <link href="../public/plugins/animate/animate.css" rel="stylesheet" type="text/css" />
+    <!-- CustomModals -->
+    <link href="../public/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
+    <link href="../public/css/components/custom-modal.css" rel="stylesheet" type="text/css" />
 
 </head>
