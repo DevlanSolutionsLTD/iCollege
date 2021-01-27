@@ -67,3 +67,6 @@
         tags: true,
     });
 </script>
+<!-- Sweet Alerts -->
+<script src="../public/plugins/sweetalerts/sweetalert2.min.js"></script>
+<script src="../public/plugins/sweetalerts/custom-sweetalert.js"></script>
