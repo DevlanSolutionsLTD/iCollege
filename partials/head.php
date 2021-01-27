@@ -14,10 +14,10 @@
     <link rel="stylesheet" type="text/css" href="../public/css/forms/theme-checkbox-radio.css">
     <link rel="stylesheet" type="text/css" href="../public/css/forms/switches.css">
     <link href="../public/css/dashboard/dash_2.css" rel="stylesheet" type="text/css" />
-    <!-- Loader -->
     <link href="../public/css/loader.css" rel="stylesheet" type="text/css" />
     <script src="../public/js/loader.js"></script>
     <link href="../public/plugins/apex/apexcharts.css" rel="stylesheet" type="text/css">
     <link href="../public/css/dashboard/dash_2.css" rel="stylesheet" type="text/css" />
+    <link href="../public/css/users/account-setting.css" rel="stylesheet" type="text/css" />
 
 </head>

@@ -3,7 +3,7 @@
 
         <ul class="navbar-item theme-brand flex-row  text-center">
             <li class="nav-item theme-text">
-                <a href="index-2.html" class="nav-link"> iCollege MIS </a>
+                <a href="dashboard.php" class="nav-link"> iCollege MIS </a>
             </li>
         </ul>
 

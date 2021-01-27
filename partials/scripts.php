@@ -15,3 +15,5 @@
 <script src="../public/js/custom.js"></script>
 <script src="../public/plugins/apex/apexcharts.min.js"></script>
 <script src="../public/js/dashboard/dash_2.js"></script>
+<script src="../public/js/users/account-settings.js"></script>
+<script src="../public/plugins/blockui/jquery.blockUI.min.js"></script>
