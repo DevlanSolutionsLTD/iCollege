@@ -9,7 +9,7 @@ iCollege (Learners' Records Information System) is a lightweight college informa
     > Requisitions
 
 2. Students` Records
-    > Registration And Admissio Of New Students
+    > Registration And Admission Of New Students
     > Transfrers, Courses Selections
     > Students Profiles Updates
 
