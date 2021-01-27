@@ -42,7 +42,6 @@
     <link href="../public/plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" />
     <link href="../public/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css" />
     <!-- Init Swal -->
-
     <?php if (isset($success)) { ?>
         <!--This code for injecting success alert-->
         <script>

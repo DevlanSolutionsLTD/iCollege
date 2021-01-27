@@ -9,7 +9,7 @@ if (isset($_POST['login'])) {
     $stmt = $mysqli->prepare("SELECT email, password, id  FROM iCollege_admin  WHERE email =? AND password =?");
     $stmt->bind_param('ss', $email, $password); //bind fetched parameters
     $stmt->execute(); //execute bind 
-    $stmt->bind_result($email, $password, $auth_id); //bind result
+    $stmt->bind_result($email, $password, $id); //bind result
     $rs = $stmt->fetch();
     $_SESSION['id'] = $id;
     if ($rs) {
