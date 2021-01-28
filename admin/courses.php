@@ -4,6 +4,72 @@ require_once('../config/config.php');
 require_once('../config/checklogin.php');
 admin_check_login();
 require_once('../config/codeGen.php');
+/* Bulk Import */
+
+
+if (isset($_POST['add_course'])) {
+    /* Add Course */
+    
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Couse  Code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Course Name Cannot Be Empty";
+    }
+    if (isset($_POST['hod']) && !empty($_POST['hod'])) {
+        $hod = mysqli_real_escape_string($mysqli, trim($_POST['hod']));
+    } else {
+        $error = 1;
+        $err = "HOD  Cannot Be Empty";
+    }
+    if (isset($_POST['details']) && !empty($_POST['details'])) {
+        $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
+    } else {
+        $error = 1;
+        $err = "Course Details  Cannot Be Empty";
+    }
+    if (isset($_POST['id']) && !empty($_POST['id'])) {
+        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
+    } else {
+        $error = 1;
+        $err = "Course ID  Cannot Be Empty";
+    }
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  iCollege_courses WHERE  code='$code' || name ='$name' ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($code == $row['code']) {
+                $err =  "Course With This Code Already Exists";
+            } else {
+                $err = "Course Name Already Exists";
+            }
+        } else {
+
+            $query = "INSERT INTO iCollege_courses (id, code, name, hod, details) VALUES(?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('sssss', $id, $code, $name, $hod, $details);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Course Added" && header("refresh:1; url=courses.php");
+            } else {
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+/* Update Course */
+
+/* Delete Course */
 require_once('../partials/head.php');
 ?>
 
@@ -124,7 +190,10 @@ require_once('../partials/head.php');
                                                     <div class="row">
                                                         <div class="form-group col-md-4">
                                                             <label for="">Course Code</label>
-                                                            <input type="text" required name="code" value="" class="form-control">
+                                                            <input type="text" required name="code" value="<?php echo $a; ?>-<?php echo $b; ?>" class="form-control">
+                                                            <!-- Hide This -->
+                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">Course Name</label>
@@ -133,7 +202,17 @@ require_once('../partials/head.php');
                                                         <div class="form-group col-md-4">
                                                             <label for="">HOD Name</label>
                                                             <select type="text" required name="hod" class="form-control basic">
+
                                                                 <option>Select HOD</option>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `iCollege_lecturers`";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($lec = $res->fetch_object()) {
+                                                                ?>
+                                                                    <option><?php echo $lec->name; ?></option>
+                                                                <?php } ?>
                                                             </select>
                                                         </div>
                                                         <div class="form-group col-md-12">
@@ -178,7 +257,7 @@ require_once('../partials/head.php');
                                                 <td><?php echo $courses->name; ?></td>
                                                 <td><?php echo $courses->hod; ?></td>
                                                 <td>
-                                                    <a href="#view-<?php echo $courses->id; ?>" class="badge outline-badge-success">View</a>
+                                                    <a href="#view-<?php echo $courses->id; ?>" data-toggle="modal" class="badge outline-badge-success">View</a>
                                                     <!-- View Course Modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="view-<?php echo $courses->id; ?>" role="dialog">
                                                         <div class="modal-dialog modal-lg" role="document">
@@ -201,7 +280,7 @@ require_once('../partials/head.php');
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <a href="#update-<?php echo $courses->id; ?>" class="badge outline-badge-warning">Update</a>
+                                                    <a href="#update-<?php echo $courses->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
                                                     <!-- Update Modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $courses->id; ?>" role="dialog">
                                                         <div class="modal-dialog modal-lg" role="document">
@@ -225,7 +304,7 @@ require_once('../partials/head.php');
                                                         </div>
                                                     </div>
 
-                                                    <a href="#delete-" class="badge outline-badge-danger">Delete</a>
+                                                    <a href="#delete-<?php echo $courses->id;?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $courses->id; ?>" role="dialog">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
