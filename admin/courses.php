@@ -1,3 +1,70 @@
+<?php
+//create course
+if (isset($_POST['add_course'])) {
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = "Course code Cannot Be Empty";
+    }
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = "Course name Cannot Be Empty";
+    }
+    if (isset($_POST['hod']) && !empty($_POST['hod'])) {
+        $hod = mysqli_real_escape_string($mysqli, trim($_POST['hod']));
+    } else {
+        $error = 1;
+        $err = "HOD Cannot Be Empty";
+    }
+    if (isset($_POST['details']) && !empty($_POST['details'])) {
+        $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
+    } else {
+        $error = 1;
+        $err = "Course detail Cannot Be Empty";
+    }
+    if (!$error) {
+        //prevent Double entries
+        $sql = "SELECT * FROM  iCollege_courses WHERE  code ='$code'  ";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($code  == $row['code']) {
+                $err =  "A Course With code Number Exists";
+            }
+        } else {
+            $id = uniqid ( date(Y), true);//NEW GENERATOR 
+            $code = $_POST['code'];
+            $name = $_POST['name'];
+            $hod = $_POST['hod'];
+            $details  = $_POST['details'];
+           $query = "INSERT INTO iCollege_courses (id, code, name, hod, details) VALUES(?,?,?,?,?)";
+            $stmt = $mysqli->prepare($query);
+            $rc = $stmt->bind_param('sssss', $id, $code , $name, $hod, $details);
+            $stmt->execute();
+            if ($stmt) {
+                $success = "Added" && header("refresh:1; url=courses.php");
+            } else {
+                //inject alert that profile update task failed
+                $info = "Please Try Again Or Try Later";
+            }
+        }
+    }
+}
+//create course
+
+//Update course
+//update course
+
+//delete course
+//dele course
+?>
+
 <?php require_once('../partials/head.php'); ?>
 
 <body>
@@ -148,6 +215,7 @@
                                 </div>
                             </div>
                             <!-- End Course Modal -->
+                          
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="default-ordering" class="table table-hover" style="width:100%">
                                     <thead>
