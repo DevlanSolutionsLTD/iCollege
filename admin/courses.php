@@ -1,4 +1,11 @@
-<?php require_once('../partials/head.php'); ?>
+<?php
+session_start();
+require_once('../config/config.php');
+require_once('../config/checklogin.php');
+admin_check_login();
+require_once('../config/codeGen.php');
+require_once('../partials/head.php');
+?>
 
 <body>
 
@@ -159,16 +166,88 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>System Architect</td>
-                                            <td>$320,800</td>
-                                            <td>
-                                                <a href="#view-" class="badge outline-badge-success">View</a>
-                                                <a href="#update-" class="badge outline-badge-warning">Update</a>
-                                                <a href="#delete-" class="badge outline-badge-danger">Delete</a>
-                                            </td>
-                                        </tr>
+                                        <?php
+                                        $ret = "SELECT * FROM `iCollege_courses`";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($courses = $res->fetch_object()) {
+                                        ?>
+                                            <tr>
+                                                <td><?php echo $courses->code; ?></td>
+                                                <td><?php echo $courses->name; ?></td>
+                                                <td><?php echo $courses->hod; ?></td>
+                                                <td>
+                                                    <a href="#view-<?php echo $courses->id; ?>" class="badge outline-badge-success">View</a>
+                                                    <!-- View Course Modal -->
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="view-<?php echo $courses->id; ?>" role="dialog">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="text-center">
+
+                                                                    </h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                </div>
+
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <a href="#update-<?php echo $courses->id; ?>" class="badge outline-badge-warning">Update</a>
+                                                    <!-- Update Modal -->
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $courses->id; ?>" role="dialog">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="text-center">
+
+                                                                    </h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+
+                                                                </div>
+
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="#delete-" class="badge outline-badge-danger">Delete</a>
+                                                    <!-- Delete Modal -->
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $courses->id; ?>" role="dialog">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-center text-danger">
+                                                                    <h4>Delete <?php echo $courses->name; ?>?</h4>
+                                                                    <br>
+                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                    <a href="courses.php?delete=<?php echo $courses->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
