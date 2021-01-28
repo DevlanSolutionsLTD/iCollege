@@ -9,7 +9,7 @@ require_once('../config/codeGen.php');
 
 if (isset($_POST['add_course'])) {
     /* Add Course */
-    
+
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['code']) && !empty($_POST['code'])) {
@@ -136,7 +136,7 @@ require_once('../partials/head.php');
                                         <div class="modal-header">
                                             <h4 class="text-center">
                                                 Allowed file types: XLS, XLSX.
-                                                <a class="text-primary" href="public/templates/sample_births.xlsx">Download</a> A Sample File.
+                                                <a class="text-primary" target="_blank" href="public/templates/CoursesTemplates.xlsx">Download</a> A Sample File.
                                             </h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
