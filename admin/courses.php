@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
@@ -7,7 +6,6 @@ admin_check_login();
 require_once '../config/codeGen.php';
 
 /* Bulk Import */
-
 use DevLanDataAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -151,11 +149,9 @@ if (isset($_POST['add_course'])) {
         }
     }
 }
-//create course
 
 //Update course
 if (isset($_POST['update'])) {
-    /* Add Course */
 
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -197,11 +193,8 @@ if (isset($_POST['update'])) {
     }
 }
 
-//update course
-
 //delete course
 if (isset($_GET['delete'])) {
-    /* Handle Birth Records Deletion Here */
     $code = $_GET['delete'];
     $adn = 'DELETE FROM iCollege_courses WHERE code=?';
     $stmt = $conn->prepare($adn);
@@ -215,11 +208,7 @@ if (isset($_GET['delete'])) {
         $info = 'Please Try Again Or Try Later';
     }
 }
-
-//delete course
-?>
-
-<?php require_once '../partials/head.php'; ?>
+ require_once '../partials/head.php'; ?>
 
 
 
@@ -342,7 +331,7 @@ if (isset($_GET['delete'])) {
                                                             <label for="">Course Code</label>
                                                             <input type="text" required name="code" value="<?php echo $a; ?>-<?php echo $b; ?>" class="form-control">
                                                             <!-- Hide This -->
-                                                           
+
 
                                                         </div>
                                                         <div class="form-group col-md-4">
@@ -389,9 +378,9 @@ if (isset($_GET['delete'])) {
                                 </div>
                             </div>
                             <!-- End Course Modal -->
-                             
+
                             <!-- End Course Modal -->
-                          
+
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="default-ordering" class="table table-hover" style="width:100%">
                                     <thead>
@@ -424,38 +413,38 @@ if (isset($_GET['delete'])) {
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-                                                                    Course View
+                                                                        Course View
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                <form method="post" enctype="multipart/form-data">
-                                            
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Course Code</label>
-                                                            <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>" class="form-control">
-                                                           </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Course Name</label>
-                                                            <input type="text" required readonly name="name" value ="<?php echo $courses->name; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">HOD Name</label>
-                                                            <input type="text" required readonly name="hod" value ="<?php echo $courses->hod; ?>" class="form-control basic">
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label for="exampleInputPassword1">Course Details</label>
-                                                            <textarea required name="details" readonly  rows="5" class="form-control"><?php echo $courses->details; ?></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                              
-</form>
+                                                                    <form method="post" enctype="multipart/form-data">
+
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Course Code</label>
+                                                                                    <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Course Name</label>
+                                                                                    <input type="text" required readonly name="name" value="<?php echo $courses->name; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">HOD Name</label>
+                                                                                    <input type="text" required readonly name="hod" value="<?php echo $courses->hod; ?>" class="form-control basic">
+                                                                                </div>
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="exampleInputPassword1">Course Details</label>
+                                                                                    <textarea required name="details" readonly rows="5" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </form>
 
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
@@ -471,42 +460,41 @@ if (isset($_GET['delete'])) {
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-Course Update
+                                                                        Course Update
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                <form method="post" enctype="multipart/form-data">
-                                            
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Course Code</label>
-                                                            <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>" class="form-control">
-                                                           </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Course Name</label>
-                                                            <input type="text" required  name="name" value ="<?php echo $courses->name; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">HOD Name</label>
-                                                            <input type="text" required  name="hod" value ="<?php echo $courses->hod; ?>" class="form-control basic">
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label for="exampleInputPassword1">Course Details</label>
-                                                            <textarea required name="details"   rows="5" class="form-control"><?php echo $courses->details; ?></textarea>
-                                                        </div>
-                                                    </div>
-                                                   
-                                                </div>
-                                                <div class="text-right">
-                                                                        <button type="submit" name="update" class="btn btn-primary">Update</button>
-                                                                    </div>
-                                                
-                                              
-</form>
+                                                                    <form method="post" enctype="multipart/form-data">
+
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Course Code</label>
+                                                                                    <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Course Name</label>
+                                                                                    <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">HOD Name</label>
+                                                                                    <input type="text" required name="hod" value="<?php echo $courses->hod; ?>" class="form-control basic">
+                                                                                </div>
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="exampleInputPassword1">Course Details</label>
+                                                                                    <textarea required name="details" rows="5" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="text-right">
+                                                                            <button type="submit" name="update" class="btn btn-primary">Update</button>
+                                                                        </div>
+
+                                                                    </form>
 
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
@@ -516,7 +504,7 @@ Course Update
                                                         </div>
                                                     </div>
 
-                                                 
+
 
                                                     <a href="#delete-<?php echo $courses->code; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
