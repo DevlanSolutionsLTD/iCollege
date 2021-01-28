@@ -6,9 +6,91 @@ require_once('../config/checklogin.php');
 admin_check_login();
 require_once('../config/codeGen.php');
 
+/* Bulk Import */
+
+use DevLanDataAPI\DataSource;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+
+require_once('../config/DataSource.php');
+$db = new DataSource();
+$conn = $db->getConnection();
+require_once('../vendor/autoload.php');
+
+
+if (isset($_POST["upload"])) {
+
+    $allowedFileType = [
+        'application/vnd.ms-excel',
+        'text/xls',
+        'text/xlsx',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    ];
+
+    if (in_array($_FILES["file"]["type"], $allowedFileType)) {
+
+        $targetPath = '../public/uploads/sys_data/xls/' . $_FILES['file']['name'];
+        move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
+
+        $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+
+        $spreadSheet = $Reader->load($targetPath);
+        $excelSheet = $spreadSheet->getActiveSheet();
+        $spreadSheetAry = $excelSheet->toArray();
+        $sheetCount = count($spreadSheetAry);
+
+        for ($i = 1; $i <= $sheetCount; $i++) {
+
+            $id = "";
+            if (isset($spreadSheetAry[$i][0])) {
+                $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
+            }
+
+            $code = "";
+            if (isset($spreadSheetAry[$i][1])) {
+                $code = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+            }
+
+            $name = "";
+            if (isset($spreadSheetAry[$i][2])) {
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+            }
+
+            $hod = "";
+            if (isset($spreadSheetAry[$i][3])) {
+                $hod = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
+            }
+
+            $details = "";
+            if (isset($spreadSheetAry[$i][4])) {
+                $details = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+            }
+
+            if (!empty($id) || !empty($code) || !empty($name) || !empty($hod) || !empty($details)) {
+                $query = "INSERT INTO iCollege_courses (id, code, name, hod, details) VALUES(?,?,?,?,?)";
+                $paramType = "sssss";
+                $paramArray = array(
+                    $id,
+                    $code,
+                    $name,
+                    $hod,
+                    $details
+                );
+                $insertId = $db->insert($query, $paramType, $paramArray);
+                if (!empty($insertId)) {
+                    $err = "Error Occured While Importing Data";
+                } else {
+                    $success = "Data Imported";
+                }
+            }
+        }
+    } else {
+        $info = "Invalid File Type. Upload Excel File.";
+    }
+}
+
 if (isset($_POST['add_course'])) {
     /* Add Course */
-    
+
     //Error Handling and prevention of posting double entries
     $error = 0;
     if (isset($_POST['code']) && !empty($_POST['code'])) {
@@ -70,7 +152,22 @@ if (isset($_POST['add_course'])) {
 //update course
 
 //delete course
-//dele course
+if (isset($_GET['delete'])) {
+    /* Handle Birth Records Deletion Here */
+    $code = $_GET['delete'];
+    $adn = "DELETE FROM iCollege_courses WHERE code=?";
+    $stmt = $conn->prepare($adn);
+    $stmt->bind_param('s', $code);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = "Removed permantly" && header("refresh:1; url=courses.php");
+    } else {
+        //inject alert that task failed
+        $info = "Please Try Again Or Try Later";
+    }
+}
+//delete course
 ?>
 
 <?php require_once('../partials/head.php'); ?>
@@ -140,7 +237,7 @@ if (isset($_POST['add_course'])) {
                                         <div class="modal-header">
                                             <h4 class="text-center">
                                                 Allowed file types: XLS, XLSX.
-                                                <a class="text-primary" href="public/templates/sample_births.xlsx">Download</a> A Sample File.
+                                                <a class="text-primary" target="_blank" href="../public/templates/CoursesTemplates.xlsx">Download</a> A Sample File.
                                             </h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -285,7 +382,7 @@ if (isset($_POST['add_course'])) {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <a href="#update-<?php echo $courses->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
+                                                    <a href="#update-<?php echo $courses->code; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
                                                     <!-- Update Modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $courses->id; ?>" role="dialog">
                                                         <div class="modal-dialog modal-lg" role="document">
@@ -309,9 +406,9 @@ if (isset($_POST['add_course'])) {
                                                         </div>
                                                     </div>
 
-                                                    <a href="#delete-<?php echo $courses->id;?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
+                                                    <a href="#delete-<?php echo $courses->code; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $courses->id; ?>" role="dialog">
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $courses->code; ?>" role="dialog">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -324,7 +421,7 @@ if (isset($_POST['add_course'])) {
                                                                     <h4>Delete <?php echo $courses->name; ?>?</h4>
                                                                     <br>
                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                    <a href="courses.php?delete=<?php echo $courses->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                    <a href="courses.php?delete=<?php echo $courses->code; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                 </div>
                                                             </div>
                                                         </div>

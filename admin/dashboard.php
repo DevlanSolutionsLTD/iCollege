@@ -3,6 +3,7 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 admin_check_login();
+require_once('../partials/analytics.php');
 require_once('../partials/head.php');
 ?>
 
@@ -86,7 +87,7 @@ require_once('../partials/head.php');
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $courses_offered;?></h6>
                                         <p class="">Courses Offered</p>
                                     </div>
                                     <div class="">
@@ -108,7 +109,7 @@ require_once('../partials/head.php');
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $units;?></h6>
                                         <p class="">Academic Units</p>
                                     </div>
                                     <div class="">
@@ -130,7 +131,7 @@ require_once('../partials/head.php');
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $lecs;?></h6>
                                         <p class="">Lecturers</p>
                                     </div>
                                     <div class="">
@@ -152,7 +153,7 @@ require_once('../partials/head.php');
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">45,141</h6>
+                                        <h6 class="value"><?php echo $students;?></h6>
                                         <p class="">Students</p>
                                     </div>
                                     <div class="">
@@ -173,7 +174,7 @@ require_once('../partials/head.php');
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">$ 45,141</h6>
+                                        <h6 class="value">Ksh <?php echo $billed;?></h6>
                                         <p class="">Billed Finances</p>
                                     </div>
                                     <div class="">
@@ -194,7 +195,7 @@ require_once('../partials/head.php');
                             <div class="widget-content">
                                 <div class="w-content">
                                     <div class="w-info">
-                                        <h6 class="value">$ 45,141</h6>
+                                        <h6 class="value">Ksh <?php echo $paid;?></h6>
                                         <p class="">Paid Finances</p>
                                     </div>
                                     <div class="">
