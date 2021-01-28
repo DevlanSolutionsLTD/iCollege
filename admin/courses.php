@@ -1,34 +1,32 @@
 <?php
 
 session_start();
-require_once('../config/config.php');
-require_once('../config/checklogin.php');
+require_once '../config/config.php';
+require_once '../config/checklogin.php';
 admin_check_login();
-require_once('../config/codeGen.php');
+require_once '../config/codeGen.php';
 
 /* Bulk Import */
 
 use DevLanDataAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
-require_once('../config/DataSource.php');
+require_once '../config/DataSource.php';
 $db = new DataSource();
 $conn = $db->getConnection();
-require_once('../vendor/autoload.php');
+require_once '../vendor/autoload.php';
 
-
-if (isset($_POST["upload"])) {
-
+if (isset($_POST['upload'])) {
     $allowedFileType = [
         'application/vnd.ms-excel',
         'text/xls',
         'text/xlsx',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     ];
 
-    if (in_array($_FILES["file"]["type"], $allowedFileType)) {
-
-        $targetPath = '../public/uploads/sys_data/xls/' . $_FILES['file']['name'];
+    if (in_array($_FILES['file']['type'], $allowedFileType)) {
+        $targetPath =
+            '../public/uploads/sys_data/xls/' . $_FILES['file']['name'];
         move_uploaded_file($_FILES['file']['tmp_name'], $targetPath);
 
         $Reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
@@ -39,52 +37,61 @@ if (isset($_POST["upload"])) {
         $sheetCount = count($spreadSheetAry);
 
         for ($i = 1; $i <= $sheetCount; $i++) {
-
-            $id = "";
+            $id = '';
             if (isset($spreadSheetAry[$i][0])) {
                 $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
             }
 
-            $code = "";
+            $code = '';
             if (isset($spreadSheetAry[$i][1])) {
-                $code = mysqli_real_escape_string($conn, $spreadSheetAry[$i][1]);
+                $code = mysqli_real_escape_string(
+                    $conn,
+                    $spreadSheetAry[$i][1]
+                );
             }
 
-            $name = "";
+            $name = '';
             if (isset($spreadSheetAry[$i][2])) {
-                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][2]);
+                $name = mysqli_real_escape_string(
+                    $conn,
+                    $spreadSheetAry[$i][2]
+                );
             }
 
-            $hod = "";
+            $hod = '';
             if (isset($spreadSheetAry[$i][3])) {
                 $hod = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
             }
 
-            $details = "";
+            $details = '';
             if (isset($spreadSheetAry[$i][4])) {
-                $details = mysqli_real_escape_string($conn, $spreadSheetAry[$i][4]);
+                $details = mysqli_real_escape_string(
+                    $conn,
+                    $spreadSheetAry[$i][4]
+                );
             }
 
-            if (!empty($id) || !empty($code) || !empty($name) || !empty($hod) || !empty($details)) {
-                $query = "INSERT INTO iCollege_courses (id, code, name, hod, details) VALUES(?,?,?,?,?)";
-                $paramType = "sssss";
-                $paramArray = array(
-                    $id,
-                    $code,
-                    $name,
-                    $hod,
-                    $details
-                );
+            if (
+                !empty($id) ||
+                !empty($code) ||
+                !empty($name) ||
+                !empty($hod) ||
+                !empty($details)
+            ) {
+                $query =
+                    'INSERT INTO iCollege_courses (id, code, name, hod, details) VALUES(?,?,?,?,?)';
+                $paramType = 'sssss';
+                $paramArray = [$id, $code, $name, $hod, $details];
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
-                    $err = "Error Occured While Importing Data";
+                    $err = 'Error Occured While Importing Data';
                 } else {
-                    $success = "Data Imported";
+                    $success = 'Data Imported';
                 }
             }
         }
     } else {
-        $info = "Invalid File Type. Upload Excel File.";
+        $info = 'Invalid File Type. Upload Excel File.';
     }
 }
 
@@ -97,27 +104,27 @@ if (isset($_POST['add_course'])) {
         $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
     } else {
         $error = 1;
-        $err = "Couse  Code Cannot Be Empty";
+        $err = 'Couse  Code Cannot Be Empty';
     }
     if (isset($_POST['name']) && !empty($_POST['name'])) {
         $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
     } else {
         $error = 1;
-        $err = "Course Name Cannot Be Empty";
+        $err = 'Course Name Cannot Be Empty';
     }
     if (isset($_POST['hod']) && !empty($_POST['hod'])) {
         $hod = mysqli_real_escape_string($mysqli, trim($_POST['hod']));
     } else {
         $error = 1;
-        $err = "HOD  Cannot Be Empty";
+        $err = 'HOD  Cannot Be Empty';
     }
     if (isset($_POST['details']) && !empty($_POST['details'])) {
         $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
     } else {
         $error = 1;
-        $err = "Course detail Cannot Be Empty";
+        $err = 'Course detail Cannot Be Empty';
     }
-   
+
     if (!$error) {
         //prevent Double entries
         $sql = "SELECT * FROM  iCollege_courses WHERE  code='$code' || name ='$name' ";
@@ -125,59 +132,101 @@ if (isset($_POST['add_course'])) {
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if ($code == $row['code']) {
-                $err =  "Course With This Code Already Exists";
+                $err = 'Course With This Code Already Exists';
             } else {
-                $err = "Course Name Already Exists";
+                $err = 'Course Name Already Exists';
             }
         } else {
-
-            $query = "INSERT INTO iCollege_courses (id, code, name, hod, details) VALUES(?,?,?,?,?)";
+            $query =
+                'INSERT INTO iCollege_courses (id, code, name, hod, details) VALUES(?,?,?,?,?)';
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param('sssss', $id, $code, $name, $hod, $details);
             $stmt->execute();
             if ($stmt) {
-                $success = "Course Added" && header("refresh:1; url=courses.php");
+                $success =
+                    'Course Added' && header('refresh:1; url=courses.php');
             } else {
-                $info = "Please Try Again Or Try Later";
+                $info = 'Please Try Again Or Try Later';
             }
         }
     }
 }
-    
-
-
 //create course
 
 //Update course
+if (isset($_POST['update'])) {
+    /* Add Course */
+
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = 'Course code Missing';
+    }
+
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = 'Course Name Cannot Be Empty';
+    }
+    if (isset($_POST['hod']) && !empty($_POST['hod'])) {
+        $hod = mysqli_real_escape_string($mysqli, trim($_POST['hod']));
+    } else {
+        $error = 1;
+        $err = 'HOD  Cannot Be Empty';
+    }
+    if (isset($_POST['details']) && !empty($_POST['details'])) {
+        $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
+    } else {
+        $error = 1;
+        $err = 'Course detail Cannot Be Empty';
+    }
+    $query =
+        'UPDATE iCollege_courses  SET  name =? ,hod =? ,details =?  WHERE code =?';
+    $stmt = $conn->prepare($query);
+    $rc = $stmt->bind_param('ssss', $name, $hod, $details, $code);
+    $stmt->execute();
+    if ($stmt) {
+        $success = 'Course Updated' && header('refresh:1; url=courses.php');
+    } else {
+        //inject alert that task failed
+        $info = 'Please Try Again Or Try Later';
+    }
+}
+
 //update course
 
 //delete course
 if (isset($_GET['delete'])) {
     /* Handle Birth Records Deletion Here */
     $code = $_GET['delete'];
-    $adn = "DELETE FROM iCollege_courses WHERE code=?";
+    $adn = 'DELETE FROM iCollege_courses WHERE code=?';
     $stmt = $conn->prepare($adn);
     $stmt->bind_param('s', $code);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
-        $success = "Removed permantly" && header("refresh:1; url=courses.php");
+        $success = 'Removed permantly' && header('refresh:1; url=courses.php');
     } else {
         //inject alert that task failed
-        $info = "Please Try Again Or Try Later";
+        $info = 'Please Try Again Or Try Later';
     }
 }
+
 //delete course
 ?>
 
-<?php require_once('../partials/head.php'); ?>
+<?php require_once '../partials/head.php'; ?>
 
 
 
 <body>
 
     <!--  BEGIN NAVBAR  -->
-    <?php require_once('../partials/admin_nav.php'); ?>
+    <?php require_once '../partials/admin_nav.php'; ?>
     <!--  END NAVBAR  -->
 
     <!--  BEGIN NAVBAR  -->
@@ -215,7 +264,7 @@ if (isset($_GET['delete'])) {
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once('../partials/admin_sidebar.php'); ?>
+        <?php require_once '../partials/admin_sidebar.php'; ?>
         <!--  END SIDEBAR  -->
 
         <!--  BEGIN CONTENT AREA  -->
@@ -306,14 +355,19 @@ if (isset($_GET['delete'])) {
 
                                                                 <option>Select HOD</option>
                                                                 <?php
-                                                               $ret = "SELECT * FROM `iCollege_lecturers`";
-                                                               $stmt = $mysqli->prepare($ret);
-                                                               $stmt->execute(); //ok
-                                                               $res = $stmt->get_result();
-                                                               while ($lec = $res->fetch_object()) {
-                                                                ?>
+                                                                $ret =
+                                                                    'SELECT * FROM `iCollege_lecturers`';
+                                                                $stmt = $mysqli->prepare(
+                                                                    $ret
+                                                                );
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while (
+                                                                    $lec = $res->fetch_object()
+                                                                ) { ?>
                                                                     <option><?php echo $lec->name; ?></option>
-                                                                <?php } ?>
+                                                                <?php }
+                                                                ?>
                                                             </select>
                                                         </div>
                                                         <div class="form-group col-md-12">
@@ -335,6 +389,8 @@ if (isset($_GET['delete'])) {
                                 </div>
                             </div>
                             <!-- End Course Modal -->
+                             
+                            <!-- End Course Modal -->
                           
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="default-ordering" class="table table-hover" style="width:100%">
@@ -348,12 +404,14 @@ if (isset($_GET['delete'])) {
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = "SELECT * FROM `iCollege_courses`";
+                                        $ret =
+                                            'SELECT * FROM `iCollege_courses`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        while ($courses = $res->fetch_object()) {
-                                        ?>
+                                        while (
+                                            $courses = $res->fetch_object()
+                                        ) { ?>
                                             <tr>
                                                 <td><?php echo $courses->code; ?></td>
                                                 <td><?php echo $courses->name; ?></td>
@@ -366,16 +424,40 @@ if (isset($_GET['delete'])) {
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-
+                                                                    Course View
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
+                                                                <form method="post" enctype="multipart/form-data">
+                                            
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Course Code</label>
+                                                            <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>" class="form-control">
+                                                           </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Course Name</label>
+                                                            <input type="text" required readonly name="name" value ="<?php echo $courses->name; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">HOD Name</label>
+                                                            <input type="text" required readonly name="hod" value ="<?php echo $courses->hod; ?>" class="form-control basic">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="exampleInputPassword1">Course Details</label>
+                                                            <textarea required name="details" readonly  rows="5" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                              
+</form>
 
                                                                 </div>
-
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
@@ -383,28 +465,58 @@ if (isset($_GET['delete'])) {
                                                         </div>
                                                     </div>
                                                     <a href="#update-<?php echo $courses->code; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
-                                                    <!-- Update Modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $courses->id; ?>" role="dialog">
+                                                    <!-- Button trigger modal -->
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $courses->code; ?>" role="dialog">
                                                         <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-
+Course Update
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
+                                                                <form method="post" enctype="multipart/form-data">
+                                            
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Course Code</label>
+                                                            <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>" class="form-control">
+                                                           </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Course Name</label>
+                                                            <input type="text" required  name="name" value ="<?php echo $courses->name; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">HOD Name</label>
+                                                            <input type="text" required  name="hod" value ="<?php echo $courses->hod; ?>" class="form-control basic">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="exampleInputPassword1">Course Details</label>
+                                                            <textarea required name="details"   rows="5" class="form-control"><?php echo $courses->details; ?></textarea>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="text-right">
+                                                                        <button type="submit" name="update" class="btn btn-primary">Update</button>
+                                                                    </div>
+                                                
+                                              
+</form>
 
                                                                 </div>
-
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                 
 
                                                     <a href="#delete-<?php echo $courses->code; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
@@ -428,7 +540,8 @@ if (isset($_GET['delete'])) {
                                                     </div>
                                                 </td>
                                             </tr>
-                                        <?php } ?>
+                                        <?php }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -436,12 +549,12 @@ if (isset($_GET['delete'])) {
                     </div>
                 </div>
             </div>
-            <?php require_once('../partials/footer.php'); ?>
+            <?php require_once '../partials/footer.php'; ?>
         </div>
         <!--  END CONTENT AREA  -->
     </div>
     <!-- END MAIN CONTAINER -->
-    <?php require_once("../partials/scripts.php"); ?>
+    <?php require_once '../partials/scripts.php'; ?>
 </body>
 
 </html>
