@@ -193,7 +193,7 @@ if (isset($_POST['update'])) {
         $error = 1;
         $err = 'Course detail Cannot Be Empty';
     }
-    
+
     $query =
         'UPDATE iCollege_courses  SET  name =? ,hod =? ,details =?  WHERE code =?';
     $stmt = $conn->prepare($query);
@@ -352,20 +352,15 @@ require_once '../partials/head.php'; ?>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">HOD Name</label>
-                                                            <select type="text" required name="hod" class="form-control basic">
+                                                            <select type="text" required name="hod" class="form-control">
 
                                                                 <option>Select HOD</option>
                                                                 <?php
-                                                                $ret =
-                                                                    'SELECT * FROM `iCollege_lecturers`';
-                                                                $stmt = $mysqli->prepare(
-                                                                    $ret
-                                                                );
+                                                                $ret ='SELECT * FROM `iCollege_lecturers`';
+                                                                $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while (
-                                                                    $lec = $res->fetch_object()
-                                                                ) { ?>
+                                                                while ($lec = $res->fetch_object()) { ?>
                                                                     <option><?php echo $lec->name; ?></option>
                                                                 <?php }
                                                                 ?>
