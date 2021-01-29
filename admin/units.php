@@ -142,6 +142,45 @@ if (isset($_POST['add_unit'])) {
         }
     }
 }
+//Update unit
+if (isset($_POST['update'])) {
+
+    //Error Handling and prevention of posting double entries
+    $error = 0;
+    if (isset($_POST['code']) && !empty($_POST['code'])) {
+        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
+    } else {
+        $error = 1;
+        $err = 'Unit code Missing';
+    }
+
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = 'Unit Name Cannot Be Empty';
+    }
+    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
+    } else {
+        $error = 1;
+        $err = 'Course Name Cannot Be Empty';
+    }
+
+    
+
+   
+    $query ='UPDATE iCollege_units  SET  name =? ,course_name =?  WHERE code =?';
+    $stmt = $conn->prepare($query);
+    $rc = $stmt->bind_param('sss', $name, $course_name, $code);
+    $stmt->execute();
+    if ($stmt) {
+        $success = 'Unit Updated' && header('refresh:1; url=units.php');
+    } else {
+        //inject alert that task failed
+        $info = 'Please Try Again Or Try Later';
+    }
+}
 //delete unit
 if (isset($_GET['delete'])) {
     $code = $_GET['delete'];
@@ -353,7 +392,27 @@ require_once '../partials/head.php'; ?>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
+                                                                <form method="post" enctype="multipart/form-data">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Unit Code</label>
+                                                            <input type="text" readoly required name="code" value="<?php echo $units->code; ?>" class="form-control">
+                                                            
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Unit Name</label>
+                                                            <input type="text" readolyrequired name="name" value ="<?php echo $units->name; ?>"class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Course Name</label>
+                                                            <input type="text" readoly required name="name" value ="<?php echo $units->course_name; ?>"class="form-control">
+                                                        </div>
 
+                                                    </div>
+                                                </div>
+                                                
+                                            </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -361,9 +420,9 @@ require_once '../partials/head.php'; ?>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <a href="#update-<?php echo $units->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
+                                                    <a href="#update-<?php echo $units->code; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
                                                     <!-- Button trigger modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $units->id; ?>" role="dialog">
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $units->code; ?>" role="dialog">
                                                         <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -375,7 +434,41 @@ require_once '../partials/head.php'; ?>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
+                                                                <form method="post" enctype="multipart/form-data">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Unit Code</label>
+                                                            <input type="text" readoly required name="code" value="<?php echo $units->code; ?>" class="form-control">
+                                                            
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Unit Name</label>
+                                                            <input type="text" required name="name" value ="<?php echo $units->name; ?>"class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Course Name</label>
+                                                            <select type="text" required name="course_name" class="form-control">
+                                                                <option>Select Course Name</option>
+                                                                <?php
+                                                                $ret = 'SELECT * FROM `iCollege_courses`';
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($courses = $res->fetch_object()) { ?>
+                                                                    <option><?php echo $courses->name; ?></option>
 
+                                                                <?php }
+                                                                ?>
+                                                            </select>
+                                                            
+                                                        </div>
+
+                                                    </div>
+                                                    <button type="submit" name="update" class="btn btn-primary">Update</button>
+                                                </div>
+                                                
+                                            </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
