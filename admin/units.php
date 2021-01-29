@@ -142,7 +142,21 @@ if (isset($_POST['add_unit'])) {
         }
     }
 }
-
+//delete unit
+if (isset($_GET['delete'])) {
+    $code = $_GET['delete'];
+    $adn = 'DELETE FROM iCollege_units WHERE code=?';
+    $stmt = $conn->prepare($adn);
+    $stmt->bind_param('s', $code);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = 'Removed permantly' && header('refresh:1; url=units.php');
+    } else {
+        //inject alert that task failed
+        $info = 'Please Try Again Or Try Later';
+    }
+}
 require_once '../partials/head.php'; ?>
 
 <body>
@@ -372,7 +386,7 @@ require_once '../partials/head.php'; ?>
 
 
 
-                                                    <a href="#delete-<?php echo $units->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
+                                                    <a href="#delete-<?php echo $units->code; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $units->code; ?>" role="dialog">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -387,7 +401,7 @@ require_once '../partials/head.php'; ?>
                                                                     <h4>Delete <?php echo $units->name; ?>?</h4>
                                                                     <br>
                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                    <a href="units.php?delete=<?php echo $units->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                    <a href="units.php?delete=<?php echo $units->code; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                 </div>
                                                             </div>
                                                         </div>
