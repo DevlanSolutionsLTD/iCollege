@@ -272,7 +272,7 @@ require_once '../partials/head.php'; ?>
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label for="">Course Name</label>
-                                                            <select type="text" required name="course_name" class="form-control select">
+                                                            <select type="text" required name="course_name" class="form-control">
                                                                 <option>Select Course Name</option>
                                                                 <?php
                                                                 $ret = 'SELECT * FROM `iCollege_courses`';

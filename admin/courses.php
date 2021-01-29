@@ -352,7 +352,7 @@ require_once '../partials/head.php'; ?>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">HOD Name</label>
-                                                            <select type="text" required name="hod" class="form-control">
+                                                            <select type="text" required name="hod" class="form-control ">
 
                                                                 <option>Select HOD</option>
                                                                 <?php
