@@ -167,10 +167,10 @@ if (isset($_POST['update'])) {
         $err = 'Course Name Cannot Be Empty';
     }
 
-    
 
-   
-    $query ='UPDATE iCollege_units  SET  name =? ,course_name =?  WHERE code =?';
+
+
+    $query = 'UPDATE iCollege_units  SET  name =? ,course_name =?  WHERE code =?';
     $stmt = $conn->prepare($query);
     $rc = $stmt->bind_param('sss', $name, $course_name, $code);
     $stmt->execute();
@@ -392,27 +392,27 @@ require_once '../partials/head.php'; ?>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                <form method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Unit Code</label>
-                                                            <input type="text" readoly required name="code" value="<?php echo $units->code; ?>" class="form-control">
-                                                            
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Unit Name</label>
-                                                            <input type="text" readolyrequired name="name" value ="<?php echo $units->name; ?>"class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label for="">Course Name</label>
-                                                            <input type="text" readoly required name="name" value ="<?php echo $units->course_name; ?>"class="form-control">
-                                                        </div>
+                                                                    <form method="post" enctype="multipart/form-data">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Unit Code</label>
+                                                                                    <input type="text" readoly required name="code" value="<?php echo $units->code; ?>" class="form-control">
 
-                                                    </div>
-                                                </div>
-                                                
-                                            </form>
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Unit Name</label>
+                                                                                    <input type="text" readolyrequired name="name" value="<?php echo $units->name; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="">Course Name</label>
+                                                                                    <input type="text" readoly required name="name" value="<?php echo $units->course_name; ?>" class="form-control">
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -434,41 +434,29 @@ require_once '../partials/head.php'; ?>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                <form method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Unit Code</label>
-                                                            <input type="text" readoly required name="code" value="<?php echo $units->code; ?>" class="form-control">
-                                                            
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Unit Name</label>
-                                                            <input type="text" required name="name" value ="<?php echo $units->name; ?>"class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label for="">Course Name</label>
-                                                            <select type="text" required name="course_name" class="form-control">
-                                                                <option>Select Course Name</option>
-                                                                <?php
-                                                                $ret = 'SELECT * FROM `iCollege_courses`';
-                                                                $stmt = $mysqli->prepare($ret);
-                                                                $stmt->execute(); //ok
-                                                                $res = $stmt->get_result();
-                                                                while ($courses = $res->fetch_object()) { ?>
-                                                                    <option><?php echo $courses->name; ?></option>
+                                                                    <form method="post" enctype="multipart/form-data">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Unit Code</label>
+                                                                                    <input type="text" readoly required name="code" value="<?php echo $units->code; ?>" class="form-control">
 
-                                                                <?php }
-                                                                ?>
-                                                            </select>
-                                                            
-                                                        </div>
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Unit Name</label>
+                                                                                    <input type="text" required name="name" value="<?php echo $units->name; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="">Course Name</label>
+                                                                                    <input type="text" required name="course_name" value="<?php echo $units->course_name; ?>" class="form-control">
 
-                                                    </div>
-                                                    <button type="submit" name="update" class="btn btn-primary">Update</button>
-                                                </div>
-                                                
-                                            </form>
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <button type="submit" name="update" class="btn btn-primary">Update</button>
+                                                                        </div>
+
+                                                                    </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
