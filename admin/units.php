@@ -6,7 +6,6 @@ admin_check_login();
 require_once '../config/codeGen.php';
 
 /* Bulk Import */
-
 use DevLanDataAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -41,46 +40,37 @@ if (isset($_POST['upload'])) {
                 $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
             }
 
-            $code = '';
+            $course_name = '';
             if (isset($spreadSheetAry[$i][1])) {
-                $code = mysqli_real_escape_string(
+                $course_name = mysqli_real_escape_string(
                     $conn,
                     $spreadSheetAry[$i][1]
                 );
             }
 
-            $name = '';
+            $code = '';
             if (isset($spreadSheetAry[$i][2])) {
-                $name = mysqli_real_escape_string(
+                $code = mysqli_real_escape_string(
                     $conn,
                     $spreadSheetAry[$i][2]
                 );
             }
 
-            $hod = '';
+            $name = '';
             if (isset($spreadSheetAry[$i][3])) {
-                $hod = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
-            }
-
-            $details = '';
-            if (isset($spreadSheetAry[$i][4])) {
-                $details = mysqli_real_escape_string(
-                    $conn,
-                    $spreadSheetAry[$i][4]
-                );
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
             }
 
             if (
                 !empty($id) ||
                 !empty($code) ||
                 !empty($name) ||
-                !empty($hod) ||
-                !empty($details)
+                !empty($course_name)
             ) {
                 $query =
-                    'INSERT INTO iCollege_courses (id, code, name, hod, details) VALUES(?,?,?,?,?)';
-                $paramType = 'sssss';
-                $paramArray = [$id, $code, $name, $hod, $details];
+                    'INSERT INTO iCollege_units (id, code, name, course_name) VALUES(?,?,?,?)';
+                $paramType = 'ssss';
+                $paramArray = [$id, $code, $name, $course_name];
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
                     $err = 'Error Occured While Importing Data';
