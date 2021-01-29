@@ -6,6 +6,7 @@ admin_check_login();
 require_once '../config/codeGen.php';
 
 /* Bulk Import */
+
 use DevLanDataAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -271,7 +272,7 @@ require_once '../partials/head.php'; ?>
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label for="">Course Name</label>
-                                                            <select type="text" required name="course_name" class="form-control">
+                                                            <select type="text" required name="course_name" class="form-control select">
                                                                 <option>Select Course Name</option>
                                                                 <?php
                                                                 $ret = 'SELECT * FROM `iCollege_courses`';
@@ -303,7 +304,7 @@ require_once '../partials/head.php'; ?>
                             <!-- End Unit Modal -->
 
                             <div class="table-responsive mb-4 mt-4">
-                                <table id="default-ordering" class="table table-hover" style="width:100%">
+                                <table id="default-ordering" class="table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Unit Code</th>

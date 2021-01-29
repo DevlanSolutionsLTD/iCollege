@@ -389,7 +389,7 @@ require_once '../partials/head.php'; ?>
                             <!-- End Course Modal -->
 
                             <div class="table-responsive mb-4 mt-4">
-                                <table id="default-ordering" class="table table-hover" style="width:100%">
+                                <table id="default-ordering" class="table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Course Code</th>
