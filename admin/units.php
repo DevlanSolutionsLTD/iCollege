@@ -6,7 +6,6 @@ admin_check_login();
 require_once '../config/codeGen.php';
 
 /* Bulk Import */
-
 use DevLanDataAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -96,42 +95,32 @@ if (isset($_POST['upload'])) {
 
 if (isset($_POST['add_course'])) {
     /* Add Course */
+
     //Error Handling and prevention of posting double entries
     $error = 0;
-
     if (isset($_POST['code']) && !empty($_POST['code'])) {
         $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
     } else {
         $error = 1;
         $err = 'Couse  Code Cannot Be Empty';
     }
-
     if (isset($_POST['name']) && !empty($_POST['name'])) {
         $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
     } else {
         $error = 1;
         $err = 'Course Name Cannot Be Empty';
     }
-
     if (isset($_POST['hod']) && !empty($_POST['hod'])) {
         $hod = mysqli_real_escape_string($mysqli, trim($_POST['hod']));
     } else {
         $error = 1;
         $err = 'HOD  Cannot Be Empty';
     }
-
-    if (isset($_POST['id']) && !empty($_POST['id'])) {
-        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
-    } else {
-        $error = 1;
-        $err = 'Course Id Cannot Be Empty';
-    }
-
     if (isset($_POST['details']) && !empty($_POST['details'])) {
         $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
     } else {
         $error = 1;
-        $err = 'Course Details Cannot Be Empty';
+        $err = 'Course detail Cannot Be Empty';
     }
 
     if (!$error) {
@@ -179,21 +168,18 @@ if (isset($_POST['update'])) {
         $error = 1;
         $err = 'Course Name Cannot Be Empty';
     }
-
     if (isset($_POST['hod']) && !empty($_POST['hod'])) {
         $hod = mysqli_real_escape_string($mysqli, trim($_POST['hod']));
     } else {
         $error = 1;
         $err = 'HOD  Cannot Be Empty';
     }
-
     if (isset($_POST['details']) && !empty($_POST['details'])) {
         $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
     } else {
         $error = 1;
         $err = 'Course detail Cannot Be Empty';
     }
-    
     $query =
         'UPDATE iCollege_courses  SET  name =? ,hod =? ,details =?  WHERE code =?';
     $stmt = $conn->prepare($query);
@@ -222,8 +208,9 @@ if (isset($_GET['delete'])) {
         $info = 'Please Try Again Or Try Later';
     }
 }
+ require_once '../partials/head.php'; ?>
 
-require_once '../partials/head.php'; ?>
+
 
 <body>
 
@@ -248,7 +235,7 @@ require_once '../partials/head.php'; ?>
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Courses</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Units</span></li>
                             </ol>
                         </nav>
 
@@ -277,18 +264,18 @@ require_once '../partials/head.php'; ?>
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
                             <div class="text-right">
-                                <button data-toggle="modal" data-target="#import_courses" class="btn btn-outline-primary mb-2">Import Courses </button>
-                                <button data-toggle="modal" data-target="#add_course" class="btn btn-outline-secondary mb-2">Add Course</button>
+                                <button data-toggle="modal" data-target="#import_units" class="btn btn-outline-primary mb-2">Import Units </button>
+                                <button data-toggle="modal" data-target="#add_units" class="btn btn-outline-secondary mb-2">Add Units</button>
                             </div>
                             <hr>
                             <!-- Import Modals -->
-                            <div class="modal animated zoomInUp custo-zoomInUp" id="import_courses" role="dialog">
+                            <div class="modal animated zoomInUp custo-zoomInUp" id="import_units" role="dialog">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="text-center">
                                                 Allowed file types: XLS, XLSX.
-                                                <a class="text-primary" target="_blank" href="../public/templates/CoursesTemplates.xlsx">Download</a> A Sample File.
+                                                <a class="text-primary" target="_blank" href="../public/templates/UnitTemplate.xlsx">Download</a> A Sample File.
                                             </h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -343,8 +330,6 @@ require_once '../partials/head.php'; ?>
                                                         <div class="form-group col-md-4">
                                                             <label for="">Course Code</label>
                                                             <input type="text" required name="code" value="<?php echo $a; ?>-<?php echo $b; ?>" class="form-control">
-                                                            <!-- Hide This -->
-                                                            <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">Course Name</label>
