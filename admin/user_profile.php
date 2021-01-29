@@ -1,4 +1,64 @@
-<?php require_once('../partials/head.php'); ?>
+<?php
+session_start();
+require_once('../config/config.php');
+require_once('../config/checklogin.php');
+admin_check_login();/* Invoke Sudo */
+
+if (isset($_POST['update_profile'])) {
+    //Change Password
+    $error = 0;
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim((($_POST['email']))));
+    } else {
+        $error = 1;
+        $err = "Email Cannot Be Empty";
+    }
+    if (isset($_POST['old_password']) && !empty($_POST['old_password'])) {
+        $old_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['old_password']))));
+    } else {
+        $error = 1;
+        $err = "Old Password Cannot Be Empty";
+    }
+    if (isset($_POST['new_password']) && !empty($_POST['new_password'])) {
+        $new_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['new_password']))));
+    } else {
+        $error = 1;
+        $err = "New Password Cannot Be Empty";
+    }
+    if (isset($_POST['confirm_password']) && !empty($_POST['confirm_password'])) {
+        $confirm_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['confirm_password']))));
+    } else {
+        $error = 1;
+        $err = "Confirmation Password Cannot Be Empty";
+    }
+
+    if (!$error) {
+        $id = $_SESSION['id'];
+        $sql = "SELECT * FROM  iCollege_admin  WHERE id = '$id'";
+        $res = mysqli_query($mysqli, $sql);
+        if (mysqli_num_rows($res) > 0) {
+            $row = mysqli_fetch_assoc($res);
+            if ($old_password != $row['password']) {
+                $err =  "Please Enter Correct Old Password";
+            } elseif ($new_password != $confirm_password) {
+                $err = "Confirmation Password Does Not Match";
+            } else {
+                $query = "UPDATE iCollege_admin SET email=?, password =? WHERE id =?";
+                $stmt = $mysqli->prepare($query);
+                $rc = $stmt->bind_param('sss', $email, $new_password, $id);
+                $stmt->execute();
+                if ($stmt) {
+                    $success = "Profile Updates" && header("refresh:1; url=user_profile.php");
+                } else {
+                    $err = "Please Try Again Or Try Later";
+                }
+            }
+        }
+    }
+}
+
+require_once('../partials/head.php');
+?>
 
 <body>
 
@@ -39,72 +99,80 @@
 
         <div class="overlay"></div>
         <div class="search-overlay"></div>
-
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once('../partials/admin_sidebar.php'); ?>
-        <!--  END SIDEBAR  -->
+        <?php
+        require_once('../partials/admin_sidebar.php');
+        $id = $_SESSION['id'];
+        $ret = "SELECT * FROM `iCollege_admin` WHERE id ='$id' ";
+        $stmt = $mysqli->prepare($ret);
+        $stmt->execute(); //ok
+        $res = $stmt->get_result();
+        while ($admin = $res->fetch_object()) {
+        ?>
+            <!--  END SIDEBAR  -->
+            <!--  BEGIN CONTENT AREA  -->
+            <div id="content" class="main-content">
+                <div class="layout-px-spacing">
 
-        <!--  BEGIN CONTENT AREA  -->
-        <div id="content" class="main-content">
-            <div class="layout-px-spacing">
+                    <div class="account-settings-container layout-top-spacing">
 
-                <div class="account-settings-container layout-top-spacing">
+                        <div class="account-content">
+                            <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                        <form id="contact" method="POST" class="section contact">
+                                            <div class="info">
+                                                <h5 class="">Update Profile And Authentication Information</h5>
+                                                <div class="row">
+                                                    <div class="col-md-11 mx-auto">
+                                                        <div class="row">
 
-                    <div class="account-content">
-                        <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
-                            <div class="row">
-                                <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
-                                    <form id="contact" method="POST" class="section contact">
-                                        <div class="info">
-                                            <h5 class="">Update Profile And Authentication Information</h5>
-                                            <div class="row">
-                                                <div class="col-md-11 mx-auto">
-                                                    <div class="row">
-
-                                                        <div class="col-md-12">
-                                                            <div class="form-group">
-                                                                <label for="address">Email</label>
-                                                                <input type="email" class="form-control mb-4">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <label for="address">Email</label>
+                                                                    <input type="email" value="<?php echo $admin->email; ?>" name="email" class="form-control mb-4">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="location">Old Password</label>
+                                                                    <input type="password" name="old_password" class="form-control mb-4">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="phone">New Password</label>
+                                                                    <input type="password" name="new_password" class="form-control mb-4">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="phone">Confirm New Password</label>
+                                                                    <input type="password" name="confirm_password" class="form-control mb-4">
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="location">Old Password</label>
-                                                                <input type="password" class="form-control mb-4">
-                                                            </div>
+                                                        <br>
+                                                        <div class="form-group text-right">
+                                                            <input type="submit" value="Update Profile" name="update_profile" class="btn btn-outline-primary">
                                                         </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="phone">New Password</label>
-                                                                <input type="password" class="form-control mb-4">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="phone">Confirm New Password</label>
-                                                                <input type="password" class="form-control mb-4">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <div class="form-group text-right">
-                                                        <input type="submit" value="Update Profile" class="btn btn-outline-primary">
                                                     </div>
                                                 </div>
-                                            </div> 
-                                        </div>
-                                    </form>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!--  END CONTENT AREA  -->
+            <!--  END CONTENT AREA  -->
     </div>
     <!-- END MAIN CONTAINER -->
-    <?php require_once('../partials/scripts.php'); ?>
+<?php
+            require_once('../partials/scripts.php');
+        } ?>
 </body>
 
 </html>
