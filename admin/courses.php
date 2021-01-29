@@ -352,7 +352,7 @@ require_once '../partials/head.php'; ?>
                                                         </div>
                                                         <div class="form-group col-md-4">
                                                             <label for="">HOD Name</label>
-                                                            <select type="text" required name="hod" class="form-control">
+                                                            <select type="text" required name="hod" class="form-control ">
 
                                                                 <option>Select HOD</option>
                                                                 <?php
@@ -389,7 +389,7 @@ require_once '../partials/head.php'; ?>
                             <!-- End Course Modal -->
 
                             <div class="table-responsive mb-4 mt-4">
-                                <table id="default-ordering" class="table table-hover" style="width:100%">
+                                <table id="default-ordering" class="table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Course Code</th>
