@@ -6,7 +6,6 @@ admin_check_login();
 require_once '../config/codeGen.php';
 
 /* Bulk Import */
-
 use DevLanDataAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -41,46 +40,37 @@ if (isset($_POST['upload'])) {
                 $id = mysqli_real_escape_string($conn, $spreadSheetAry[$i][0]);
             }
 
-            $code = '';
+            $course_name = '';
             if (isset($spreadSheetAry[$i][1])) {
-                $code = mysqli_real_escape_string(
+                $course_name = mysqli_real_escape_string(
                     $conn,
                     $spreadSheetAry[$i][1]
                 );
             }
 
-            $name = '';
+            $code = '';
             if (isset($spreadSheetAry[$i][2])) {
-                $name = mysqli_real_escape_string(
+                $code = mysqli_real_escape_string(
                     $conn,
                     $spreadSheetAry[$i][2]
                 );
             }
 
-            $hod = '';
+            $name = '';
             if (isset($spreadSheetAry[$i][3])) {
-                $hod = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
-            }
-
-            $details = '';
-            if (isset($spreadSheetAry[$i][4])) {
-                $details = mysqli_real_escape_string(
-                    $conn,
-                    $spreadSheetAry[$i][4]
-                );
+                $name = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
             }
 
             if (
                 !empty($id) ||
                 !empty($code) ||
                 !empty($name) ||
-                !empty($hod) ||
-                !empty($details)
+                !empty($course_name)
             ) {
                 $query =
-                    'INSERT INTO iCollege_courses (id, code, name, hod, details) VALUES(?,?,?,?,?)';
-                $paramType = 'sssss';
-                $paramArray = [$id, $code, $name, $hod, $details];
+                    'INSERT INTO iCollege_units (id, code, name, course_name) VALUES(?,?,?,?)';
+                $paramType = 'ssss';
+                $paramArray = [$id, $code, $name, $course_name];
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
                     $err = 'Error Occured While Importing Data';
@@ -94,18 +84,17 @@ if (isset($_POST['upload'])) {
     }
 }
 
-if (isset($_POST['add_course'])) {
-    /* Add Course */
-    //Error Handling and prevention of posting double entries
+if (isset($_POST['add_unit'])) {
+    /*
+        Error handling and add unit logic 
+     */
     $error = 0;
-
     if (isset($_POST['code']) && !empty($_POST['code'])) {
         $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
     } else {
         $error = 1;
         $err = 'Couse  Code Cannot Be Empty';
     }
-
     if (isset($_POST['name']) && !empty($_POST['name'])) {
         $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
     } else {
@@ -113,113 +102,43 @@ if (isset($_POST['add_course'])) {
         $err = 'Course Name Cannot Be Empty';
     }
 
-    if (isset($_POST['hod']) && !empty($_POST['hod'])) {
-        $hod = mysqli_real_escape_string($mysqli, trim($_POST['hod']));
+    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
     } else {
         $error = 1;
-        $err = 'HOD  Cannot Be Empty';
+        $err = 'Course Name  Cannot Be Empty';
     }
 
     if (isset($_POST['id']) && !empty($_POST['id'])) {
         $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
     } else {
         $error = 1;
-        $err = 'Course Id Cannot Be Empty';
-    }
-
-    if (isset($_POST['details']) && !empty($_POST['details'])) {
-        $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
-    } else {
-        $error = 1;
-        $err = 'Course Details Cannot Be Empty';
+        $err = 'Unit ID  Cannot Be Empty';
     }
 
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  iCollege_courses WHERE  code='$code' || name ='$name' ";
+        $sql = "SELECT * FROM  iCollege_units WHERE  code='$code' || name ='$name' ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if ($code == $row['code']) {
-                $err = 'Course With This Code Already Exists';
+                $err = 'Unit With This Code Already Exists';
             } else {
-                $err = 'Course Name Already Exists';
+                $err = 'Unit With That Name Already Exists';
             }
         } else {
-            $query =
-                'INSERT INTO iCollege_courses (id, code, name, hod, details) VALUES(?,?,?,?,?)';
+            $query = 'INSERT INTO iCollege_units (id, code, name, course_name) VALUES(?,?,?,?)';
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('sssss', $id, $code, $name, $hod, $details);
+            $rc = $stmt->bind_param('ssss', $id, $code, $name, $course_name);
             $stmt->execute();
             if ($stmt) {
                 $success =
-                    'Course Added' && header('refresh:1; url=courses.php');
+                    'Unit Added' && header('refresh:1; url=units.php');
             } else {
                 $info = 'Please Try Again Or Try Later';
             }
         }
-    }
-}
-
-//Update course
-if (isset($_POST['update'])) {
-
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
-    } else {
-        $error = 1;
-        $err = 'Course code Missing';
-    }
-
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = 'Course Name Cannot Be Empty';
-    }
-
-    if (isset($_POST['hod']) && !empty($_POST['hod'])) {
-        $hod = mysqli_real_escape_string($mysqli, trim($_POST['hod']));
-    } else {
-        $error = 1;
-        $err = 'HOD  Cannot Be Empty';
-    }
-
-    if (isset($_POST['details']) && !empty($_POST['details'])) {
-        $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
-    } else {
-        $error = 1;
-        $err = 'Course detail Cannot Be Empty';
-    }
-
-    $query =
-        'UPDATE iCollege_courses  SET  name =? ,hod =? ,details =?  WHERE code =?';
-    $stmt = $conn->prepare($query);
-    $rc = $stmt->bind_param('ssss', $name, $hod, $details, $code);
-    $stmt->execute();
-    if ($stmt) {
-        $success = 'Course Updated' && header('refresh:1; url=courses.php');
-    } else {
-        //inject alert that task failed
-        $info = 'Please Try Again Or Try Later';
-    }
-}
-
-//delete course
-if (isset($_GET['delete'])) {
-    $code = $_GET['delete'];
-    $adn = 'DELETE FROM iCollege_courses WHERE code=?';
-    $stmt = $conn->prepare($adn);
-    $stmt->bind_param('s', $code);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = 'Removed permantly' && header('refresh:1; url=courses.php');
-    } else {
-        //inject alert that task failed
-        $info = 'Please Try Again Or Try Later';
     }
 }
 
@@ -248,7 +167,7 @@ require_once '../partials/head.php'; ?>
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Courses</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Units</span></li>
                             </ol>
                         </nav>
 
@@ -277,18 +196,18 @@ require_once '../partials/head.php'; ?>
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
                             <div class="text-right">
-                                <button data-toggle="modal" data-target="#import_courses" class="btn btn-outline-primary mb-2">Import Courses </button>
-                                <button data-toggle="modal" data-target="#add_course" class="btn btn-outline-secondary mb-2">Add Course</button>
+                                <button data-toggle="modal" data-target="#import_units" class="btn btn-outline-primary mb-2">Import Units </button>
+                                <button data-toggle="modal" data-target="#add_units" class="btn btn-outline-secondary mb-2">Add Units</button>
                             </div>
                             <hr>
                             <!-- Import Modals -->
-                            <div class="modal animated zoomInUp custo-zoomInUp" id="import_courses" role="dialog">
+                            <div class="modal animated zoomInUp custo-zoomInUp" id="import_units" role="dialog">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="text-center">
                                                 Allowed file types: XLS, XLSX.
-                                                <a class="text-primary" target="_blank" href="../public/templates/CoursesTemplates.xlsx">Download</a> A Sample File.
+                                                <a class="text-primary" target="_blank" href="../public/templates/UnitTemplate.xlsx">Download</a> A Sample File.
                                             </h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -324,7 +243,7 @@ require_once '../partials/head.php'; ?>
                             <!-- End Import Modal -->
 
                             <!-- Add Course Modal -->
-                            <div class="modal animated zoomInUp custo-zoomInUp" id="add_course" role="dialog">
+                            <div class="modal animated zoomInUp custo-zoomInUp" id="add_units" role="dialog">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -340,40 +259,37 @@ require_once '../partials/head.php'; ?>
                                             <form method="post" enctype="multipart/form-data">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Course Code</label>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Unit Code</label>
                                                             <input type="text" required name="code" value="<?php echo $a; ?>-<?php echo $b; ?>" class="form-control">
                                                             <!-- Hide This -->
                                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Course Name</label>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Unit Name</label>
                                                             <input type="text" required name="name" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">HOD Name</label>
-                                                            <select type="text" required name="hod" class="form-control">
-
-                                                                <option>Select HOD</option>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Course Name</label>
+                                                            <select type="text" required name="course_name" class="form-control">
+                                                                <option>Select Course Name</option>
                                                                 <?php
-                                                                $ret ='SELECT * FROM `iCollege_lecturers`';
+                                                                $ret = 'SELECT * FROM `iCollege_courses`';
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while ($lec = $res->fetch_object()) { ?>
-                                                                    <option><?php echo $lec->name; ?></option>
+                                                                while ($courses = $res->fetch_object()) { ?>
+                                                                    <option><?php echo $courses->name; ?></option>
+
                                                                 <?php }
                                                                 ?>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-12">
-                                                            <label for="exampleInputPassword1">Course Details</label>
-                                                            <textarea required name="details" rows="5" class="form-control"></textarea>
-                                                        </div>
+
                                                     </div>
                                                 </div>
                                                 <div class="text-right">
-                                                    <button type="submit" name="add_course" class="btn btn-primary">Submit</button>
+                                                    <button type="submit" name=add_unit class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -384,74 +300,44 @@ require_once '../partials/head.php'; ?>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Course Modal -->
-
-                            <!-- End Course Modal -->
+                            <!-- End Unit Modal -->
 
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="default-ordering" class="table table-hover" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Course Code</th>
+                                            <th>Unit Code</th>
+                                            <th>Unit Name</th>
                                             <th>Course Name</th>
-                                            <th>Course HOD</th>
-                                            <th>Manage Course</th>
+                                            <th>Manage Unit</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret =
-                                            'SELECT * FROM `iCollege_courses`';
+                                        $ret = 'SELECT * FROM `iCollege_units`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        while (
-                                            $courses = $res->fetch_object()
-                                        ) { ?>
+                                        while ($units = $res->fetch_object()) { ?>
                                             <tr>
-                                                <td><?php echo $courses->code; ?></td>
-                                                <td><?php echo $courses->name; ?></td>
-                                                <td><?php echo $courses->hod; ?></td>
+                                                <td><?php echo $units->code; ?></td>
+                                                <td><?php echo $units->name; ?></td>
+                                                <td><?php echo $units->course_name; ?></td>
                                                 <td>
-                                                    <a href="#view-<?php echo $courses->code; ?>" data-toggle="modal" class="badge outline-badge-success">View</a>
+                                                    <a href="#view-<?php echo $units->code; ?>" data-toggle="modal" class="badge outline-badge-success">View</a>
                                                     <!-- View Course Modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="view-<?php echo $courses->code; ?>" role="dialog">
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="view-<?php echo $units->code; ?>" role="dialog">
                                                         <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-                                                                        Course View
+                                                                        <?php echo $units->code ?> <?php echo $units->name; ?>
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form method="post" enctype="multipart/form-data">
-
-                                                                        <div class="card-body">
-                                                                            <div class="row">
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">Course Code</label>
-                                                                                    <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">Course Name</label>
-                                                                                    <input type="text" required readonly name="name" value="<?php echo $courses->name; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">HOD Name</label>
-                                                                                    <input type="text" required readonly name="hod" value="<?php echo $courses->hod; ?>" class="form-control basic">
-                                                                                </div>
-                                                                                <div class="form-group col-md-12">
-                                                                                    <label for="exampleInputPassword1">Course Details</label>
-                                                                                    <textarea required name="details" readonly rows="5" class="form-control"><?php echo $courses->details; ?></textarea>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
-
-                                                                    </form>
 
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
@@ -460,48 +346,20 @@ require_once '../partials/head.php'; ?>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <a href="#update-<?php echo $courses->code; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
+                                                    <a href="#update-<?php echo $units->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
                                                     <!-- Button trigger modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $courses->code; ?>" role="dialog">
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $units->id; ?>" role="dialog">
                                                         <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-                                                                        Course Update
+                                                                        <?php echo $units->code ?> <?php echo $units->name; ?>
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form method="post" enctype="multipart/form-data">
-
-                                                                        <div class="card-body">
-                                                                            <div class="row">
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">Course Code</label>
-                                                                                    <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">Course Name</label>
-                                                                                    <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-4">
-                                                                                    <label for="">HOD Name</label>
-                                                                                    <input type="text" required name="hod" value="<?php echo $courses->hod; ?>" class="form-control basic">
-                                                                                </div>
-                                                                                <div class="form-group col-md-12">
-                                                                                    <label for="exampleInputPassword1">Course Details</label>
-                                                                                    <textarea required name="details" rows="5" class="form-control"><?php echo $courses->details; ?></textarea>
-                                                                                </div>
-                                                                            </div>
-
-                                                                        </div>
-                                                                        <div class="text-right">
-                                                                            <button type="submit" name="update" class="btn btn-primary">Update</button>
-                                                                        </div>
-
-                                                                    </form>
 
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
@@ -513,9 +371,9 @@ require_once '../partials/head.php'; ?>
 
 
 
-                                                    <a href="#delete-<?php echo $courses->code; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
+                                                    <a href="#delete-<?php echo $units->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $courses->code; ?>" role="dialog">
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $units->code; ?>" role="dialog">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -525,10 +383,10 @@ require_once '../partials/head.php'; ?>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body text-center text-danger">
-                                                                    <h4>Delete <?php echo $courses->name; ?>?</h4>
+                                                                    <h4>Delete <?php echo $units->name; ?>?</h4>
                                                                     <br>
                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                    <a href="courses.php?delete=<?php echo $courses->code; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                    <a href="units.php?delete=<?php echo $units->id; ?>" class="text-center btn btn-danger"> Delete </a>
                                                                 </div>
                                                             </div>
                                                         </div>
