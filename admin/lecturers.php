@@ -220,7 +220,84 @@ if (isset($_POST['add_lec'])) {
         }
     }
 }
+//update
+if (isset($_POST['update'])) {
+    /* Add Course */
+    //Error Handling and prevention of posting double entries
+    $error = 0;
 
+    if (isset($_POST['id']) && !empty($_POST['id'])) {
+        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
+    } else {
+        $error = 1;
+        $err = 'Lec ID Cannot Be Empty';
+    }
+
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = 'Lec Name Cannot Be Empty';
+    }
+
+    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
+        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
+    } else {
+        $error = 1;
+        $err = 'Lec Phone Number Cannot Be Empty';
+    }
+
+    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
+        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
+    } else {
+        $error = 1;
+        $err = 'Lec National ID Number Cannot Be Empty';
+    }
+
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
+    } else {
+        $error = 1;
+        $err = 'Lec Email Number Cannot Be Empty';
+    }
+
+    $query =
+        'UPDATE iCollege_lecturers  SET  name =? , phone =? ,idno =? ,email =? WHERE id =?';
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param(
+        'sssss',
+
+        $name,
+        $phone,
+        $idno,
+        $email,
+        $id
+    );
+    $stmt->execute();
+    if ($stmt) {
+        $success = 'Lec Updated' && header('refresh:1; url=lecturers.php');
+    } else {
+        $info = 'Please Try Again Or Try Later';
+    }
+}
+//delete unit
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $adn = 'DELETE FROM iCollege_lecturers WHERE id=?';
+    $stmt = $conn->prepare($adn);
+    $stmt->bind_param(
+        's', 
+        $id
+    );
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = 'Removed permantly' && header('refresh:1; url=lecturers.php');
+    } else {
+        //inject alert that task failed
+        $info = 'Please Try Again Or Try Later';
+    }
+}
 require_once '../partials/head.php';
 ?>
 
@@ -440,6 +517,7 @@ require_once '../partials/head.php';
                                                             <input type="text" readonly required name="number" value="<?php echo $lec->number; ?>" class="form-control">
                                                            
                                                         </div>
+                                                       
                                                         <div class="form-group col-md-6">
                                                             <label for="">Lecturer Name</label>
                                                             <input type="text" readonly required name="name" readonly value="<?php echo $lec->name; ?>"class="form-control">
@@ -460,9 +538,8 @@ require_once '../partials/head.php';
                                                         
                                                     </div>
                                                 </div>
-                                                
-                                            </form>
-                                                                </div>
+                                                </form> 
+                                            </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
@@ -482,7 +559,39 @@ require_once '../partials/head.php';
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-
+ <!-- Form -->
+ <form method="post" enctype="multipart/form-data">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                   
+                                                    
+                                                           
+                                                        <input type="text" hidden required name="id" value="<?php echo $lec->id; ?>" class="form-control">
+                                                       
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Lecturer Name</label>
+                                                            <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Lecturer National ID Number</label>
+                                                            <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Lecturer Phone Number</label>
+                                                            <input type="text" required name="phone" value="<?php echo $lec->phone; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Lecturer Email Address</label>
+                                                            <input type="text" required name="email" value="<?php echo $lec->email; ?>" class="form-control">
+                                                        </div>
+                                                       
+                                                        
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <button type="submit" name="update" class="btn btn-primary">Save changes</button>
+                                                </div>
+                                            </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
