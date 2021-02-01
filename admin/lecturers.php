@@ -71,19 +71,19 @@ if (isset($_POST['upload'])) {
             }
 
             $email = '';
-            if (isset($spreadSheetAry[$i][4])) {
+            if (isset($spreadSheetAry[$i][5])) {
                 $email = mysqli_real_escape_string(
                     $conn,
-                    $spreadSheetAry[$i][4]
+                    $spreadSheetAry[$i][5]
                 );
             }
 
             /* Get Password as plain text but import as a bunch of mumble jumble */
             $password = '';
-            if (isset($spreadSheetAry[$i][4])) {
+            if (isset($spreadSheetAry[$i][6])) {
                 $password = sha1(md5(mysqli_real_escape_string(
                     $conn,
-                    $spreadSheetAry[$i][4]
+                    $spreadSheetAry[$i][6]
                 )));
             }
 
@@ -136,7 +136,7 @@ if (isset($_POST['add_lec'])) {
         $err = 'Lec Name Cannot Be Empty';
     }
 
-    if (isset($_POST['phone ']) && !empty($_POST['phone '])) {
+    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
         $phone  = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
     } else {
         $error = 1;
@@ -310,7 +310,7 @@ require_once '../partials/head.php'; ?>
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
                                                             <label for="">Lecturer Number</label>
-                                                            <input type="text" required name="code" value="<?php echo $a; ?>-<?php echo $b; ?>" class="form-control">
+                                                            <input type="text" required name="number" value="<?php echo $a; ?>-<?php echo $b; ?>" class="form-control">
                                                             <!-- Hide This -->
                                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                         </div>
