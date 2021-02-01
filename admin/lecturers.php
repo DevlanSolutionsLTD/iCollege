@@ -59,7 +59,10 @@ if (isset($_POST['upload'])) {
 
             $phone = '';
             if (isset($spreadSheetAry[$i][3])) {
-                $phone = mysqli_real_escape_string($conn, $spreadSheetAry[$i][3]);
+                $phone = mysqli_real_escape_string(
+                    $conn,
+                    $spreadSheetAry[$i][3]
+                );
             }
 
             $idno = '';
@@ -81,10 +84,11 @@ if (isset($_POST['upload'])) {
             /* Get Password as plain text but import as a bunch of mumble jumble */
             $password = '';
             if (isset($spreadSheetAry[$i][6])) {
-                $password = sha1(md5(mysqli_real_escape_string(
-                    $conn,
-                    $spreadSheetAry[$i][6]
-                )));
+                $password = sha1(
+                    md5(
+                        mysqli_real_escape_string($conn, $spreadSheetAry[$i][6])
+                    )
+                );
             }
 
             if (
@@ -94,9 +98,18 @@ if (isset($_POST['upload'])) {
                 !empty($idno) ||
                 !empty($email)
             ) {
-                $query = 'INSERT INTO iCollege_lecturers (id, number, name, phone, idno, email, password) VALUES(?,?,?,?,?,?,?)';
+                $query =
+                    'INSERT INTO iCollege_lecturers (id, number, name, phone, idno, email, password) VALUES(?,?,?,?,?,?,?)';
                 $paramType = 'sssssss';
-                $paramArray = [$id, $number, $name, $phone, $idno, $email, $password];
+                $paramArray = [
+                    $id,
+                    $number,
+                    $name,
+                    $phone,
+                    $idno,
+                    $email,
+                    $password,
+                ];
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
                     $err = 'Error Occured While Importing Data';
@@ -137,7 +150,7 @@ if (isset($_POST['add_lec'])) {
     }
 
     if (isset($_POST['phone']) && !empty($_POST['phone'])) {
-        $phone  = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
+        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
     } else {
         $error = 1;
         $err = 'Lec Phone Number Cannot Be Empty';
@@ -158,7 +171,10 @@ if (isset($_POST['add_lec'])) {
     }
 
     if (isset($_POST['password']) && !empty($_POST['password'])) {
-        $password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['password']))));
+        $password = mysqli_real_escape_string(
+            $mysqli,
+            trim(sha1(md5($_POST['password'])))
+        );
     } else {
         $error = 1;
         $err = 'Lec Password  Cannot Be Empty';
@@ -176,10 +192,24 @@ if (isset($_POST['add_lec'])) {
             }
         } else {
             $dpic = $_FILES['dpic']['name'];
-            move_uploaded_file($_FILES["dpic"]["tmp_name"], "../public/uploads/staff_img/" . $_FILES["dpic"]["name"]);
-            $query = 'INSERT INTO iCollege_lecturers (id, number, name, phone, idno, email, password, dpic) VALUES(?,?,?,?,?,?,?,?)';
+            move_uploaded_file(
+                $_FILES['dpic']['tmp_name'],
+                '../public/uploads/staff_img/' . $_FILES['dpic']['name']
+            );
+            $query =
+                'INSERT INTO iCollege_lecturers (id, number, name, phone, idno, email, password, dpic) VALUES(?,?,?,?,?,?,?,?)';
             $stmt = $mysqli->prepare($query);
-            $rc = $stmt->bind_param('ssssssss', $id, $number, $name, $phone, $idno, $email, $password, $dpic);
+            $rc = $stmt->bind_param(
+                'ssssssss',
+                $id,
+                $number,
+                $name,
+                $phone,
+                $idno,
+                $email,
+                $password,
+                $dpic
+            );
             $stmt->execute();
             if ($stmt) {
                 $success =
@@ -191,7 +221,8 @@ if (isset($_POST['add_lec'])) {
     }
 }
 
-require_once '../partials/head.php'; ?>
+require_once '../partials/head.php';
+?>
 
 <body>
 
@@ -375,7 +406,8 @@ require_once '../partials/head.php'; ?>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = 'SELECT * FROM `iCollege_lecturers`';
+                                        $ret =
+                                            'SELECT * FROM `iCollege_lecturers`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -389,7 +421,7 @@ require_once '../partials/head.php'; ?>
                                                 <td>
                                                     <a href="#view-<?php echo $lec->id; ?>" data-toggle="modal" class="badge outline-badge-success">View</a>
                                                     <!-- View Course Modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="view-<?php echo $lec->code; ?>" role="dialog">
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="view-<?php echo $lec->id; ?>" role="dialog">
                                                         <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
@@ -400,7 +432,36 @@ require_once '../partials/head.php'; ?>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-
+                                                                <form method="post" enctype="multipart/form-data">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Lecturer Number</label>
+                                                            <input type="text" readonly required name="number" value="<?php echo $lec->number; ?>" class="form-control">
+                                                           
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Lecturer Name</label>
+                                                            <input type="text" readonly required name="name" readonly value="<?php echo $lec->name; ?>"class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Lecturer National ID Number</label>
+                                                            <input type="text" required name="idno" readonly value="<?php echo $lec->idno; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Lecturer Phone Number</label>
+                                                            <input type="text" required name="phone" readonly value="<?php echo $lec->phone; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Lecturer Email Address</label>
+                                                            <input type="text" required name="email" readonly value="<?php echo $lec->email; ?>"class="form-control">
+                                                        </div>
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
+                                                
+                                            </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
