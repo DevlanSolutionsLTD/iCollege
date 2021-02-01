@@ -1,4 +1,31 @@
 {
+    "name": "phpoffice/phpspreadsheet",
+    "description": "PHPSpreadsheet - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+    "keywords": ["PHP", "OpenXML", "Excel", "xlsx", "xls", "ods", "gnumeric", "spreadsheet"],
+    "homepage": "https://github.com/PHPOffice/PhpSpreadsheet",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Maarten Balliauw",
+            "homepage": "https://blog.maartenballiauw.be"
+        },
+        {
+            "name": "Mark Baker",
+            "homepage": "https://markbakeruk.net"
+        },
+        {
+            "name": "Franck Lefevre",
+            "homepage": "https://rootslabs.net"
+        },
+        {
+            "name": "Erik Tilt"
+        },
+        {
+            "name": "Adrien Crivelli"
+        }
+    ],
+
+    "license": "MIT",
     "require": {
         "phpoffice/phpspreadsheet": "^1.15",
         "coderatio/simple-backup": "^1.0"
