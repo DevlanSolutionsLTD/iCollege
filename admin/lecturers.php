@@ -280,7 +280,7 @@ if (isset($_POST['update'])) {
         $info = 'Please Try Again Or Try Later';
     }
 }
-//delete unit
+//delete lec
 if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     $adn = 'DELETE FROM iCollege_lecturers WHERE id=?';
