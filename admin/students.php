@@ -89,29 +89,31 @@ if (isset($_POST['upload'])) {
                 );
             }
 
-            $course_name = '';
+            
+
+            $email = '';
             if (isset($spreadSheetAry[$i][7])) {
-                $course_name  = mysqli_real_escape_string(
+                $email  = mysqli_real_escape_string(
                     $conn,
                     $spreadSheetAry[$i][7]
                 );
             }
 
-            $email = '';
+            /* Get Password as plain text but import as a bunch of mumble jumble */
+            $password = '';
             if (isset($spreadSheetAry[$i][8])) {
-                $email  = mysqli_real_escape_string(
-                    $conn,
-                    $spreadSheetAry[$i][8]
+                $password = sha1(
+                    md5(
+                        mysqli_real_escape_string($conn, $spreadSheetAry[$i][8])
+                    )
                 );
             }
 
-            /* Get Password as plain text but import as a bunch of mumble jumble */
-            $password = '';
+            $course_name = '';
             if (isset($spreadSheetAry[$i][9])) {
-                $password = sha1(
-                    md5(
-                        mysqli_real_escape_string($conn, $spreadSheetAry[$i][9])
-                    )
+                $course_name  = mysqli_real_escape_string(
+                    $conn,
+                    $spreadSheetAry[$i][9]
                 );
             }
 
@@ -335,7 +337,7 @@ require_once '../partials/head.php';
                             </div>
                             <hr>
                             <!-- Import Modals -->
-                            <div class="modal animated zoomInUp custo-zoomInUp" id="import_studuent" role="dialog">
+                            <div class="modal animated zoomInUp custo-zoomInUp" id="import_student" role="dialog">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
