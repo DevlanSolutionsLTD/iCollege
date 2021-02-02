@@ -273,8 +273,6 @@ if (isset($_POST['update'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
 
-   
-
     if (isset($_POST['admno']) && !empty($_POST['admno'])) {
         $admno = mysqli_real_escape_string($mysqli, trim($_POST['admno']));
     } else {
@@ -324,7 +322,7 @@ if (isset($_POST['update'])) {
         $err = 'Email Number Cannot Be Empty';
     }
 
-   if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
+    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
         $course_name = mysqli_real_escape_string(
             $mysqli,
             trim($_POST['course_name'])
@@ -360,10 +358,7 @@ if (isset($_GET['delete'])) {
     $id = $_GET['delete'];
     $adn = 'DELETE FROM iCollege_students WHERE id=?';
     $stmt = $conn->prepare($adn);
-    $stmt->bind_param(
-        's', 
-        $id
-    );
+    $stmt->bind_param('s', $id);
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
