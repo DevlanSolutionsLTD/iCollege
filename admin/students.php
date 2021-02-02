@@ -6,6 +6,7 @@ admin_check_login();
 require_once '../config/codeGen.php';
 
 /* Bulk Import */
+
 use DevLanDataAPI\DataSource;
 use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
 
@@ -149,6 +150,7 @@ if (isset($_POST['upload'])) {
     }
 }
 
+/* Add Student */
 if (isset($_POST['add_student'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -219,6 +221,16 @@ if (isset($_POST['add_student'])) {
         $err = 'Password  Cannot Be Empty';
     }
 
+    if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
+        $course_name = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['course_name'])
+        );
+    } else {
+        $error = 1;
+        $err = 'Course  Cannot Be Empty';
+    }
+
     if (!$error) {
         //prevent Double entries
         $sql = "SELECT * FROM  iCollege_students WHERE  admno='$admno' ";
@@ -235,18 +247,21 @@ if (isset($_POST['add_student'])) {
                 $_FILES['dpic']['tmp_name'],
                 '../public/uploads/std_img/' . $_FILES['dpic']['name']
             );
-            $query ='INSERT INTO iCollege_students (id, admno, name, phone, idno, adr, sex, email, password, dpic, course_name) VALUES(?,?,?,?,?,?,?,?,?,?,?)';
+            $query = 'INSERT INTO iCollege_students (id, admno, name, phone, idno, adr, sex, email, password, dpic, course_name) VALUES(?,?,?,?,?,?,?,?,?,?,?)';
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param(
-                'ssssssss',
+                'sssssssssss',
                 $id,
-                $number,
+                $admno,
                 $name,
                 $phone,
                 $idno,
+                $adr,
+                $sex,
                 $email,
                 $password,
-                $dpic
+                $dpic,
+                $course_name
             );
             $stmt->execute();
             if ($stmt) {
@@ -416,7 +431,20 @@ require_once '../partials/head.php';
                                                             <label for="">Password</label>
                                                             <input type="text" required name="password" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-12">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Course Name</label>
+                                                            <select name="course_name" class="form-control">
+                                                                <?php
+                                                                $ret = 'SELECT * FROM `iCollege_courses`';
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($courses = $res->fetch_object()) { ?>
+                                                                    <option><?php echo $courses->name; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
                                                             <label for="exampleInputFile">Passport</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
@@ -445,155 +473,39 @@ require_once '../partials/head.php';
                                 <table id="default-ordering" class="table" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Number</th>
+                                            <th>Admn Number</th>
                                             <th>Name</th>
                                             <th>ID No</th>
                                             <th>Phone Number</th>
+                                            <th>Gender</th>
+                                            <th>Address</th>
                                             <th>Email</th>
-                                            <th>Manage Lec</th>
+                                            <th>Manage Student</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret =
-                                            'SELECT * FROM `iCollege_lecturers`';
+                                        $ret = 'SELECT * FROM `iCollege_students`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        while ($lec = $res->fetch_object()) { ?>
+                                        while ($student = $res->fetch_object()) { ?>
                                             <tr>
-                                                <td><?php echo $lec->number; ?></td>
-                                                <td><?php echo $lec->name; ?></td>
-                                                <td><?php echo $lec->idno; ?></td>
-                                                <td><?php echo $lec->phone; ?></td>
-                                                <td><?php echo $lec->email; ?></td>
+                                                <td><?php echo $student->admno; ?></td>
+                                                <td><?php echo $student->name; ?></td>
+                                                <td><?php echo $student->idno; ?></td>
+                                                <td><?php echo $student->phone; ?></td>
+                                                <td><?php echo $student->sex; ?></td>
+                                                <td><?php echo $student->adr; ?></td>
+                                                <td><?php echo $student->email; ?></td>
                                                 <td>
-                                                    <a href="#view-<?php echo $lec->id; ?>" data-toggle="modal" class="badge outline-badge-success">View</a>
-                                                    <!-- View Course Modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="view-<?php echo $lec->id; ?>" role="dialog">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h4 class="text-center">
-                                                                    </h4>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                <form method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Number</label>
-                                                            <input type="text" readonly required name="number" value="<?php echo $lec->number; ?>" class="form-control">
-                                                           
-                                                        </div>
-                                                       
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Name</label>
-                                                            <input type="text" readonly required name="name" readonly value="<?php echo $lec->name; ?>"class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer National ID Number</label>
-                                                            <input type="text" required name="idno" readonly value="<?php echo $lec->idno; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Phone Number</label>
-                                                            <input type="text" required name="phone" readonly value="<?php echo $lec->phone; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Email Address</label>
-                                                            <input type="text" required name="email" readonly value="<?php echo $lec->email; ?>"class="form-control">
-                                                        </div>
-                                                        
-                                                        
-                                                    </div>
-                                                </div>
-                                                </form> 
-                                            </div>
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <a href="#update-<?php echo $lec->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
-                                                    <!-- Button trigger modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $lec->id; ?>" role="dialog">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h4 class="text-center">
-                                                                    </h4>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
- <!-- Form -->
- <form method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                   
-                                                    
-                                                           
-                                                        <input type="text" hidden required name="id" value="<?php echo $lec->id; ?>" class="form-control">
-                                                       
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Name</label>
-                                                            <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer National ID Number</label>
-                                                            <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Phone Number</label>
-                                                            <input type="text" required name="phone" value="<?php echo $lec->phone; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Email Address</label>
-                                                            <input type="text" required name="email" value="<?php echo $lec->email; ?>" class="form-control">
-                                                        </div>
-                                                       
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="text-right">
-                                                    <button type="submit" name="update" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </form>
-                                                                </div>
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <a href="#delete-<?php echo $lec->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
+                                                    <a href="#view-<?php echo $student->id; ?>" data-toggle="modal" class="badge outline-badge-success">View</a>
+                                                    <!-- View Modal -->
+                                                    <a href="#update-<?php echo $student->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
+                                                    <!-- Update Modal -->
+                                                    <a href="#delete-<?php echo $student->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $lec->id; ?>" role="dialog">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body text-center text-danger">
-                                                                    <h4>Delete <?php echo $lec->name; ?>?</h4>
-                                                                    <br>
-                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                    <a href="lecturers.php?delete=<?php echo $lec->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+
                                                 </td>
                                             </tr>
                                         <?php }

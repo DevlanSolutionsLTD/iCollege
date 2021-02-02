@@ -400,8 +400,7 @@ require_once '../partials/head.php'; ?>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret =
-                                            'SELECT * FROM `iCollege_courses`';
+                                        $ret ='SELECT * FROM `iCollege_courses`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
