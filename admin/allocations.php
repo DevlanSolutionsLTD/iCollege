@@ -5,8 +5,8 @@ require_once '../config/checklogin.php';
 admin_check_login();
 require_once '../config/codeGen.php';
 
-/* Add Student Enrollment */
-if (isset($_POST['add_enrollment'])) {
+/* Add Allocations */
+if (isset($_POST['add_allocations'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
 
@@ -14,87 +14,70 @@ if (isset($_POST['add_enrollment'])) {
         $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
     } else {
         $error = 1;
-        $err = 'Enrollment ID Cannot Be Empty';
-    }
-
-    if (isset($_POST['std_regno']) && !empty($_POST['std_regno'])) {
-        $std_regno = mysqli_real_escape_string($mysqli, trim($_POST['std_regno']));
-    } else {
-        $error = 1;
-        $err = 'Student Admission Number Cannot Be Empty';
-    }
-
-    if (isset($_POST['std_name']) && !empty($_POST['std_name'])) {
-        $std_name = mysqli_real_escape_string($mysqli, trim($_POST['std_name']));
-    } else {
-        $error = 1;
-        $err = 'Student Name Cannot Be Empty';
+        $err = 'Allocations ID Cannot Be Empty';
     }
 
     if (isset($_POST['unit_code']) && !empty($_POST['unit_code'])) {
         $unit_code = mysqli_real_escape_string($mysqli, trim($_POST['unit_code']));
     } else {
         $error = 1;
-        $err = 'Enrolled Unit Code Cannot Be Empty';
+        $err = 'Allocated Unit Code Cannot Be Empty';
     }
 
     if (isset($_POST['unit_name']) && !empty($_POST['unit_name'])) {
         $unit_name = mysqli_real_escape_string($mysqli, trim($_POST['unit_name']));
     } else {
         $error = 1;
-        $err = 'Enrolled Unit Name Cannot Be Empty';
+        $err = 'Allocated Unit Name Cannot Be Empty';
     }
 
-    if (isset($_POST['semester_enrolled']) && !empty($_POST['semester_enrolled'])) {
-        $semester_enrolled = mysqli_real_escape_string($mysqli, trim($_POST['semester_enrolled']));
+    if (isset($_POST['lec_number']) && !empty($_POST['lec_number'])) {
+        $lec_number = mysqli_real_escape_string($mysqli, trim($_POST['lec_number']));
     } else {
         $error = 1;
-        $err = 'Semester Enrolled Cannot Be Empty';
+        $err = 'Allocated Lecturer Number Cannot Be Empty';
     }
 
-    if (isset($_POST['academic_year_enrolled']) && !empty($_POST['academic_year_enrolled'])) {
-        $academic_year_enrolled = mysqli_real_escape_string($mysqli, trim($_POST['academic_year_enrolled']));
+    if (isset($_POST['lec_name']) && !empty($_POST['lec_name'])) {
+        $lec_name = mysqli_real_escape_string($mysqli, trim($_POST['lec_name']));
     } else {
         $error = 1;
-        $err = 'Academic Year Enrolled Cannot Be Empty';
+        $err = 'Allocated Lecturer Name Cannot Be Empty';
     }
 
 
     if (!$error) {
         //prevent Double entries
-        $sql = "SELECT * FROM  iCollege_enrollments WHERE  std_regno='$std_regno' AND unit_code = '$unit_code' AND semester_enrolled = '$semester_enrolled' AND academic_year_enrolled = '$academic_year_enrolled' ";
+        $sql = "SELECT * FROM  iCollege_units_allocation WHERE  unit_code='$unit_code' AND lec_number = '$lec_number' ";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if (
-                $std_regno = $row['std_regno'] &&
                 $unit_code = $row['unit_code'] &&
-                $semester_enrolled = $row['semester_enrolled'] &&
-                $academic_year_enrolled = $row['academic_year_enrolled']
+                $lec_number = $row['lec_number']
 
             ) {
-                $err =  "$std_name Already Enrolled To $unit_name  ";
+                $err =  "$lec_name Already Assigned To $unit_name  ";
             } else {
-
             }
         } else {
 
-            $query = 'INSERT INTO iCollege_enrollments (id, std_name, std_regno, unit_code, unit_name, semester_enrolled, academic_year_enrolled) VALUES(?,?,?,?,?,?,?)';
+            $alloacated_at  = date('d M Y');
+            $query = 'INSERT INTO iCollege_units_allocation (id, unit_code, unit_name, lec_number, lec_name, date_allocated) VALUES(?,?,?,?,?,?)';
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param(
-                'sssssss',
+                'ssssss',
                 $id,
-                $std_name,
-                $std_regno,
                 $unit_code,
                 $unit_name,
-                $semester_enrolled,
-                $academic_year_enrolled
+                $lec_number,
+                $lec_name,
+                $alloacated_at
             );
             $stmt->execute();
             if ($stmt) {
                 $success =
-                    'Student Enrollment Added' && header('refresh:1; url=enrollments.php');
+                    'Lecturer Allocated Unit' && header('refresh:1; url=allocations.php');
             } else {
                 $info = 'Please Try Again Or Try Later';
             }
@@ -102,7 +85,9 @@ if (isset($_POST['add_enrollment'])) {
     }
 }
 
-/* Update Enrollment Will Bring Inconsistency In The Database  */
+/* Update Allocations Will Bring Inconsistency In The Database  */
+
+
 
 /* Delete Enrollment */
 
@@ -133,7 +118,7 @@ require_once '../partials/head.php';
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Enrollments</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Allocations</span></li>
                             </ol>
                         </nav>
 
@@ -184,25 +169,25 @@ require_once '../partials/head.php';
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Student Admission Number</label>
-                                                            <!-- Ajax To Get Student Details -->
-                                                            <select  onchange="getStudentDetails(this.value)" id="AdmissionNumber" name="std_regno" class="form-control">
-                                                            <option> Select Student Admission Number</option>
+                                                            <label for="">Lecturer Number</label>
+                                                            <!-- Ajax To Get Lec Details -->
+                                                            <select onchange="getLecDetails(this.value)" id="LecNumber" name="lec_number" class="form-control">
+                                                                <option> Select Lecturer Number</option>
                                                                 <?php
                                                                 $ret = 'SELECT * FROM `iCollege_students`';
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while ($std = $res->fetch_object()) { ?>
-                                                                    <option><?php echo $std->admno; ?></option>
+                                                                while ($lec = $res->fetch_object()) { ?>
+                                                                    <option><?php echo $lec->number; ?></option>
                                                                 <?php } ?>
                                                             </select>
                                                         </div>
                                                         <!-- Hide This -->
                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Student Name</label>
-                                                            <input type="text" readonly id="StudentName" required name="std_name" class="form-control">
+                                                            <label for="">Lecturer Name</label>
+                                                            <input type="text" readonly id="LecName" required name="lec_name" class="form-control">
                                                         </div>
 
                                                         <div class="form-group col-md-6">
@@ -224,17 +209,9 @@ require_once '../partials/head.php';
                                                             <input type="text" required id="UnitName" name="unit_name" class="form-control">
                                                         </div>
 
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Semester Enrolled</label>
-                                                            <input type="text" required name="semester_enrolled" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for=""> Academic Year Enrolled</label>
-                                                            <input type="text" required name="academic_year_enrolled" class="form-control">
-                                                        </div>
                                                     </div>
                                                     <div class="text-right">
-                                                        <button type="submit" name="add_enrollment" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" name="add_allocation" class="btn btn-primary">Submit</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -252,31 +229,29 @@ require_once '../partials/head.php';
                                 <table id="default-ordering" class="table" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Admn No</th>
-                                            <th>Name</th>
                                             <th>Unit Code</th>
                                             <th>Unit Name</th>
-                                            <th>Semester Enrolled</th>
-                                            <th>Academic Yr Enrolled</th>
-                                            <th>Manage Enrollments</th>
+                                            <th>Lec Number</th>
+                                            <th>Lec Name</th>
+                                            <th>Allocated On</th>
+                                            <th>Manage Allocations</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = 'SELECT * FROM `iCollege_enrollments`';
+                                        $ret = 'SELECT * FROM `iCollege_units_allocation`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        while ($enrollments = $res->fetch_object()) { ?>
+                                        while ($allocations = $res->fetch_object()) { ?>
                                             <tr>
-                                                <td><?php echo $enrollments->std_regno; ?></td>
-                                                <td><?php echo $enrollments->std_name; ?></td>
-                                                <td><?php echo $enrollments->unit_code; ?></td>
-                                                <td><?php echo $enrollments->unit_name; ?></td>
-                                                <td><?php echo $enrollments->semester_enrolled; ?></td>
-                                                <td><?php echo $enrollments->academic_year_enrolled; ?></td>
+                                                <td><?php echo $allocations->unit_code; ?></td>
+                                                <td><?php echo $allocations->unit_name; ?></td>
+                                                <td><?php echo $allocations->lec_number; ?></td>
+                                                <td><?php echo $allocations->lec_name; ?></td>
+                                                <td><?php echo $allocations->date_allocated; ?></td>
                                                 <td>
-                                                    <a href="#delete-<?php echo $enrollments->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
+                                                    <a href="#delete-<?php echo $allocations->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
 
                                                     <!-- End Modal -->
