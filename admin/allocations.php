@@ -90,6 +90,20 @@ if (isset($_POST['add_allocations'])) {
 
 
 /* Delete Enrollment */
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $adn = 'DELETE FROM iCollege_allocations WHERE id=?';
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $id);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = 'Removed permantly' && header('refresh:1; url=allocations.php');
+    } else {
+        //inject alert that task failed
+        $info = 'Please Try Again Or Try Later';
+    }
+}
 
 
 require_once '../partials/head.php';
@@ -253,7 +267,24 @@ require_once '../partials/head.php';
                                                 <td>
                                                     <a href="#delete-<?php echo $allocations->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
-
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $allocations->id; ?>" role="dialog">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-center text-danger">
+                                                                    <h4>Remove <?php echo $allocations->lec_name; ?>'s  allocation ? </h4>
+                                                                    <br>
+                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                    <a href="enrollments.php?delete=<?php echo $allocations->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <!-- End Modal -->
                                                 </td>
                                             </tr>
