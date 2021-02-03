@@ -202,15 +202,28 @@ require_once '../partials/head.php';
                                                     <div class="form-group col-md-6">
                                                         <label for="">Student Name</label>
                                                         <input type="text" readonly id="StudentName" required name="std_name" class="form-control">
-                                                    </div>
+                                                        <!-- Hide this -->
+                                                        <input type="hidden" required name="student_course" id="StudentCourse" class="form-control">
 
+                                                    </div>
+                                                    
                                                     <div class="form-group col-md-6">
                                                         <label for="">Unit Code</label>
-                                                        <input type="text" required name="unit_code" class="form-control">
+                                                        <select name="unit_code" onchange="getUnitDetails(this.value)" id="UnitCode" class="form-control">
+                                                            <?php
+                                                            $student_course = $_POST['student_course'];
+                                                            $ret = "SELECT * FROM `iCollege_units` WHERE course_name = '$student_course' ";
+                                                            $stmt = $mysqli->prepare($ret);
+                                                            $stmt->execute(); //ok
+                                                            $res = $stmt->get_result();
+                                                            while ($units = $res->fetch_object()) { ?>
+                                                                <option><?php echo $units->code; ?></option>
+                                                            <?php } ?>
+                                                        </select>
                                                     </div>
                                                     <div class="form-group col-md-6">
                                                         <label for="">Unit Name</label>
-                                                        <input type="text" required name="unit_name" class="form-control">
+                                                        <input type="text" required id="UnitName" name="unit_name" class="form-control">
                                                     </div>
 
                                                     <div class="form-group col-md-6">
@@ -223,7 +236,7 @@ require_once '../partials/head.php';
                                                     </div>
                                                 </div>
                                                 <div class="text-right">
-                                                    <button type="submit" name="add_student" class="btn btn-primary">Submit</button>
+                                                    <button type="submit" name="add_enrollment" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
