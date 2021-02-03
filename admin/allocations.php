@@ -147,7 +147,7 @@ require_once '../partials/head.php';
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
                             <div class="text-right">
-                                <button data-toggle="modal" data-target="#add_enrollment" class="btn btn-outline-secondary mb-2">Add Enrollment</button>
+                                <button data-toggle="modal" data-target="#add_enrollment" class="btn btn-outline-secondary mb-2">Add Allocations</button>
                             </div>
                             <hr>
 
@@ -211,7 +211,7 @@ require_once '../partials/head.php';
 
                                                     </div>
                                                     <div class="text-right">
-                                                        <button type="submit" name="add_allocation" class="btn btn-primary">Submit</button>
+                                                        <button type="submit" name="add_allocations" class="btn btn-primary">Submit</button>
                                                     </div>
                                                 </div>
                                             </form>
