@@ -70,3 +70,56 @@
 <!-- Sweet Alerts -->
 <script src="../public/plugins/sweetalerts/sweetalert2.min.js"></script>
 <script src="../public/plugins/sweetalerts/custom-sweetalert.js"></script>
+<!-- Ajax -->
+<script>
+    /* Room Details Asyc */
+    function getStudentDetails(val) {
+        $.ajax({
+
+            type: "POST",
+            url: "../partials/ajax.php",
+            data: 'AdmissionNumber=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#StudentName').val(data);
+            }
+        });
+
+        $.ajax({
+
+            type: "POST",
+            url: "../partials/ajax.php",
+            data: 'StudentName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#StudentCourse').val(data);
+            }
+        });
+    }
+
+    function getUnitDetails(val) {
+        $.ajax({
+
+            type: "POST",
+            url: "../partials/ajax.php",
+            data: 'UnitCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#UnitName').val(data);
+            }
+        });
+    }
+
+    function getLecDetails(val) {
+        $.ajax({
+
+            type: "POST",
+            url: "../partials/ajax.php",
+            data: 'LecNumber=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#LecName').val(data);
+            }
+        });
+    }
+</script>
