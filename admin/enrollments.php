@@ -18,7 +18,7 @@ if (isset($_POST['add_enrollment'])) {
     }
 
     if (isset($_POST['std_regno']) && !empty($_POST['std_regno'])) {
-        $std_regno = mysqli_real_escape_string($mysqli, trim($_POST['admno']));
+        $std_regno = mysqli_real_escape_string($mysqli, trim($_POST['std_regno']));
     } else {
         $error = 1;
         $err = 'Student Admission Number Cannot Be Empty';
@@ -70,11 +70,12 @@ if (isset($_POST['add_enrollment'])) {
                 $std_regno = $row['std_regno'] &&
                 $unit_code = $row['unit_code'] &&
                 $semester_enrolled = $row['semester_enrolled'] &&
-                $academic_year_enrolled = $row['academic_year_ennrolled']
+                $academic_year_enrolled = $row['academic_year_enrolled']
 
             ) {
                 $err =  "$std_name Already Enrolled To $unit_name  ";
             } else {
+
             }
         } else {
 
@@ -166,7 +167,7 @@ require_once '../partials/head.php';
                             <hr>
 
                             <!-- Add  Modal -->
-                            <div class="modal animated zoomInUp custo-zoomInUp" id="add_student" role="dialog">
+                            <div class="modal animated zoomInUp custo-zoomInUp" id="add_enrollment" role="dialog">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -185,7 +186,8 @@ require_once '../partials/head.php';
                                                         <div class="form-group col-md-6">
                                                             <label for="">Student Admission Number</label>
                                                             <!-- Ajax To Get Student Details -->
-                                                            <select name="std_regno" onchange="getStudentDetails(this.value)" id="AdmissionNumber" class="form-control">
+                                                            <select  onchange="getStudentDetails(this.value)" id="AdmissionNumber" name="std_regno" class="form-control">
+                                                            <option> Select Student Admission Number</option>
                                                                 <?php
                                                                 $ret = 'SELECT * FROM `iCollege_students`';
                                                                 $stmt = $mysqli->prepare($ret);
@@ -198,45 +200,42 @@ require_once '../partials/head.php';
                                                         </div>
                                                         <!-- Hide This -->
                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="">Student Name</label>
-                                                        <input type="text" readonly id="StudentName" required name="std_name" class="form-control">
-                                                        <!-- Hide this -->
-                                                        <input type="hidden" required name="student_course" id="StudentCourse" class="form-control">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Student Name</label>
+                                                            <input type="text" readonly id="StudentName" required name="std_name" class="form-control">
+                                                        </div>
 
-                                                    </div>
-                                                    
-                                                    <div class="form-group col-md-6">
-                                                        <label for="">Unit Code</label>
-                                                        <select name="unit_code" onchange="getUnitDetails(this.value)" id="UnitCode" class="form-control">
-                                                            <?php
-                                                            $student_course = $_POST['student_course'];
-                                                            $ret = "SELECT * FROM `iCollege_units` WHERE course_name = '$student_course' ";
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            while ($units = $res->fetch_object()) { ?>
-                                                                <option><?php echo $units->code; ?></option>
-                                                            <?php } ?>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for="">Unit Name</label>
-                                                        <input type="text" required id="UnitName" name="unit_name" class="form-control">
-                                                    </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Unit Code</label>
+                                                            <select name="unit_code" onchange="getUnitDetails(this.value)" id="UnitCode" class="form-control">
+                                                                <option>Select Unit Code</option>
+                                                                <?php
+                                                                $ret = "SELECT * FROM `iCollege_units` ";
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($units = $res->fetch_object()) { ?>
+                                                                    <option><?php echo $units->code; ?></option>
+                                                                <?php } ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Unit Name</label>
+                                                            <input type="text" required id="UnitName" name="unit_name" class="form-control">
+                                                        </div>
 
-                                                    <div class="form-group col-md-6">
-                                                        <label for="">Semester Enrolled</label>
-                                                        <input type="text" required name="semester_enrolled" class="form-control">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Semester Enrolled</label>
+                                                            <input type="text" required name="semester_enrolled" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for=""> Academic Year Enrolled</label>
+                                                            <input type="text" required name="academic_year_enrolled" class="form-control">
+                                                        </div>
                                                     </div>
-                                                    <div class="form-group col-md-6">
-                                                        <label for=""> Academic Year Enrolled</label>
-                                                        <input type="text" required name="academic_year_enrolled" class="form-control">
+                                                    <div class="text-right">
+                                                        <button type="submit" name="add_enrollment" class="btn btn-primary">Submit</button>
                                                     </div>
-                                                </div>
-                                                <div class="text-right">
-                                                    <button type="submit" name="add_enrollment" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -253,7 +252,7 @@ require_once '../partials/head.php';
                                 <table id="default-ordering" class="table" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Admn Number</th>
+                                            <th>Admn No</th>
                                             <th>Name</th>
                                             <th>Unit Code</th>
                                             <th>Unit Name</th>
@@ -275,7 +274,7 @@ require_once '../partials/head.php';
                                                 <td><?php echo $enrollments->unit_code; ?></td>
                                                 <td><?php echo $enrollments->unit_name; ?></td>
                                                 <td><?php echo $enrollments->semester_enrolled; ?></td>
-                                                <td><?php echo $enrollments->academic_year_ennrolled; ?></td>
+                                                <td><?php echo $enrollments->academic_year_enrolled; ?></td>
                                                 <td>
                                                     <a href="#delete-<?php echo $enrollments->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->

@@ -95,18 +95,18 @@
                 $('#StudentCourse').val(data);
             }
         });
+    }
 
-        function getUnitDetails(val) {
-            $.ajax({
+    function getUnitDetails(val) {
+        $.ajax({
 
-                type: "POST",
-                url: "../partials/ajax.php",
-                data: 'UnitCode=' + val,
-                success: function(data) {
-                    //alert(data);
-                    $('#UnitName').val(data);
-                }
-            });
-        }
+            type: "POST",
+            url: "../partials/ajax.php",
+            data: 'UnitCode=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#UnitName').val(data);
+            }
+        });
     }
 </script>
