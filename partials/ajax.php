@@ -28,3 +28,17 @@ if (!empty($_POST["UnitCode"])) {
 <?php
     }
 }
+
+/* Lec Details */
+if (!empty($_POST["LecNumber"])) {
+    $id = $_POST['LecNumber'];
+    $stmt = $DB_con->prepare("SELECT * FROM iCollege_lecturers WHERE number = :id ");
+    $stmt->execute(array(':id' => $id));
+?>
+<?php
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+?>
+<?php echo htmlentities($row['name']); ?>
+<?php
+    }
+}

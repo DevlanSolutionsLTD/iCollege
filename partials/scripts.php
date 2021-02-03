@@ -109,4 +109,17 @@
             }
         });
     }
+
+    function getLecDetails(val) {
+        $.ajax({
+
+            type: "POST",
+            url: "../partials/ajax.php",
+            data: 'LecNumber=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#LecName').val(data);
+            }
+        });
+    }
 </script>

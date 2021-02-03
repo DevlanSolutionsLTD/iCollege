@@ -174,7 +174,7 @@ require_once '../partials/head.php';
                                                             <select onchange="getLecDetails(this.value)" id="LecNumber" name="lec_number" class="form-control">
                                                                 <option> Select Lecturer Number</option>
                                                                 <?php
-                                                                $ret = 'SELECT * FROM `iCollege_students`';
+                                                                $ret = 'SELECT * FROM `iCollege_lecturers`';
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
