@@ -6,7 +6,7 @@ admin_check_login();
 require_once '../config/codeGen.php';
 
 /* Add Time Table */
-if (isset($_POST['add_timetsble'])) {
+if (isset($_POST['Add_TimeTable'])) {
     //Error Handling and prevention of posting double entries
     $error = 0;
 
@@ -192,7 +192,7 @@ if (isset($_POST['upload'])) {
 
             ) {
                 $query =
-                    'INSERT INTO iCollege_timetables (id, course_name, unit_code, unit_name, lec_name, day, time, room) VALUES(?,?,?,?,?,?,?,?)';
+                    'INSERT INTO iCollege_timetable (id, course_name, unit_code, unit_name, lec_name, day, time, room) VALUES(?,?,?,?,?,?,?,?)';
                 $paramType = 'ssssssss';
                 $paramArray = [
                     $id,
@@ -281,18 +281,18 @@ require_once '../partials/head.php';
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
                             <div class="text-right">
-                                <button data-toggle="modal" data-target="#import_modal" class="btn btn-outline-primary mb-2">Import Classes </button>
-                                <button data-toggle="modal" data-target="#add_modal" class="btn btn-outline-secondary mb-2">Add Class To TimeTable</button>
+                                <button data-toggle="modal" data-target="#import" class="btn btn-outline-primary mb-2">Import Classes </button>
+                                <button data-toggle="modal" data-target="#add" class="btn btn-outline-secondary mb-2">Add Class To TimeTable</button>
                             </div>
                             <hr>
                             <!-- Import Modals -->
-                            <div class="modal animated zoomInUp custo-zoomInUp" id="import_modal" role="dialog">
+                            <div class="modal animated zoomInUp custo-zoomInUp" id="import" role="dialog">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h4 class="text-center">
                                                 Allowed file types: XLS, XLSX.
-                                                <a class="text-primary" target="_blank" href="../public/templates/Students.xlsx">Download</a> A Sample File.
+                                                <a class="text-primary" target="_blank" href="../public/templates/TimeTable.xlsx">Download</a> A Sample File.
                                             </h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -328,7 +328,7 @@ require_once '../partials/head.php';
                             <!-- End Import Modal -->
 
                             <!-- Add  Modal -->
-                            <div class="modal animated zoomInUp custo-zoomInUp" id="add_modal" role="dialog">
+                            <div class="modal animated zoomInUp custo-zoomInUp" id="add" role="dialog">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -361,57 +361,68 @@ require_once '../partials/head.php';
                                                         </div>
                                                         <!-- Hide This -->
                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Unit Name</label>
+                                                            <input type="text" required name="unit_name" id="UnitName" class="form-control">
+                                                        </div>
+
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Course Name</label>
+                                                            <select name="course_name" class="form-control">
+                                                                <option>Select Course</option>
+                                                                <?php
+                                                                $ret = 'SELECT * FROM `iCollege_courses`';
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($course = $res->fetch_object()) { ?>
+                                                                    <option><?php echo $course->name; ?></option>
+                                                                <?php }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Lecturer Name</label>
+                                                            <select name="lec_name" class="form-control">
+                                                                <option>Select Lecturer Name</option>
+                                                                <?php
+                                                                $ret = 'SELECT * FROM `iCollege_lecturers`';
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($lec = $res->fetch_object()) { ?>
+                                                                    <option><?php echo $lec->name; ?></option>
+                                                                <?php }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Day</label>
+                                                            <select name="day" class="form-control">
+                                                                <option>Monday</option>
+                                                                <option>Tuesday</option>
+                                                                <option>Wednesday</option>
+                                                                <option>Thursday</option>
+                                                                <option>Friday</option>
+                                                                <option>Saturday</option>
+                                                                <option>Sunday</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Time</label>
+                                                            <input type="text" required name="time" class="form-control">
+                                                        </div>
+
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Room</label>
+                                                            <input type="text" required name="room" class="form-control">
+                                                        </div>
                                                     </div>
 
-                                                    <div class="form-group col-md-6">
-                                                        <label for="">Unit Name</label>
-                                                        <input type="text" required name="unit_name" id="UnitName" class="form-control">
+                                                    <div class="text-right">
+                                                        <button type="submit" name="Add_TimeTable" class="btn btn-primary">Submit</button>
                                                     </div>
-
-                                                    <div class="form-group col-md-6">
-                                                        <label for="">Course Name</label>
-                                                        <input type="text" required name="course_name" id="CourseName" class="form-control">
-                                                    </div>
-                                                    <div class="form-group col-md-12">
-                                                        <label for="">Lecturer Name</label>
-                                                        <select name="lec_name" class="form-control">
-                                                            <option>Select Lecturer Name</option>
-                                                            <?php
-                                                            $ret = 'SELECT * FROM `iCollege_lecturers`';
-                                                            $stmt = $mysqli->prepare($ret);
-                                                            $stmt->execute(); //ok
-                                                            $res = $stmt->get_result();
-                                                            while ($lec = $res->fetch_object()) { ?>
-                                                                <option><?php echo $lec->name; ?></option>
-                                                            <?php }
-                                                            ?>
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label for="">Day</label>
-                                                        <select name="day" class="form-control">
-                                                            <option>Monday</option>
-                                                            <option>Tuesday</option>
-                                                            <option>Wednesday</option>
-                                                            <option>Thursday</option>
-                                                            <option>Friday</option>
-                                                            <option>Saturday</option>
-                                                            <option>Sunday</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-4">
-                                                        <label for="">Time</label>
-                                                        <input type="text" required name="time" class="form-control">
-                                                    </div>
-
-                                                    <div class="form-group col-md-4">
-                                                        <label for="">Room</label>
-                                                        <input type="text" required name="room" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="text-right">
-                                                    <button type="submit" name="Add_TimeTable" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>
                                         </div>
@@ -440,7 +451,7 @@ require_once '../partials/head.php';
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = 'SELECT * FROM `iCollege_timetables`';
+                                        $ret = 'SELECT * FROM `iCollege_timetable`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -454,7 +465,7 @@ require_once '../partials/head.php';
                                                 <td><?php echo $tt->time; ?></td>
                                                 <td><?php echo $tt->room; ?></td>
                                                 <td>
-                                                    <a href="#update-<?php echo $tt->id; ?>" data-toggle="modal" class="badge outline-badge-success">Delete</a>
+                                                    <a href="#update-<?php echo $tt->id; ?>" data-toggle="modal" class="badge outline-badge-success">Update</a>
                                                     <a href="#delete-<?php echo $tt->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                 </td>
                                             </tr>
