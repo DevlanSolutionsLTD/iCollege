@@ -518,7 +518,7 @@ require_once '../partials/head.php';
                                                             </select>
                                                         </div>
 
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-6">
                                                             <label for="">Day</label>
                                                             <select name="day" class="form-control">
                                                                 <option>Monday</option>
@@ -589,75 +589,75 @@ require_once '../partials/head.php';
                                                 <td>
                                                     <a href="#update-<?php echo $tt->id; ?>" data-toggle="modal" class="badge outline-badge-success">Update</a>
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $tt->id; ?>" role="dialog">
-                                <div class="modal-dialog modal-xl" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="text-center">
-                                                Update <?php echo $tt->unit_name; ?> on timetable
-                                            </h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Form -->
-                                            <form method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        
-                                                        <!-- Hide This -->
-                                                        <input type="hidden" required name="id" value="<?php echo $tt->id; ?>" class="form-control">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Unit Name</label>
-                                                            <input type="text" required name="unit_name" value ="<?php echo $tt->unit_name; ?>" id="UnitName" class="form-control">
-                                                        </div>
+                                                        <div class="modal-dialog modal-xl" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="text-center">
+                                                                        Update <?php echo $tt->unit_name; ?> on timetable
+                                                                    </h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <!-- Form -->
+                                                                    <form method="post" enctype="multipart/form-data">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
 
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Course Name</label>
-                                                            <input type="text" required name="course_name" value ="<?php echo $tt->course_name; ?>" id="CouseName" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Name</label>
-                                                            <input type="text" required name="lec_name" value ="<?php echo $tt->lec_name; ?>" id="CouseName" class="form-control"> 
-                                                        </div>
+                                                                                <!-- Hide This -->
+                                                                                <input type="hidden" required name="id" value="<?php echo $tt->id; ?>" class="form-control">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Unit Name</label>
+                                                                                    <input type="text" required name="unit_name" value="<?php echo $tt->unit_name; ?>" id="UnitName" class="form-control">
+                                                                                </div>
 
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Day</label>
-                                                            <select name="day" class="form-control">
-                                                                <option selected><?php echo $tt->day; ?></option>
-                                                                <option>Monday</option>
-                                                                <option>Tuesday</option>
-                                                                <option>Wednesday</option>
-                                                                <option>Thursday</option>
-                                                                <option>Friday</option>
-                                                                <option>Saturday</option>
-                                                                <option>Sunday</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Time</label>
-                                                            <input type="text" required name="time" value ="<?php echo $tt->time; ?>"  class="form-control">
-                                                        </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Course Name</label>
+                                                                                    <input type="text" required name="course_name" value="<?php echo $tt->course_name; ?>" id="CouseName" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Lecturer Name</label>
+                                                                                    <input type="text" required name="lec_name" value="<?php echo $tt->lec_name; ?>" id="CouseName" class="form-control">
+                                                                                </div>
 
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Room</label>
-                                                            <input type="text" required name="room" value ="<?php echo $tt->room; ?>" class="form-control">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Day</label>
+                                                                                    <select name="day" class="form-control">
+                                                                                        <option selected><?php echo $tt->day; ?></option>
+                                                                                        <option>Monday</option>
+                                                                                        <option>Tuesday</option>
+                                                                                        <option>Wednesday</option>
+                                                                                        <option>Thursday</option>
+                                                                                        <option>Friday</option>
+                                                                                        <option>Saturday</option>
+                                                                                        <option>Sunday</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Time</label>
+                                                                                    <input type="text" required name="time" value="<?php echo $tt->time; ?>" class="form-control">
+                                                                                </div>
+
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Room</label>
+                                                                                    <input type="text" required name="room" value="<?php echo $tt->room; ?>" class="form-control">
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="text-right">
+                                                                                <button type="submit" name="update" class="btn btn-primary">Save changes</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-
-                                                    <div class="text-right">
-                                                        <button type="submit" name="update" class="btn btn-primary">Save changes</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                                                     <a href="#delete-<?php echo $tt->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Remove</a>
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $tt->id; ?>" role="dialog">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -669,7 +669,7 @@ require_once '../partials/head.php';
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body text-center text-danger">
-                                                                    <h4>Remove  <?php echo $tt->unit_name; ?> from timetable ?</h4>
+                                                                    <h4>Remove <?php echo $tt->unit_name; ?> from timetable ?</h4>
                                                                     <br>
                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                     <a href="timetables.php?delete=<?php echo $tt->id; ?>" class="text-center btn btn-danger">Remove</a>
