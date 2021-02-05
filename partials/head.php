@@ -29,6 +29,10 @@
     <!-- Data Tables -->
     <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/datatables.css">
     <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="../public/plugins/datatable/custom_dt_html5.css">
+    <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/custom_dt_html5.css">
+    <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/dt-global_style.css">
     <!-- Animate -->
     <link href="../public/plugins/animate/animate.css" rel="stylesheet" type="text/css" />
     <!-- CustomModals -->
