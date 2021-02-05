@@ -61,9 +61,6 @@
                 </a>
                 <ul class="collapse submenu list-unstyled" id="finances" data-parent="#accordionExample">
                     <li>
-                        <a href="fee_structures.php"> Fee Structures </a>
-                    </li>
-                    <li>
                         <a href="fee_payments.php"> Fee Payments </a>
                     </li>
                     <li>
