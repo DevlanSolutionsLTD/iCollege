@@ -101,7 +101,7 @@ require_once '../partials/head.php';
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <div class="card">
+                                                                    <div class="card" id="PrintExamCard">
                                                                         <div class="card-header text-center">
                                                                             <?php echo $enrollments->std_regno; ?> <?php echo $enrollments->std_name; ?> <?php echo $enrollments->unit_name; ?> Exam Card
                                                                         </div>
@@ -120,6 +120,7 @@ require_once '../partials/head.php';
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                    <button id="print" onclick="printContent('PrintExamCard');" type="button" class="btn btn-primary">Print</button>
                                                                 </div>
                                                             </div>
                                                         </div>
