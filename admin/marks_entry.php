@@ -318,51 +318,37 @@ require_once '../partials/head.php';
                                 <table id="default-ordering" class="table" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Admn No</th>
-                                            <th>Name</th>
+                                            <th>Course</th>
                                             <th>Unit Code</th>
                                             <th>Unit Name</th>
-                                            <th>Semester Enrolled</th>
-                                            <th>Academic Yr Enrolled</th>
-                                            <th>Manage Enrollments</th>
+                                            <th>Admno</th>
+                                            <th>Name</th>
+                                            <th>Semester</th>
+                                            <th>Academic Year</th>
+                                            <th>Marks Scored</th>
+                                            <th>Manage Marks</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = 'SELECT * FROM `iCollege_enrollments`';
+                                        $ret = 'SELECT * FROM `iCollege_exammarks`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        while ($enrollments = $res->fetch_object()) { ?>
+                                        while ($marks = $res->fetch_object()) { ?>
                                             <tr>
-                                                <td><?php echo $enrollments->std_regno; ?></td>
-                                                <td><?php echo $enrollments->std_name; ?></td>
-                                                <td><?php echo $enrollments->unit_code; ?></td>
-                                                <td><?php echo $enrollments->unit_name; ?></td>
-                                                <td><?php echo $enrollments->semester_enrolled; ?></td>
-                                                <td><?php echo $enrollments->academic_year_enrolled; ?></td>
+                                                <td><?php echo $marks->course_name; ?></td>
+                                                <td><?php echo $marks->unit_code; ?></td>
+                                                <td><?php echo $marks->unit_name; ?></td>
+                                                <td><?php echo $marks->std_regno; ?></td>
+                                                <td><?php echo $marks->std_name; ?></td>
+                                                <td><?php echo $marks->semester_enrolled; ?></td>
+                                                <td><?php echo $marks->academic_year; ?></td>
+                                                <td><?php echo $marks->marks; ?></td>
                                                 <td>
-                                                    <a href="#delete-<?php echo $enrollments->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
-                                                    <!-- Delete Modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $enrollments->id; ?>" role="dialog">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body text-center text-danger">
-                                                                    <h4>Delete <?php echo $enrollments->std_name; ?>'s enrollment ? </h4>
-                                                                    <br>
-                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                    <a href="enrollments.php?delete=<?php echo $enrollments->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Modal -->
+                                                    <!-- Actions
+                                                 Ie Delete And Update Only Update Semester Enrolled, Academic Year Enrolled, Unit Name, Unit Code and Marks
+                                                  -->
                                                 </td>
                                             </tr>
                                         <?php }
