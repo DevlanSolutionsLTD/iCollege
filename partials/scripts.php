@@ -164,4 +164,27 @@
             }
         });
     }
+
+    function getCourseDetails(val) {
+        $.ajax({
+
+            type: "POST",
+            url: "../partials/ajax.php",
+            data: 'CourseName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseId').val(data);
+            }
+        });
+    }
+</script>
+<!-- Print Contents Inside A Div -->
+<script>
+    function printContent(el) {
+        var restorepage = $('body').html();
+        var printcontent = $('#' + el).clone();
+        $('body').empty().html(printcontent);
+        window.print();
+        $('body').html(restorepage);
+    }
 </script>

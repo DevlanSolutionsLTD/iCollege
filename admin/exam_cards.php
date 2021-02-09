@@ -88,21 +88,39 @@ require_once '../partials/head.php';
                                                 <td><?php echo $enrollments->academic_year_enrolled; ?></td>
                                                 <td>
                                                     <a href="#generate-<?php echo $enrollments->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Generate Exam Card</a>
-                                                    <!-- Delete Modal -->
+                                                    <!-- Exam Card Generation Modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="generate-<?php echo $enrollments->id; ?>" role="dialog">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                    <h4 class="text-center">
+                                                                        Single Unit Enrollment Exam Card
+                                                                    </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
-                                                                <div class="modal-body text-center text-danger">
-                                                                    <h4>Delete <?php echo $enrollments->std_name; ?>'s enrollment ? </h4>
-                                                                    <br>
-                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                    <a href="enrollments.php?delete=<?php echo $enrollments->id; ?>" class="text-center btn btn-danger"> Delete </a>
+                                                                <div class="modal-body">
+                                                                    <div class="card" id="PrintExamCard">
+                                                                        <div class="card-header text-center">
+                                                                            <?php echo $enrollments->std_regno; ?> <?php echo $enrollments->std_name; ?> <?php echo $enrollments->unit_name; ?> Exam Card
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <h5 class="card-title"><?php echo $enrollments->unit_code; ?> <?php echo $enrollments->unit_name; ?></h5>
+                                                                            <p class="card-text">
+                                                                                <?php echo $enrollments->std_regno; ?> <?php echo $enrollments->std_name; ?> Has Successfully Registered And Undertaken All Coursework On
+                                                                                <?php echo $enrollments->unit_code; ?> <?php echo $enrollments->unit_name; ?>.
+                                                                            </p>
+                                                                        </div>
+                                                                        <div class="card-footer">
+                                                                            <small class="text-muted">Generated On <?php echo date('d M Y g:ia'); ?></small>
+                                                                            <br>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                    <button id="print" onclick="printContent('PrintExamCard');" type="button" class="btn btn-primary">Print</button>
                                                                 </div>
                                                             </div>
                                                         </div>
