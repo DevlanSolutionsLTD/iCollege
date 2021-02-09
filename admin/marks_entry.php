@@ -115,12 +115,12 @@ if (isset($_POST['add_marks'])) {
             $row = mysqli_fetch_assoc($res);
             if (
                 $std_regno =
-                    $row['std_regno'] &&
-                    ($unit_code =
-                        $row['unit_code'] &&
-                        ($semester_enrolled =
-                            $row['semester_enrolled'] &&
-                            ($academic_year = $row['academic_year'])))
+                $row['std_regno'] &&
+                ($unit_code =
+                    $row['unit_code'] &&
+                    ($semester_enrolled =
+                        $row['semester_enrolled'] &&
+                        ($academic_year = $row['academic_year'])))
             ) {
                 $err = "$std_name  Marks For  $unit_name Already Added  ";
             } else {
@@ -165,7 +165,7 @@ if (isset($_POST['update'])) {
         $err = 'ID Cannot Be Empty';
     }
 
- if (isset($_POST['unit_code']) && !empty($_POST['unit_code'])) {
+    if (isset($_POST['unit_code']) && !empty($_POST['unit_code'])) {
         $unit_code = mysqli_real_escape_string(
             $mysqli,
             trim($_POST['unit_code'])
@@ -185,7 +185,7 @@ if (isset($_POST['update'])) {
         $err = 'Enrolled Unit Name Cannot Be Empty';
     }
 
-  if (
+    if (
         isset($_POST['semester_enrolled']) &&
         !empty($_POST['semester_enrolled'])
     ) {
@@ -505,14 +505,14 @@ require_once '../partials/head.php';
                                                 <td>
                                                     <!-- Actions
                                                  Ie Delete And Update Only Update Semester Enrolled, Academic Year Enrolled, Unit Name, Unit Code and Marks-->
-                                                  <a href="#update-<?php echo $marks->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
+                                                    <a href="#update-<?php echo $marks->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
                                                     <!-- Button trigger modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $marks->id; ?>" role="dialog">
                                                         <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-                                                                    <?php echo $marks->std_name; ?>'s marks for <?php echo $marks->unit_name; ?>
+                                                                        <?php echo $marks->std_name; ?>'s marks for <?php echo $marks->unit_name; ?>
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
@@ -520,29 +520,29 @@ require_once '../partials/head.php';
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <form method="post" enctype="multipart/form-data">
-                                                                             <!-- Course ID -->
-                                                                  <input type="hidden" required name="id" id="Id"value ="<?php echo $marks->id; ?>" class="form-control">
+                                                                        <!-- Course ID -->
+                                                                        <input type="hidden" required name="id" id="Id" value="<?php echo $marks->id; ?>" class="form-control">
 
-                                                                   <div class="form-group col-md-12">
-                                                                      <label for="">Unit code</label>
-                                                                      <input type="text" required name="unit_code" id="UnitName" value ="<?php echo $marks->unit_code; ?>" class="form-control">
-                                                                       </div>
-                                                                       <div class="form-group col-md-12">
-                                                                      <label for="">Unit name</label>
-                                                                      <input type="text" required name="unit_name" id="UnitName"value ="<?php echo $marks->unit_name; ?>" class="form-control">
-                                                                       </div>
-                                                                       <div class="form-group col-md-12">
-                                                                           <label for="">Semester Enrolled</label>
-                                                                           <input type="text" required name="semester_enrolled" id="semester_enrolled" value ="<?php echo $marks->semester_enrolled; ?>" class="form-control">
-                                                                           </div>
-                                                                           <div class="form-group col-md-12">
-                                                                           <label for="">Academic Year</label>
-                                                                           <input type="text" required name="academic_year" id="academic_year" value ="<?php echo $marks->academic_year; ?>" class="form-control">
-                                                                           </div>  
-                                                                           <div class="form-group col-md-12">
-                                                                           <label for="">Marks</label>
-                                                                           <input type="text" required name="marks" id="marks" value ="<?php echo $marks->marks; ?>" class="form-control">
-                                                                           </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">Unit code</label>
+                                                                            <input type="text" required name="unit_code" id="UnitName" value="<?php echo $marks->unit_code; ?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">Unit name</label>
+                                                                            <input type="text" required name="unit_name" id="UnitName" value="<?php echo $marks->unit_name; ?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">Semester Enrolled</label>
+                                                                            <input type="text" required name="semester_enrolled" id="semester_enrolled" value="<?php echo $marks->semester_enrolled; ?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">Academic Year</label>
+                                                                            <input type="text" required name="academic_year" id="academic_year" value="<?php echo $marks->academic_year; ?>" class="form-control">
+                                                                        </div>
+                                                                        <div class="form-group col-md-12">
+                                                                            <label for="">Marks</label>
+                                                                            <input type="text" required name="marks" id="marks" value="<?php echo $marks->marks; ?>" class="form-control">
+                                                                        </div>
                                                                         <div class="text-right">
                                                                             <button type="submit" name="update" class="btn btn-primary">Update</button>
                                                                         </div>
@@ -579,7 +579,7 @@ require_once '../partials/head.php';
                                                             </div>
                                                         </div>
                                                     </div>
-                                                  
+
                                                 </td>
                                             </tr>
                                         <?php }
