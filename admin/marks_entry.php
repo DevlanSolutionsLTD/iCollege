@@ -239,6 +239,20 @@ if (isset($_POST['update'])) {
 }
 
 /* Delete Marks Entry */
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $adn = 'DELETE FROM iCollege_exammarks WHERE id=?';
+    $stmt = $mysqli->prepare($adn);
+    $stmt->bind_param('s', $id);
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success = 'Removed permantly' && header('refresh:1; url=marks_entry.php');
+    } else {
+        //inject alert that task failed
+        $info = 'Please Try Again Or Try Later';
+    }
+}
 
 require_once '../partials/head.php';
 ?>
@@ -557,7 +571,7 @@ require_once '../partials/head.php';
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body text-center text-danger">
-                                                                    <h4>Delete <?php echo $marks->id; ?>?</h4>
+                                                                    <h4>Delete <?php echo $marks->std_name; ?>'s marks of <?php echo $marks->unit_name; ?>?</h4>
                                                                     <br>
                                                                     <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
                                                                     <a href="marks_entry.php?delete=<?php echo $marks->id; ?>" class="text-center btn btn-danger"> Delete </a>
