@@ -235,9 +235,9 @@ if (isset($_POST['add_payment'])) {
         }
     }
 }
-if(isset($_POST['update'])) {
+if (isset($_POST['update'])) {
     $error = 0;
-  if (isset($_POST['id']) && !empty($_POST['id'])) {
+    if (isset($_POST['id']) && !empty($_POST['id'])) {
         $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
     } else {
         $error = 1;
@@ -284,11 +284,11 @@ if(isset($_POST['update'])) {
         $err = 'Payment Code Cannot Be Empty';
     }
 
-    
+
 
     if (!$error) {
         $query =
-        'UPDATE iCollege_fees_payments  SET  amt_billed =? ,amt_paid =? ,payment_means =? , payment_code =? WHERE id =?';
+            'UPDATE iCollege_fees_payments  SET  amt_billed =? ,amt_paid =? ,payment_means =? , payment_code =? WHERE id =?';
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param(
             'sssss',
@@ -314,9 +314,9 @@ if (isset($_GET['delete'])) {
     $adn = 'DELETE FROM iCollege_fees_payments WHERE id=?';
     $stmt = $conn->prepare($adn);
     $stmt->bind_param(
-        's', 
-         $id
-                      );
+        's',
+        $id
+    );
     $stmt->execute();
     $stmt->close();
     if ($stmt) {
@@ -514,7 +514,7 @@ require_once '../partials/head.php';
                                 </div>
                             </div>
                             <!-- End Course Modal -->
-                           
+
                             <!-- End Course Modal -->
 
                             <div class="table-responsive mb-4 mt-4">
@@ -552,71 +552,71 @@ require_once '../partials/head.php';
                                                 <td>
                                                     <a href="#update-<?php echo $payments->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
                                                     <!-- Button trigger modal -->
-                                             <!-- update fee payment Modal -->
-                             <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $payments->id; ?>" role="dialog">
-                                <div class="modal-dialog modal-xl" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="text-center">
-                                                Update <?php echo $payments->std_name; ?>'s fees payment
-                                            </h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Form -->
-                                            <form method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Student Admission Number</label>
-                                                            <input type="text" readonly id="StudentName" required name="std_name" value ="<?php echo $payments->std_regno; ?>" class="form-control">
-                                                        </div>
-                                                        <!-- Hide This -->
-                                                        <input type="hidden" required name="id" value="<?php echo $payments->id; ?>" class="form-control">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Student Name</label>
-                                                            <input type="text" readonly id="StudentName" required name="std_name" value = "<?php echo $payments->std_name; ?>" class="form-control">
-                                                        </div>
+                                                    <!-- update fee payment Modal -->
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $payments->id; ?>" role="dialog">
+                                                        <div class="modal-dialog modal-xl" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="text-center">
+                                                                        Update <?php echo $payments->std_name; ?>'s fees payment
+                                                                    </h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <!-- Form -->
+                                                                    <form method="post" enctype="multipart/form-data">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Student Admission Number</label>
+                                                                                    <input type="text" readonly id="StudentName" required name="std_name" value="<?php echo $payments->std_regno; ?>" class="form-control">
+                                                                                </div>
+                                                                                <!-- Hide This -->
+                                                                                <input type="hidden" required name="id" value="<?php echo $payments->id; ?>" class="form-control">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Student Name</label>
+                                                                                    <input type="text" readonly id="StudentName" required name="std_name" value="<?php echo $payments->std_name; ?>" class="form-control">
+                                                                                </div>
 
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Amount Billed</label>
-                                                            <input type="text" required name="amt_billed" value ="<?php echo $payments->amt_billed; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Amount Paid</label>
-                                                            <input type="text" required name="amt_paid" value="<?php echo $payments->amt_paid; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Payment Means</label>
-                                                            <select type="text" required name="payment_means" class="form-control">
-                                                              <option selected><?php echo $payments->payment_means; ?></option>
-                                                                <option>Bank Deposit</option>
-                                                                <option>Mpesa</option>
-                                                                <option>Cheque</option>
-                                                            </select>
-                                                        </div>
-                                                       
-                                                        <div class="form-group col-md-12">
-                                                            <label for="">Payment Code <small class="text-danger">Ref Number, Transaction Code, Cheque Number</small></label>
-                                                            <input type="text" value="<?php echo $payments->payment_code; ?>"  required name="payment_code" class="form-control">
-                                                        </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Amount Billed</label>
+                                                                                    <input type="text" required name="amt_billed" value="<?php echo $payments->amt_billed; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Amount Paid</label>
+                                                                                    <input type="text" required name="amt_paid" value="<?php echo $payments->amt_paid; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Payment Means</label>
+                                                                                    <select type="text" required name="payment_means" class="form-control">
+                                                                                        <option selected><?php echo $payments->payment_means; ?></option>
+                                                                                        <option>Bank Deposit</option>
+                                                                                        <option>Mpesa</option>
+                                                                                        <option>Cheque</option>
+                                                                                    </select>
+                                                                                </div>
 
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="">Payment Code <small class="text-danger">Ref Number, Transaction Code, Cheque Number</small></label>
+                                                                                    <input type="text" value="<?php echo $payments->payment_code; ?>" required name="payment_code" class="form-control">
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-right">
+                                                                            <button type="submit" name="update" class="btn btn-primary">Save changes</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="text-right">
-                                                    <button type="submit" name="update" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                                                     <a href="#delete-<?php echo $payments->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $payments->id; ?>" role="dialog">
