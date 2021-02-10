@@ -72,7 +72,7 @@ require_once('../partials/head.php');
                             <div class="card">
                                 <img src="../public/icons/credited.svg" class="card-img-top" alt="Credited">
                                 <div class="card-body">
-                                    <h5 class="card-title">Credited  Finances</h5>
+                                    <h5 class="card-title">Credited Finances</h5>
                                 </div>
                             </div>
                         </a>
@@ -91,7 +91,7 @@ require_once('../partials/head.php');
                     </div>
 
                     <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
-                        <a href="reports_debited_finances.php">
+                        <a href="reports_overall_feepayments.php">
                             <div class="card">
                                 <img src="../public/icons/overall_payments.svg" class="card-img-top" alt="Overall Payments">
                                 <div class="card-body">
