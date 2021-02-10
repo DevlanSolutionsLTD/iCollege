@@ -388,7 +388,7 @@ require_once '../partials/head.php';
                             <div class="text-right">
                                 <button data-toggle="modal" data-target="#import" class="btn btn-outline-primary mb-2">Import Classes </button>
                                 <button data-toggle="modal" data-target="#add" class="btn btn-outline-secondary mb-2">Add Class To TimeTable</button>
-                                <a href="timetablegen.php" class="btn btn-outline-secondary mb-2">Generate TimeTable</a>
+                               
                             </div>
                             <hr>
                             <!-- Import Modals -->
