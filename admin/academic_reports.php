@@ -66,56 +66,96 @@ require_once('../partials/head.php');
 
                 <div class="row layout-top-spacing">
 
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Courses Offered</h5>
+
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
+                        <a href="reports_courses.php">
+                            <div class="card">
+                                <img src="../public/icons/courses.svg" class="card-img-top" alt="Courses">
+                                <div class="card-body">
+                                    <h5 class="card-title">Courses Offered</h5>
+                                </div>
                             </div>
-                        </div>
+                        </a>
 
                     </div>
 
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Academic Units</h5>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
+                        <a href="reports_academic_units.php">
+                            <div class="card">
+                                <img src="../public/icons/units.svg" class="card-img-top" alt="Units">
+                                <div class="card-body">
+                                    <h5 class="card-title">Academic Units</h5>
+                                </div>
                             </div>
-                        </div>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
+                        <a href="reports_teaching_allocations.php">
+                            <div class="card">
+                                <img src="../public/icons/teaching_allocation.svg"  class="card-img-top" alt="Teaching Allocations">
+                                <div class="card-body">
+                                    <h5 class="card-title">Teaching Allocations</h5>
+                                </div>
+                            </div>
+                        </a>
 
                     </div>
 
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Teaching Allocations</h5>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
+                        <a href="reports_timetables.php">
+                            <div class="card">
+                                <img src="../public/icons/timetable.svg" class="card-img-top" alt="Time Table">
+                                <div class="card-body">
+                                    <h5 class="card-title">Timetables</h5>
+                                </div>
                             </div>
-                        </div>
-
+                        </a>
                     </div>
 
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Student Enrollments</h5>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
+                        <a href="reports_students_enrollments.php">
+                            <div class="card">
+                                <img src="../public/icons/enrollments.svg" class="card-img-top" alt="Enrollments">
+                                <div class="card-body">
+                                    <h5 class="card-title">Student Enrollments</h5>
+                                </div>
                             </div>
-                        </div>
-
+                        </a>
                     </div>
 
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="card">
-                            <img src="..." class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Students Performances</h5>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
+                        <a href="reports_student_perfomances.php">
+                            <div class="card">
+                                <img src="../public/icons/exam.svg" class="card-img-top" alt="Exams">
+                                <div class="card-body">
+                                    <h5 class="card-title">Exam Performances</h5>
+                                </div>
                             </div>
-                        </div>
-
+                        </a>
                     </div>
 
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
+                        <a href="reports_lects.php">
+                            <div class="card">
+                                <img src="../public/icons/lecs.svg" class="card-img-top" alt="Lecturers">
+                                <div class="card-body">
+                                    <h5 class="card-title">Lecturers Records</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
+                        <a href="reports_students.php">
+                            <div class="card">
+                                <img src="../public/icons/students.svg" class="card-img-top" alt="Students">
+                                <div class="card-body">
+                                    <h5 class="card-title">Students Records</h5>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
 
                 </div>
             </div>
