@@ -9,18 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
     <title>iCollege Information Management System</title>
     <link rel="icon" type="image/x-icon" href="../public/img/favicon.ico" />
-
-<link rel="stylesheet" type="text/css" href="../vendor/timetable/bootstrap/css/bootstrap.min.css">
-
-<link rel="stylesheet" type="text/css" href="../public/timetable/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-
-<link rel="stylesheet" type="text/css" href="../vendor/timetable/animate/animate.css">
-
-<link rel="stylesheet" type="text/css" href="../vendor/timetable/select2/select2.min.css">
-
-<link rel="stylesheet" type="text/css" href="../vendor/timetable/perfect-scrollbar/perfect-scrollbar.css">
-
-<link rel="stylesheet" type="text/css" href="../public/css/css/util.css">
-<link rel="stylesheet" type="text/css" href="../public/css/css/main.css">
+    <!-- Data Tables -->
+    <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/dt-global_style.css">
+    <link rel="stylesheet" type="text/css" href="../public/plugins/datatable/custom_dt_html5.css">
+    <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/datatables.css">
+    <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/custom_dt_html5.css">
+    <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/dt-global_style.css">
 
 </head>

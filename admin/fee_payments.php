@@ -97,7 +97,6 @@ if (isset($_POST['upload'])) {
                 );
             }
 
-
             if (
                 !empty($id) ||
                 !empty($std_regno) ||
@@ -105,7 +104,8 @@ if (isset($_POST['upload'])) {
                 !empty($amt_paid) ||
                 !empty($payment_code)
             ) {
-                $query = 'INSERT INTO iCollege_fees_payments (id, std_regno, std_name, amt_billed, amt_paid, payment_means, payment_code, date_paid) VALUES(?,?,?,?,?,?,?,?)';
+                $query =
+                    'INSERT INTO iCollege_fees_payments (id, std_regno, std_name, amt_billed, amt_paid, payment_means, payment_code, date_paid) VALUES(?,?,?,?,?,?,?,?)';
                 $paramType = 'ssssssss';
                 $paramArray = [
                     $id,
@@ -115,7 +115,7 @@ if (isset($_POST['upload'])) {
                     $amt_paid,
                     $payment_means,
                     $payment_code,
-                    $date_paid
+                    $date_paid,
                 ];
                 $insertId = $db->insert($query, $paramType, $paramArray);
                 if (!empty($insertId)) {
@@ -131,7 +131,6 @@ if (isset($_POST['upload'])) {
 }
 
 if (isset($_POST['add_payment'])) {
-
     $error = 0;
 
     if (isset($_POST['id']) && !empty($_POST['id'])) {
@@ -142,56 +141,78 @@ if (isset($_POST['add_payment'])) {
     }
 
     if (isset($_POST['std_regno']) && !empty($_POST['std_regno'])) {
-        $std_regno = mysqli_real_escape_string($mysqli, trim($_POST['std_regno']));
+        $std_regno = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['std_regno'])
+        );
     } else {
         $error = 1;
         $err = 'Admision Number Cannot Be Empty';
     }
 
     if (isset($_POST['std_name']) && !empty($_POST['std_name'])) {
-        $std_name = mysqli_real_escape_string($mysqli, trim($_POST['std_name']));
+        $std_name = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['std_name'])
+        );
     } else {
         $error = 1;
         $err = 'Student Name Cannot Be Empty';
     }
 
     if (isset($_POST['amt_billed']) && !empty($_POST['amt_billed'])) {
-        $amt_billed = mysqli_real_escape_string($mysqli, trim($_POST['amt_billed']));
+        $amt_billed = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['amt_billed'])
+        );
     } else {
         $error = 1;
         $err = 'Amount Billed Cannot Be Empty';
     }
 
     if (isset($_POST['amt_paid']) && !empty($_POST['amt_paid'])) {
-        $amt_paid = mysqli_real_escape_string($mysqli, trim($_POST['amt_paid']));
+        $amt_paid = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['amt_paid'])
+        );
     } else {
         $error = 1;
         $err = 'Amount Paid  Cannot Be Empty';
     }
 
     if (isset($_POST['payment_means']) && !empty($_POST['payment_means'])) {
-        $payment_means = mysqli_real_escape_string($mysqli, trim($_POST['payment_means']));
+        $payment_means = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['payment_means'])
+        );
     } else {
         $error = 1;
         $err = 'Payment Means Cannot Be Empty';
     }
 
     if (isset($_POST['payment_code']) && !empty($_POST['payment_code'])) {
-        $payment_code = mysqli_real_escape_string($mysqli, trim($_POST['payment_code']));
+        $payment_code = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['payment_code'])
+        );
     } else {
         $error = 1;
         $err = 'Payment Code Cannot Be Empty';
     }
 
     if (isset($_POST['date_paid']) && !empty($_POST['date_paid'])) {
-        $date_paid = mysqli_real_escape_string($mysqli, trim($_POST['date_paid']));
+        $date_paid = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['date_paid'])
+        );
     } else {
         $error = 1;
         $err = 'Date Paid Cannot Be Empty';
     }
 
     if (!$error) {
-        $query = 'INSERT INTO iCollege_fees_payments (id, std_regno, std_name, amt_billed, amt_paid, payment_means, payment_code, date_paid) VALUES(?,?,?,?,?,?,?,?)';
+        $query =
+            'INSERT INTO iCollege_fees_payments (id, std_regno, std_name, amt_billed, amt_paid, payment_means, payment_code, date_paid) VALUES(?,?,?,?,?,?,?,?)';
         $stmt = $mysqli->prepare($query);
         $rc = $stmt->bind_param(
             'ssssssss',
@@ -207,14 +228,105 @@ if (isset($_POST['add_payment'])) {
         $stmt->execute();
         if ($stmt) {
             $success =
-                'Fees Payment Added' && header('refresh:1; url=fee_payments.php');
+                'Fees Payment Added' &&
+                header('refresh:1; url=fee_payments.php');
         } else {
             $info = 'Please Try Again Or Try Later';
         }
     }
 }
+if (isset($_POST['update'])) {
+    $error = 0;
+    if (isset($_POST['id']) && !empty($_POST['id'])) {
+        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
+    } else {
+        $error = 1;
+        $err = 'ID Cannot Be Empty';
+    }
+
+    if (isset($_POST['amt_billed']) && !empty($_POST['amt_billed'])) {
+        $amt_billed = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['amt_billed'])
+        );
+    } else {
+        $error = 1;
+        $err = 'Amount Billed Cannot Be Empty';
+    }
+
+    if (isset($_POST['amt_paid']) && !empty($_POST['amt_paid'])) {
+        $amt_paid = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['amt_paid'])
+        );
+    } else {
+        $error = 1;
+        $err = 'Amount Paid  Cannot Be Empty';
+    }
+
+    if (isset($_POST['payment_means']) && !empty($_POST['payment_means'])) {
+        $payment_means = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['payment_means'])
+        );
+    } else {
+        $error = 1;
+        $err = 'Payment Means Cannot Be Empty';
+    }
+
+    if (isset($_POST['payment_code']) && !empty($_POST['payment_code'])) {
+        $payment_code = mysqli_real_escape_string(
+            $mysqli,
+            trim($_POST['payment_code'])
+        );
+    } else {
+        $error = 1;
+        $err = 'Payment Code Cannot Be Empty';
+    }
 
 
+
+    if (!$error) {
+        $query =
+            'UPDATE iCollege_fees_payments  SET  amt_billed =? ,amt_paid =? ,payment_means =? , payment_code =? WHERE id =?';
+        $stmt = $mysqli->prepare($query);
+        $rc = $stmt->bind_param(
+            'sssss',
+
+            $amt_billed,
+            $amt_paid,
+            $payment_means,
+            $payment_code,
+            $id
+        );
+        $stmt->execute();
+        if ($stmt) {
+            $success =
+                'Change saved' && header('refresh:1; url=fee_payments.php');
+        } else {
+            $info = 'Please Try Again Or Try Later';
+        }
+    }
+}
+// delete fees paid
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $adn = 'DELETE FROM iCollege_fees_payments WHERE id=?';
+    $stmt = $conn->prepare($adn);
+    $stmt->bind_param(
+        's',
+        $id
+    );
+    $stmt->execute();
+    $stmt->close();
+    if ($stmt) {
+        $success =
+            'Removed permantly' && header('refresh:1; url=fee_payments.php');
+    } else {
+        //inject alert that task failed
+        $info = 'Please Try Again Or Try Later';
+    }
+}
 require_once '../partials/head.php';
 ?>
 
@@ -340,13 +452,19 @@ require_once '../partials/head.php';
                                                             <select onchange="getStudentDetails(this.value)" id="AdmissionNumber" name="std_regno" class="form-control">
                                                                 <option> Select Student Admission Number</option>
                                                                 <?php
-                                                                $ret = 'SELECT * FROM `iCollege_students`';
-                                                                $stmt = $mysqli->prepare($ret);
+                                                                $ret =
+                                                                    'SELECT * FROM `iCollege_students`';
+                                                                $stmt = $mysqli->prepare(
+                                                                    $ret
+                                                                );
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while ($std = $res->fetch_object()) { ?>
+                                                                while (
+                                                                    $std = $res->fetch_object()
+                                                                ) { ?>
                                                                     <option><?php echo $std->admno; ?></option>
-                                                                <?php } ?>
+                                                                <?php }
+                                                                ?>
                                                             </select>
                                                         </div>
                                                         <!-- Hide This -->
@@ -415,11 +533,14 @@ require_once '../partials/head.php';
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = 'SELECT * FROM `iCollege_fees_payments`';
+                                        $ret =
+                                            'SELECT * FROM `iCollege_fees_payments`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
-                                        while ($payments = $res->fetch_object()) { ?>
+                                        while (
+                                            $payments = $res->fetch_object()
+                                        ) { ?>
                                             <tr>
                                                 <td><?php echo $payments->std_regno; ?></td>
                                                 <td><?php echo $payments->std_name; ?></td>
@@ -431,9 +552,91 @@ require_once '../partials/head.php';
                                                 <td>
                                                     <a href="#update-<?php echo $payments->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
                                                     <!-- Button trigger modal -->
+                                                    <!-- update fee payment Modal -->
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $payments->id; ?>" role="dialog">
+                                                        <div class="modal-dialog modal-xl" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="text-center">
+                                                                        Update <?php echo $payments->std_name; ?>'s fees payment
+                                                                    </h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <!-- Form -->
+                                                                    <form method="post" enctype="multipart/form-data">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Student Admission Number</label>
+                                                                                    <input type="text" readonly id="StudentName" required name="std_name" value="<?php echo $payments->std_regno; ?>" class="form-control">
+                                                                                </div>
+                                                                                <!-- Hide This -->
+                                                                                <input type="hidden" required name="id" value="<?php echo $payments->id; ?>" class="form-control">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Student Name</label>
+                                                                                    <input type="text" readonly id="StudentName" required name="std_name" value="<?php echo $payments->std_name; ?>" class="form-control">
+                                                                                </div>
 
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Amount Billed</label>
+                                                                                    <input type="text" required name="amt_billed" value="<?php echo $payments->amt_billed; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Amount Paid</label>
+                                                                                    <input type="text" required name="amt_paid" value="<?php echo $payments->amt_paid; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Payment Means</label>
+                                                                                    <select type="text" required name="payment_means" class="form-control">
+                                                                                        <option selected><?php echo $payments->payment_means; ?></option>
+                                                                                        <option>Bank Deposit</option>
+                                                                                        <option>Mpesa</option>
+                                                                                        <option>Cheque</option>
+                                                                                    </select>
+                                                                                </div>
+
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label for="">Payment Code <small class="text-danger">Ref Number, Transaction Code, Cheque Number</small></label>
+                                                                                    <input type="text" value="<?php echo $payments->payment_code; ?>" required name="payment_code" class="form-control">
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-right">
+                                                                            <button type="submit" name="update" class="btn btn-primary">Save changes</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <a href="#delete-<?php echo $payments->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $payments->id; ?>" role="dialog">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body text-center text-danger">
+                                                                    <h4>Remove <?php echo $payments->std_name; ?> fees payment ?</h4>
+                                                                    <br>
+                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
+                                                                    <a href="fee_payments.php?delete=<?php echo $payments->id; ?>" class="text-center btn btn-danger">Remove</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
                                                 </td>
                                             </tr>

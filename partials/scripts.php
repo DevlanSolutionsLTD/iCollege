@@ -55,7 +55,7 @@
 <script src="../public/plugins/table/datatable/button-ext/buttons.html5.min.js"></script>
 <script src="../public/plugins/table/datatable/button-ext/buttons.print.min.js"></script>
 <script>
-    $('#html5-extension').DataTable({
+    $('#export').DataTable({
         dom: '<"row"<"col-md-12"<"row"<"col-md-6"B><"col-md-6"f> > ><"col-md-12"rt> <"col-md-12"<"row"<"col-md-5"i><"col-md-7"p>>> >',
         buttons: {
             buttons: [{
@@ -163,5 +163,28 @@
                 $('#LecName').val(data);
             }
         });
+    }
+
+    function getCourseDetails(val) {
+        $.ajax({
+
+            type: "POST",
+            url: "../partials/ajax.php",
+            data: 'CourseName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#CourseId').val(data);
+            }
+        });
+    }
+</script>
+<!-- Print Contents Inside A Div -->
+<script>
+    function printContent(el) {
+        var restorepage = $('body').html();
+        var printcontent = $('#' + el).clone();
+        $('body').empty().html(printcontent);
+        window.print();
+        $('body').html(restorepage);
     }
 </script>

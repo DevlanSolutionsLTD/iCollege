@@ -37,3 +37,6 @@ iCollege (Learners' Records Information System) is a lightweight college informa
 # Tasks Assigns
 
 To view your assigned tasks, kindly log on <a target="_blank" href="http://pm.wcf.co.ke/">Here</a>
+
+# Glance
+<img src="https://raw.githubusercontent.com/Trans-DevLan/iCollege/main/Glance.png">
