@@ -2,7 +2,7 @@
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
-admin_check_login();
+staff();
 require_once '../config/codeGen.php';
 
 /* Add Allocations */

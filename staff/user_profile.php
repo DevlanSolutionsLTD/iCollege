@@ -2,7 +2,7 @@
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
-admin_check_login();/* Invoke Sudo */
+staff();/* Invoke Sudo */
 
 if (isset($_POST['update_profile'])) {
     //Change Password

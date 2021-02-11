@@ -2,7 +2,7 @@
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
-admin_check_login();
+staff();
 require_once('../partials/analytics.php');
 require_once('../partials/head.php');
 ?>
@@ -55,9 +55,8 @@ require_once('../partials/head.php');
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="customDropdown">
                             <a class="dropdown-item" data-value="Courses" href="courses.php">Courses</a>
                             <a class="dropdown-item" data-value="Units" href="units.php">Units</a>
-                            <a class="dropdown-item" data-value="Finances" href="finances.php">Finances</a>
-                            <a class="dropdown-item" data-value="Lecturers" href="lecturers.php">Lecturers</a>
-                            <a class="dropdown-item" data-value="Students" href="students.php">Students</a>
+                            <a class="dropdown-item" data-value="Lecturers" href="allocations.php">Allocated Units</a>
+                            <a class="dropdown-item" data-value="Students" href="enrollments.php">My Students</a>
                         </div>
                     </div>
                 </li>
@@ -73,7 +72,7 @@ require_once('../partials/head.php');
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once('../partials/admin_sidebar.php'); ?>
+        <?php require_once('../partials/staff_sidebar.php'); ?>
         <!--  END SIDEBAR  -->
 
         <!--  BEGIN CONTENT PART  -->
@@ -88,7 +87,7 @@ require_once('../partials/head.php');
                                 <div class="w-content">
                                     <div class="w-info">
                                         <h6 class="value"><?php echo $courses_offered;?></h6>
-                                        <p class="">Courses Offered</p>
+                                        <p class="">Allocated Units</p>
                                     </div>
                                     <div class="">
                                         <div class="w-icon">
@@ -110,7 +109,7 @@ require_once('../partials/head.php');
                                 <div class="w-content">
                                     <div class="w-info">
                                         <h6 class="value"><?php echo $units;?></h6>
-                                        <p class="">Academic Units</p>
+                                        <p class="">Enrolled Students</p>
                                     </div>
                                     <div class="">
                                         <div class="w-icon">
@@ -132,7 +131,7 @@ require_once('../partials/head.php');
                                 <div class="w-content">
                                     <div class="w-info">
                                         <h6 class="value"><?php echo $lecs;?></h6>
-                                        <p class="">Lecturers</p>
+                                        <p class="">Exam Marks Entry</p>
                                     </div>
                                     <div class="">
                                         <div class="w-icon">
@@ -154,7 +153,7 @@ require_once('../partials/head.php');
                                 <div class="w-content">
                                     <div class="w-info">
                                         <h6 class="value"><?php echo $students;?></h6>
-                                        <p class="">Students</p>
+                                        <p class="">My Profile</p>
                                     </div>
                                     <div class="">
                                         <div class="w-icon">
@@ -168,48 +167,7 @@ require_once('../partials/head.php');
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="widget widget-card-four">
-                            <div class="widget-content">
-                                <div class="w-content">
-                                    <div class="w-info">
-                                        <h6 class="value">Ksh <?php echo $billed;?></h6>
-                                        <p class="">Billed Finances</p>
-                                    </div>
-                                    <div class="">
-                                        <div class="w-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="widget widget-card-four">
-                            <div class="widget-content">
-                                <div class="w-content">
-                                    <div class="w-info">
-                                        <h6 class="value">Ksh <?php echo $paid;?></h6>
-                                        <p class="">Paid Finances</p>
-                                    </div>
-                                    <div class="">
-                                        <div class="w-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                   
 
                     <div class="col-xl-12 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
                         <!-- Draw Something Here -->

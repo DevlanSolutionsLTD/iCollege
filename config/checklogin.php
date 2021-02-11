@@ -16,7 +16,7 @@ function admin_check_login()
 
 
 /*  Staff/ Lec  */
-function lec_checklogin()
+function staff()
 {
 	if ((strlen($_SESSION['id']) == 0)) {
 		$host = $_SERVER['HTTP_HOST'];
