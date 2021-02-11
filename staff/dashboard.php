@@ -52,12 +52,6 @@ require_once('../partials/head.php');
                                 <polyline points="6 9 12 15 18 9"></polyline>
                             </svg></a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="customDropdown">
-                            <a class="dropdown-item" data-value="Courses" href="courses.php">Courses</a>
-                            <a class="dropdown-item" data-value="Units" href="units.php">Units</a>
-                            <a class="dropdown-item" data-value="Lecturers" href="allocations.php">Allocated Units</a>
-                            <a class="dropdown-item" data-value="Students" href="enrollments.php">My Students</a>
-                        </div>
                     </div>
                 </li>
             </ul>
@@ -81,93 +75,101 @@ require_once('../partials/head.php');
 
                 <div class="row layout-top-spacing">
 
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
-                        <div class="widget widget-card-four">
-                            <div class="widget-content">
-                                <div class="w-content">
-                                    <div class="w-info">
-                                        <h6 class="value"><?php echo $courses_offered;?></h6>
-                                        <p class="">Allocated Units</p>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-3 col-12 layout-spacing">
+                        <a href="allocations.php">
+                            <div class="widget widget-card-four">
+                                <div class="widget-content">
+                                    <div class="w-content">
+                                        <div class="w-info">
+                                            <h6 class="value">Allocated Units</h6>
+                                        </div>
+                                        <div class="">
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity">
+                                                    <line x1="8" y1="6" x2="21" y2="6"></line>
+                                                    <line x1="8" y1="12" x2="21" y2="12"></line>
+                                                    <line x1="8" y1="18" x2="21" y2="18"></line>
+                                                    <line x1="3" y1="6" x2="3" y2="6"></line>
+                                                    <line x1="3" y1="12" x2="3" y2="12"></line>
+                                                    <line x1="3" y1="18" x2="3" y2="18"></line>
+                                                </svg>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="">
-                                        <div class="w-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                            </svg>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-3 col-12 layout-spacing">
+                        <a href="enrollments.php">
+                            <div class="widget widget-card-four">
+                                <div class="widget-content">
+                                    <div class="w-content">
+                                        <div class="w-info">
+                                            <h6 class="value">Enrolled Students</h6>
+                                        </div>
+                                        <div class="">
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity">
+                                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="8.5" cy="7" r="4"></circle>
+                                                    <polyline points="17 11 19 13 23 9"></polyline>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-3 col-12 layout-spacing">
+                        <a href="marks_entry.php">
+                            <div class="widget widget-card-four">
+                                <div class="widget-content">
+                                    <div class="w-content">
+                                        <div class="w-info">
+                                            <h6 class="value">Exam Marks Entry</h6>
+                                        </div>
+                                        <div class="">
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity">
+                                                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                                                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-3 col-12 layout-spacing">
+                        <a href="profile.php">
+                            <div class="widget widget-card-four">
+                                <div class="widget-content">
+                                    <div class="w-content">
+                                        <div class="w-info">
+                                            <h6 class="value">My Profile</h6>
+                                        </div>
+                                        <div class="">
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="12" cy="7" r="4"></circle>
+                                                </svg>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
+                        </a>
                     </div>
-
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
-                        <div class="widget widget-card-four">
-                            <div class="widget-content">
-                                <div class="w-content">
-                                    <div class="w-info">
-                                        <h6 class="value"><?php echo $units;?></h6>
-                                        <p class="">Enrolled Students</p>
-                                    </div>
-                                    <div class="">
-                                        <div class="w-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-12 layout-spacing">
-                        <div class="widget widget-card-four">
-                            <div class="widget-content">
-                                <div class="w-content">
-                                    <div class="w-info">
-                                        <h6 class="value"><?php echo $lecs;?></h6>
-                                        <p class="">Exam Marks Entry</p>
-                                    </div>
-                                    <div class="">
-                                        <div class="w-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="widget widget-card-four">
-                            <div class="widget-content">
-                                <div class="w-content">
-                                    <div class="w-info">
-                                        <h6 class="value"><?php echo $students;?></h6>
-                                        <p class="">My Profile</p>
-                                    </div>
-                                    <div class="">
-                                        <div class="w-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
 
                     <div class="col-xl-12 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
                         <!-- Draw Something Here -->
