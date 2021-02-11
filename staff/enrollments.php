@@ -2,7 +2,7 @@
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
-staff();
+admin_check_login();
 require_once '../config/codeGen.php';
 
 /* Add Student Enrollment */
@@ -75,7 +75,6 @@ if (isset($_POST['add_enrollment'])) {
             ) {
                 $err =  "$std_name Already Enrolled To $unit_name  ";
             } else {
-
             }
         } else {
 
@@ -101,25 +100,6 @@ if (isset($_POST['add_enrollment'])) {
         }
     }
 }
-
-/* Update Enrollment Will Bring Inconsistency In The Database  */
-
-/* Delete Enrollment */
-if (isset($_GET['delete'])) {
-    $id = $_GET['delete'];
-    $adn = 'DELETE FROM iCollege_enrollments WHERE id=?';
-    $stmt = $mysqli->prepare($adn);
-    $stmt->bind_param('s', $id);
-    $stmt->execute();
-    $stmt->close();
-    if ($stmt) {
-        $success = 'Removed permantly' && header('refresh:1; url=enrollments.php');
-    } else {
-        //inject alert that task failed
-        $info = 'Please Try Again Or Try Later';
-    }
-}
-
 
 require_once '../partials/head.php';
 ?>
@@ -147,7 +127,7 @@ require_once '../partials/head.php';
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Enrollments</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Student Enrollments</span></li>
                             </ol>
                         </nav>
 
@@ -165,7 +145,7 @@ require_once '../partials/head.php';
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once '../partials/admin_sidebar.php'; ?>
+        <?php require_once '../partials/staff_sidebar.php'; ?>
         <!--  END SIDEBAR  -->
 
         <!--  BEGIN CONTENT AREA  -->
@@ -200,8 +180,8 @@ require_once '../partials/head.php';
                                                         <div class="form-group col-md-6">
                                                             <label for="">Student Admission Number</label>
                                                             <!-- Ajax To Get Student Details -->
-                                                            <select  onchange="getStudentDetails(this.value)" id="AdmissionNumber" name="std_regno" class="form-control">
-                                                            <option> Select Student Admission Number</option>
+                                                            <select onchange="getStudentDetails(this.value)" id="AdmissionNumber" name="std_regno" class="form-control">
+                                                                <option> Select Student Admission Number</option>
                                                                 <?php
                                                                 $ret = 'SELECT * FROM `iCollege_students`';
                                                                 $stmt = $mysqli->prepare($ret);
@@ -263,7 +243,7 @@ require_once '../partials/head.php';
                             <!-- End  Modal -->
 
                             <div class="table-responsive mb-4 mt-4">
-                                <table id="default-ordering" class="table" style="width:100%">
+                                <table id="export" class="table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Admn No</th>
@@ -272,7 +252,6 @@ require_once '../partials/head.php';
                                             <th>Unit Name</th>
                                             <th>Semester Enrolled</th>
                                             <th>Academic Yr Enrolled</th>
-                                            <th>Manage Enrollments</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -289,29 +268,6 @@ require_once '../partials/head.php';
                                                 <td><?php echo $enrollments->unit_name; ?></td>
                                                 <td><?php echo $enrollments->semester_enrolled; ?></td>
                                                 <td><?php echo $enrollments->academic_year_enrolled; ?></td>
-                                                <td>
-                                                    <a href="#delete-<?php echo $enrollments->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
-                                                    <!-- Delete Modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $enrollments->id; ?>" role="dialog">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">CONFIRM</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body text-center text-danger">
-                                                                    <h4>Delete <?php echo $enrollments->std_name; ?>'s  enrollment ? </h4>
-                                                                    <br>
-                                                                    <button type="button" class="text-center btn btn-success" data-dismiss="modal">No</button>
-                                                                    <a href="enrollments.php?delete=<?php echo $enrollments->id; ?>" class="text-center btn btn-danger"> Delete </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Modal -->
-                                                </td>
                                             </tr>
                                         <?php }
                                         ?>

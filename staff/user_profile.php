@@ -3,16 +3,66 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 staff();/* Invoke Sudo */
-
 if (isset($_POST['update_profile'])) {
-    //Change Password
+    /* Add Course */
+    //Error Handling and prevention of posting double entries
     $error = 0;
-    if (isset($_POST['email']) && !empty($_POST['email'])) {
-        $email = mysqli_real_escape_string($mysqli, trim((($_POST['email']))));
+
+    if (isset($_SESSION['id']) && !empty($_SESSION['id'])) {
+        $id = mysqli_real_escape_string($mysqli, trim($_SESSION['id']));
     } else {
         $error = 1;
-        $err = "Email Cannot Be Empty";
+        $err = 'Lec ID Cannot Be Empty';
     }
+
+    if (isset($_POST['name']) && !empty($_POST['name'])) {
+        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
+    } else {
+        $error = 1;
+        $err = 'Lec Name Cannot Be Empty';
+    }
+
+    if (isset($_POST['phone']) && !empty($_POST['phone'])) {
+        $phone = mysqli_real_escape_string($mysqli, trim($_POST['phone']));
+    } else {
+        $error = 1;
+        $err = 'Lec Phone Number Cannot Be Empty';
+    }
+
+    if (isset($_POST['idno']) && !empty($_POST['idno'])) {
+        $idno = mysqli_real_escape_string($mysqli, trim($_POST['idno']));
+    } else {
+        $error = 1;
+        $err = 'Lec National ID Number Cannot Be Empty';
+    }
+
+    if (isset($_POST['email']) && !empty($_POST['email'])) {
+        $email = mysqli_real_escape_string($mysqli, trim($_POST['email']));
+    } else {
+        $error = 1;
+        $err = 'Lec Email Number Cannot Be Empty';
+    }
+
+    $query = 'UPDATE iCollege_lecturers  SET  name =? , phone =? ,idno =?, email = ? WHERE id =?';
+    $stmt = $mysqli->prepare($query);
+    $rc = $stmt->bind_param(
+        'sssss',
+        $name,
+        $phone,
+        $idno,
+        $email,
+        $id
+    );
+    $stmt->execute();
+    if ($stmt) {
+        $success = 'Lec Updated' && header('refresh:1; url=user_profile.php');
+    } else {
+        $info = 'Please Try Again Or Try Later';
+    }
+}
+
+if (isset($_POST['update_password'])) {
+    //Change Password
     if (isset($_POST['old_password']) && !empty($_POST['old_password'])) {
         $old_password = mysqli_real_escape_string($mysqli, trim(sha1(md5($_POST['old_password']))));
     } else {
@@ -34,7 +84,7 @@ if (isset($_POST['update_profile'])) {
 
     if (!$error) {
         $id = $_SESSION['id'];
-        $sql = "SELECT * FROM  iCollege_admin  WHERE id = '$id'";
+        $sql = "SELECT * FROM  iCollege_lecturers  WHERE id = '$id'";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
@@ -43,9 +93,9 @@ if (isset($_POST['update_profile'])) {
             } elseif ($new_password != $confirm_password) {
                 $err = "Confirmation Password Does Not Match";
             } else {
-                $query = "UPDATE iCollege_admin SET email=?, password =? WHERE id =?";
+                $query = "UPDATE iCollege_lecturers SET password =? WHERE id =?";
                 $stmt = $mysqli->prepare($query);
-                $rc = $stmt->bind_param('sss', $email, $new_password, $id);
+                $rc = $stmt->bind_param('ss', $new_password, $id);
                 $stmt->execute();
                 if ($stmt) {
                     $success = "Profile Updates" && header("refresh:1; url=user_profile.php");
@@ -101,13 +151,13 @@ require_once('../partials/head.php');
         <div class="search-overlay"></div>
         <!--  BEGIN SIDEBAR  -->
         <?php
-        require_once('../partials/admin_sidebar.php');
+        require_once('../partials/staff_sidebar.php');
         $id = $_SESSION['id'];
-        $ret = "SELECT * FROM `iCollege_admin` WHERE id ='$id' ";
+        $ret = "SELECT * FROM `iCollege_lecturers` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
-        while ($admin = $res->fetch_object()) {
+        while ($lec = $res->fetch_object()) {
         ?>
             <!--  END SIDEBAR  -->
             <!--  BEGIN CONTENT AREA  -->
@@ -119,33 +169,65 @@ require_once('../partials/head.php');
                         <div class="account-content">
                             <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
                                 <div class="row">
-                                    <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 layout-spacing">
                                         <form id="contact" method="POST" class="section contact">
                                             <div class="info">
-                                                <h5 class="">Update Profile And Authentication Information</h5>
+                                                <h5 class="">Edit Personal Information</h5>
                                                 <div class="row">
                                                     <div class="col-md-11 mx-auto">
                                                         <div class="row">
-
-                                                            <div class="col-md-12">
-                                                                <div class="form-group">
-                                                                    <label for="address">Email</label>
-                                                                    <input type="email" value="<?php echo $admin->email; ?>" name="email" class="form-control mb-4">
-                                                                </div>
+                                                            <div class="form-group col-md-12">
+                                                                <label for="">Lecturer Number</label>
+                                                                <input type="text" readonly required name="number" value="<?php echo $lec->number; ?>" class="form-control">
                                                             </div>
-                                                            <div class="col-md-4">
+
+                                                            <div class="form-group col-md-12">
+                                                                <label for="">Lecturer Name</label>
+                                                                <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <label for="">Lecturer National ID Number</label>
+                                                                <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <label for="">Lecturer Phone Number</label>
+                                                                <input type="text" required name="phone" value="<?php echo $lec->phone; ?>" class="form-control">
+                                                            </div>
+                                                            <div class="form-group col-md-12">
+                                                                <label for="">Lecturer Email Address</label>
+                                                                <input type="text" required name="email" value="<?php echo $lec->email; ?>" class="form-control">
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div class="form-group text-right">
+                                                            <input type="submit" value="Update Profile" name="update_profile" class="btn btn-outline-primary">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-xl-6 col-lg-6 col-md-6 layout-spacing">
+                                        <form id="contact" method="POST" class="section contact">
+                                            <div class="info">
+                                                <h5 class="">Change Password</h5>
+                                                <div class="row">
+                                                    <div class="col-md-11 mx-auto">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="location">Old Password</label>
                                                                     <input type="password" name="old_password" class="form-control mb-4">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="phone">New Password</label>
                                                                     <input type="password" name="new_password" class="form-control mb-4">
                                                                 </div>
                                                             </div>
-                                                            <div class="col-md-4">
+                                                            <div class="col-md-12">
                                                                 <div class="form-group">
                                                                     <label for="phone">Confirm New Password</label>
                                                                     <input type="password" name="confirm_password" class="form-control mb-4">
@@ -154,7 +236,7 @@ require_once('../partials/head.php');
                                                         </div>
                                                         <br>
                                                         <div class="form-group text-right">
-                                                            <input type="submit" value="Update Profile" name="update_profile" class="btn btn-outline-primary">
+                                                            <input type="submit" value="Change Password" name="update_password" class="btn btn-outline-primary">
                                                         </div>
                                                     </div>
                                                 </div>

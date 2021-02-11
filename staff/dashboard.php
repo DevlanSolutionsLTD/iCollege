@@ -150,7 +150,7 @@ require_once('../partials/head.php');
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-3 col-12 layout-spacing">
-                        <a href="profile.php">
+                        <a href="user_profile.php">
                             <div class="widget widget-card-four">
                                 <div class="widget-content">
                                     <div class="w-content">

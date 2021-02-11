@@ -6,12 +6,13 @@ if (isset($_POST['login'])) {
 
     $email = $_POST['email'];
     $password = sha1(md5($_POST['password'])); //double encrypt to increase security
-    $stmt = $mysqli->prepare("SELECT email, password, id  FROM iCollege_lecturers  WHERE email =? AND password =?");
+    $stmt = $mysqli->prepare("SELECT email, password, number, id  FROM iCollege_lecturers  WHERE email =? AND password =?");
     $stmt->bind_param('ss', $email, $password); //bind fetched parameters
     $stmt->execute(); //execute bind 
-    $stmt->bind_result($email, $password, $id); //bind result
+    $stmt->bind_result($email, $password, $number, $id); //bind result
     $rs = $stmt->fetch();
     $_SESSION['id'] = $id;
+    $_SESSION['number'] = $number;
     if ($rs) {
         header("location:dashboard.php");
     } else {
