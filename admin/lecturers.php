@@ -286,7 +286,7 @@ if (isset($_GET['delete'])) {
     $adn = 'DELETE FROM iCollege_lecturers WHERE id=?';
     $stmt = $conn->prepare($adn);
     $stmt->bind_param(
-        's', 
+        's',
         $id
     );
     $stmt->execute();
@@ -509,37 +509,36 @@ require_once '../partials/head.php';
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                <form method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Number</label>
-                                                            <input type="text" readonly required name="number" value="<?php echo $lec->number; ?>" class="form-control">
-                                                           
-                                                        </div>
-                                                       
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Name</label>
-                                                            <input type="text" readonly required name="name" readonly value="<?php echo $lec->name; ?>"class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer National ID Number</label>
-                                                            <input type="text" required name="idno" readonly value="<?php echo $lec->idno; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Phone Number</label>
-                                                            <input type="text" required name="phone" readonly value="<?php echo $lec->phone; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Email Address</label>
-                                                            <input type="text" required name="email" readonly value="<?php echo $lec->email; ?>"class="form-control">
-                                                        </div>
-                                                        
-                                                        
-                                                    </div>
-                                                </div>
-                                                </form> 
-                                            </div>
+                                                                    <form method="post" enctype="multipart/form-data">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Lecturer Number</label>
+                                                                                    <input type="text" readonly required name="number" value="<?php echo $lec->number; ?>" class="form-control">
+                                                                                </div>
+
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Lecturer Name</label>
+                                                                                    <input type="text" readonly required name="name" readonly value="<?php echo $lec->name; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Lecturer National ID Number</label>
+                                                                                    <input type="text" required name="idno" readonly value="<?php echo $lec->idno; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Lecturer Phone Number</label>
+                                                                                    <input type="text" required name="phone" readonly value="<?php echo $lec->phone; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Lecturer Email Address</label>
+                                                                                    <input type="text" required name="email" readonly value="<?php echo $lec->email; ?>" class="form-control">
+                                                                                </div>
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
@@ -559,39 +558,39 @@ require_once '../partials/head.php';
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
- <!-- Form -->
- <form method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                   
-                                                    
-                                                           
-                                                        <input type="text" hidden required name="id" value="<?php echo $lec->id; ?>" class="form-control">
-                                                       
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Name</label>
-                                                            <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer National ID Number</label>
-                                                            <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Phone Number</label>
-                                                            <input type="text" required name="phone" value="<?php echo $lec->phone; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Email Address</label>
-                                                            <input type="text" required name="email" value="<?php echo $lec->email; ?>" class="form-control">
-                                                        </div>
-                                                       
-                                                        
-                                                    </div>
-                                                </div>
-                                                <div class="text-right">
-                                                    <button type="submit" name="update" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </form>
+                                                                    <!-- Form -->
+                                                                    <form method="post" enctype="multipart/form-data">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+
+
+
+                                                                                <input type="text" hidden required name="id" value="<?php echo $lec->id; ?>" class="form-control">
+
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Lecturer Name</label>
+                                                                                    <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Lecturer National ID Number</label>
+                                                                                    <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Lecturer Phone Number</label>
+                                                                                    <input type="text" required name="phone" value="<?php echo $lec->phone; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Lecturer Email Address</label>
+                                                                                    <input type="text" required name="email" value="<?php echo $lec->email; ?>" class="form-control">
+                                                                                </div>
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-right">
+                                                                            <button type="submit" name="update" class="btn btn-primary">Save changes</button>
+                                                                        </div>
+                                                                    </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
