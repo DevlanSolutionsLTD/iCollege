@@ -28,8 +28,8 @@ require_once '../partials/head.php';
 
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                
                                 <li class="breadcrumb-item active" aria-current="page"><span>Time Tables</span></li>
                             </ol>
                         </nav>
