@@ -18,83 +18,56 @@ if (isset($_POST['add_marks'])) {
     }
 
     if (isset($_POST['course_id']) && !empty($_POST['course_id'])) {
-        $course_id = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['course_id'])
-        );
+        $course_id = mysqli_real_escape_string($mysqli, trim($_POST['course_id']));
     } else {
         $error = 1;
         $err = 'Course ID Cannot Be Empty';
     }
 
     if (isset($_POST['course_name']) && !empty($_POST['course_name'])) {
-        $course_name = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['course_name'])
-        );
+        $course_name = mysqli_real_escape_string($mysqli, trim($_POST['course_name']));
     } else {
         $error = 1;
         $err = 'Course Name Cannot Be Empty';
     }
 
     if (isset($_POST['unit_code']) && !empty($_POST['unit_code'])) {
-        $unit_code = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['unit_code'])
-        );
+        $unit_code = mysqli_real_escape_string($mysqli, trim($_POST['unit_code']));
     } else {
         $error = 1;
         $err = 'Enrolled Unit Code Cannot Be Empty';
     }
 
     if (isset($_POST['unit_name']) && !empty($_POST['unit_name'])) {
-        $unit_name = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['unit_name'])
-        );
+        $unit_name = mysqli_real_escape_string($mysqli, trim($_POST['unit_name']));
     } else {
         $error = 1;
         $err = 'Enrolled Unit Name Cannot Be Empty';
     }
 
     if (isset($_POST['std_regno']) && !empty($_POST['std_regno'])) {
-        $std_regno = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['std_regno'])
-        );
+        $std_regno = mysqli_real_escape_string($mysqli, trim($_POST['std_regno']));
     } else {
         $error = 1;
         $err = 'Student Registration Number Cannot Be Empty';
     }
 
     if (isset($_POST['std_name']) && !empty($_POST['std_name'])) {
-        $std_name = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['std_name'])
-        );
+        $std_name = mysqli_real_escape_string($mysqli, trim($_POST['std_name']));
     } else {
         $error = 1;
         $err = 'Student Name Cannot Be Empty';
     }
 
-    if (
-        isset($_POST['semester_enrolled']) &&
-        !empty($_POST['semester_enrolled'])
-    ) {
-        $semester_enrolled = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['semester_enrolled'])
-        );
+    if (isset($_POST['semester_enrolled']) && !empty($_POST['semester_enrolled'])) {
+        $semester_enrolled = mysqli_real_escape_string($mysqli, trim($_POST['semester_enrolled']));
     } else {
         $error = 1;
         $err = 'Semester Enrolled Cannot Be Empty';
     }
 
     if (isset($_POST['academic_year']) && !empty($_POST['academic_year'])) {
-        $academic_year = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['academic_year'])
-        );
+        $academic_year = mysqli_real_escape_string($mysqli, trim($_POST['academic_year']));
     } else {
         $error = 1;
         $err = 'Academic Year Enrolled Cannot Be Empty';
@@ -107,6 +80,7 @@ if (isset($_POST['add_marks'])) {
         $err = 'Marks Cannot Be Empty';
     }
 
+
     if (!$error) {
         //prevent Double entries
         $sql = "SELECT * FROM  iCollege_exammarks WHERE  std_regno='$std_regno' AND unit_code = '$unit_code' AND semester_enrolled = '$semester_enrolled' AND academic_year = '$academic_year' ";
@@ -114,20 +88,18 @@ if (isset($_POST['add_marks'])) {
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
             if (
-                $std_regno =
-                $row['std_regno'] &&
-                ($unit_code =
-                    $row['unit_code'] &&
-                    ($semester_enrolled =
-                        $row['semester_enrolled'] &&
-                        ($academic_year = $row['academic_year'])))
+                $std_regno = $row['std_regno'] &&
+                $unit_code = $row['unit_code'] &&
+                $semester_enrolled = $row['semester_enrolled'] &&
+                $academic_year = $row['academic_year']
+
             ) {
-                $err = "$std_name  Marks For  $unit_name Already Added  ";
+                $err =  "$std_name  Marks For  $unit_name Already Added  ";
             } else {
             }
         } else {
-            $query =
-                'INSERT INTO iCollege_exammarks (id, course_id, course_name, unit_code, unit_name, std_regno, std_name, semester_enrolled, academic_year, marks) VALUES(?,?,?,?,?,?,?,?,?,?)';
+
+            $query = 'INSERT INTO iCollege_exammarks (id, course_id, course_name, unit_code, unit_name, std_regno, std_name, semester_enrolled, academic_year, marks) VALUES(?,?,?,?,?,?,?,?,?,?)';
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param(
                 'ssssssssss',
@@ -149,91 +121,6 @@ if (isset($_POST['add_marks'])) {
             } else {
                 $info = 'Please Try Again Or Try Later';
             }
-        }
-    }
-}
-
-/* Update Marks Entry */
-if (isset($_POST['update'])) {
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-
-    if (isset($_POST['id']) && !empty($_POST['id'])) {
-        $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
-    } else {
-        $error = 1;
-        $err = 'ID Cannot Be Empty';
-    }
-
-    if (isset($_POST['unit_code']) && !empty($_POST['unit_code'])) {
-        $unit_code = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['unit_code'])
-        );
-    } else {
-        $error = 1;
-        $err = 'Enrolled Unit Code Cannot Be Empty';
-    }
-
-    if (isset($_POST['unit_name']) && !empty($_POST['unit_name'])) {
-        $unit_name = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['unit_name'])
-        );
-    } else {
-        $error = 1;
-        $err = 'Enrolled Unit Name Cannot Be Empty';
-    }
-
-    if (
-        isset($_POST['semester_enrolled']) &&
-        !empty($_POST['semester_enrolled'])
-    ) {
-        $semester_enrolled = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['semester_enrolled'])
-        );
-    } else {
-        $error = 1;
-        $err = 'Semester Enrolled Cannot Be Empty';
-    }
-
-    if (isset($_POST['academic_year']) && !empty($_POST['academic_year'])) {
-        $academic_year = mysqli_real_escape_string(
-            $mysqli,
-            trim($_POST['academic_year'])
-        );
-    } else {
-        $error = 1;
-        $err = 'Academic Year Enrolled Cannot Be Empty';
-    }
-
-    if (isset($_POST['marks']) && !empty($_POST['marks'])) {
-        $marks = mysqli_real_escape_string($mysqli, trim($_POST['marks']));
-    } else {
-        $error = 1;
-        $err = 'Marks Cannot Be Empty';
-    }
-
-    if (!$error) {
-        $query =
-            'UPDATE  iCollege_exammarks SET  unit_code =? , unit_name =? ,semester_enrolled =? ,academic_year =?,marks =? WHERE id =?';
-        $stmt = $mysqli->prepare($query);
-        $rc = $stmt->bind_param(
-            'ssssss',
-            $unit_code,
-            $unit_name,
-            $semester_enrolled,
-            $academic_year,
-            $marks,
-            $id
-        );
-        $stmt->execute();
-        if ($stmt) {
-            $success =
-                'Change saved' && header('refresh:1; url=marks_entry.php');
-        } else {
-            $info = 'Please Try Again Or Try Later';
         }
     }
 }
@@ -265,7 +152,7 @@ require_once '../partials/head.php';
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Exams</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Marks Entry</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Provisional Results</span></li>
                             </ol>
                         </nav>
 
@@ -327,8 +214,7 @@ require_once '../partials/head.php';
                                                                 $res = $stmt->get_result();
                                                                 while ($courses = $res->fetch_object()) { ?>
                                                                     <option><?php echo $courses->name; ?></option>
-                                                                <?php }
-                                                                ?>
+                                                                <?php } ?>
                                                             </select>
                                                         </div>
                                                         <!-- Course ID -->
@@ -346,8 +232,7 @@ require_once '../partials/head.php';
                                                                 $res = $stmt->get_result();
                                                                 while ($std = $res->fetch_object()) { ?>
                                                                     <option><?php echo $std->admno; ?></option>
-                                                                <?php }
-                                                                ?>
+                                                                <?php } ?>
                                                             </select>
                                                         </div>
                                                         <!-- Hide This -->
@@ -362,14 +247,13 @@ require_once '../partials/head.php';
                                                             <select name="unit_code" onchange="getUnitDetails(this.value)" id="UnitCode" class="form-control">
                                                                 <option>Select Unit Code</option>
                                                                 <?php
-                                                                $ret = 'SELECT * FROM `iCollege_units` ';
+                                                                $ret = "SELECT * FROM `iCollege_units` ";
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
                                                                 while ($units = $res->fetch_object()) { ?>
                                                                     <option><?php echo $units->code; ?></option>
-                                                                <?php }
-                                                                ?>
+                                                                <?php } ?>
                                                             </select>
                                                         </div>
                                                         <div class="form-group col-md-6">
@@ -381,14 +265,13 @@ require_once '../partials/head.php';
                                                             <select name="semester_enrolled" class="form-control">
                                                                 <option>Select Semester Enrolled</option>
                                                                 <?php
-                                                                $ret = 'SELECT * FROM `iCollege_enrollments` ';
+                                                                $ret = "SELECT * FROM `iCollege_enrollments` ";
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
                                                                 while ($sem = $res->fetch_object()) { ?>
                                                                     <option><?php echo $sem->semester_enrolled; ?></option>
-                                                                <?php }
-                                                                ?>
+                                                                <?php } ?>
                                                             </select>
                                                         </div>
 
@@ -397,14 +280,13 @@ require_once '../partials/head.php';
                                                             <select name="academic_year" class=" form-control">
                                                                 <option>Select Academic Year</option>
                                                                 <?php
-                                                                $ret = 'SELECT * FROM `iCollege_enrollments` ';
+                                                                $ret = "SELECT * FROM `iCollege_enrollments` ";
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
                                                                 while ($year = $res->fetch_object()) { ?>
                                                                     <option><?php echo $year->academic_year_enrolled; ?></option>
-                                                                <?php }
-                                                                ?>
+                                                                <?php } ?>
                                                             </select>
                                                         </div>
                                                         <div class="form-group col-md-6">
@@ -439,7 +321,7 @@ require_once '../partials/head.php';
                                             <th>Semester</th>
                                             <th>Academic Year</th>
                                             <th>Marks Scored</th>
-                                            <th>Manage Marks</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -459,59 +341,85 @@ require_once '../partials/head.php';
                                                 <td><?php echo $marks->academic_year; ?></td>
                                                 <td><?php echo $marks->marks; ?></td>
                                                 <td>
-                                                    <!-- Actions
-                                                 Ie Delete And Update Only Update Semester Enrolled, Academic Year Enrolled, Unit Name, Unit Code and Marks-->
-                                                    <a href="#update-<?php echo $marks->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
-                                                    <!-- Button trigger modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $marks->id; ?>" role="dialog">
+                                                    <a href="#generate-<?php echo $marks->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Provisional Results</a>
+                                                    <!-- Exam Card Generation Modal -->
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="generate-<?php echo $marks->id; ?>" role="dialog">
                                                         <div class="modal-dialog modal-lg" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-                                                                        <?php echo $marks->std_name; ?>'s marks for <?php echo $marks->unit_name; ?>
+                                                                        Single Unit Provisional Results
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form method="post" enctype="multipart/form-data">
-                                                                        <!-- Course ID -->
-                                                                        <input type="hidden" required name="id" id="Id" value="<?php echo $marks->id; ?>" class="form-control">
+                                                                    <div class="card" id="PrintExamCard">
+                                                                        <div class="card-header text-center">
+                                                                            <?php echo $marks->std_regno; ?> <?php echo $marks->std_name; ?> <?php echo $marks->unit_name; ?> Provisional Results
+                                                                        </div>
+                                                                        <div class="card-body">
+                                                                            <h5 class="card-title text-center"><?php echo $marks->unit_code; ?> <?php echo $marks->unit_name; ?></h5>
+                                                                            <table id="default-ordering" class="table" style="width:100%">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>Course</th>
+                                                                                        <th>Semester</th>
+                                                                                        <th>Academic Year</th>
+                                                                                        <th>Marks Scored</th>
+                                                                                        <th>Grade</th>
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr>
+                                                                                        <td><?php echo $marks->course_name; ?></td>
+                                                                                        <td><?php echo $marks->semester_enrolled; ?></td>
+                                                                                        <td><?php echo $marks->academic_year; ?></td>
+                                                                                        <td><?php echo $marks->marks; ?></td>
+                                                                                        <td>
+                                                                                            <?php
+                                                                                            $workScore = $marks->marks;
 
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="">Unit code</label>
-                                                                            <input type="text" required name="unit_code" id="UnitName" value="<?php echo $marks->unit_code; ?>" class="form-control">
+                                                                                            switch ($workScore) {
+                                                                                                case $workScore >= 70 and $workScore <= 100:
+                                                                                                    echo 'A';
+                                                                                                    break;
+                                                                                                case $workScore >= 60 and $workScore <= 69:
+                                                                                                    echo 'B';
+                                                                                                    break;
+                                                                                                case $workScore >= 50 and $workScore <= 59:
+                                                                                                    echo 'C';
+                                                                                                    break;
+                                                                                                case $workScore >= 40 and $workScore <= 49:
+                                                                                                    echo 'D';
+                                                                                                    break;
+                                                                                                case $workScore >= 0 and $workScore <= 39:
+                                                                                                    echo 'E';
+                                                                                                    break;
+                                                                                                default:
+                                                                                                    echo 'N/A';
+                                                                                            }
+                                                                                            ?>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
                                                                         </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="">Unit name</label>
-                                                                            <input type="text" required name="unit_name" id="UnitName" value="<?php echo $marks->unit_name; ?>" class="form-control">
+                                                                        <div class="card-footer">
+                                                                            <small class="text-muted">Generated On <?php echo date('d M Y g:ia', strtotime($marks->created_at)); ?></small>
+                                                                            <br>
                                                                         </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="">Semester Enrolled</label>
-                                                                            <input type="text" required name="semester_enrolled" id="semester_enrolled" value="<?php echo $marks->semester_enrolled; ?>" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="">Academic Year</label>
-                                                                            <input type="text" required name="academic_year" id="academic_year" value="<?php echo $marks->academic_year; ?>" class="form-control">
-                                                                        </div>
-                                                                        <div class="form-group col-md-12">
-                                                                            <label for="">Marks</label>
-                                                                            <input type="text" required name="marks" id="marks" value="<?php echo $marks->marks; ?>" class="form-control">
-                                                                        </div>
-                                                                        <div class="text-right">
-                                                                            <button type="submit" name="update" class="btn btn-primary">Update</button>
-                                                                        </div>
-
-                                                                    </form>
-
+                                                                    </div>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                    <button id="print" onclick="printContent('PrintExamCard');" type="button" class="btn btn-primary">Print</button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <!-- End Modal -->
                                                 </td>
                                             </tr>
                                         <?php }
