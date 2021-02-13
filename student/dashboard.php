@@ -2,7 +2,7 @@
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
-staff();
+student();
 require_once('../partials/analytics.php');
 require_once('../partials/head.php');
 ?>
@@ -45,16 +45,6 @@ require_once('../partials/head.php');
                     </div>
                 </li>
             </ul>
-            <ul class="navbar-nav flex-row ml-auto ">
-                <li class="nav-item more-dropdown">
-                    <div class="dropdown  custom-dropdown-icon">
-                        <a class="dropdown-toggle btn" href="#" role="button" id="customDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Short Links</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg></a>
-
-                    </div>
-                </li>
-            </ul>
         </header>
     </div>
     <!--  END Bread crupms Navbar  -->
@@ -66,7 +56,7 @@ require_once('../partials/head.php');
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once('../partials/staff_sidebar.php'); ?>
+        <?php require_once('../partials/student_sidebar.php'); ?>
         <!--  END SIDEBAR  -->
 
         <!--  BEGIN CONTENT PART  -->
@@ -75,100 +65,70 @@ require_once('../partials/head.php');
 
                 <div class="row layout-top-spacing">
 
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-3 col-12 layout-spacing">
-                        <a href="allocations.php">
-                            <div class="widget widget-card-four">
-                                <div class="widget-content">
-                                    <div class="w-content">
-                                        <div class="w-info">
-                                            <h6 class="value">Allocated Units</h6>
-                                        </div>
-                                        <div class="">
-                                            <div class="w-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity">
-                                                    <line x1="8" y1="6" x2="21" y2="6"></line>
-                                                    <line x1="8" y1="12" x2="21" y2="12"></line>
-                                                    <line x1="8" y1="18" x2="21" y2="18"></line>
-                                                    <line x1="3" y1="6" x2="3" y2="6"></line>
-                                                    <line x1="3" y1="12" x2="3" y2="12"></line>
-                                                    <line x1="3" y1="18" x2="3" y2="18"></line>
-                                                </svg>
-                                            </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+                        <div class="widget widget-card-four">
+                            <div class="widget-content">
+                                <div class="w-content">
+                                    <div class="w-info">
+                                        <h6 class="value"><?php echo $courses_offered;?></h6>
+                                        <p class="">Enrolled Units</p>
+                                    </div>
+                                    <div class="">
+                                        <div class="w-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                            </svg>
                                         </div>
                                     </div>
-
                                 </div>
+
                             </div>
-                        </a>
+                        </div>
                     </div>
 
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-3 col-12 layout-spacing">
-                        <a href="enrollments.php">
-                            <div class="widget widget-card-four">
-                                <div class="widget-content">
-                                    <div class="w-content">
-                                        <div class="w-info">
-                                            <h6 class="value">Enrolled Students</h6>
-                                        </div>
-                                        <div class="">
-                                            <div class="w-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity">
-                                                    <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                                                    <circle cx="8.5" cy="7" r="4"></circle>
-                                                    <polyline points="17 11 19 13 23 9"></polyline>
-                                                </svg>
-                                            </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+                        <div class="widget widget-card-four">
+                            <div class="widget-content">
+                                <div class="w-content">
+                                    <div class="w-info">
+                                        <h6 class="value"><?php echo $units;?></h6>
+                                        <p class="">Billed Fees</p>
+                                    </div>
+                                    <div class="">
+                                        <div class="w-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                            </svg>
                                         </div>
                                     </div>
-
                                 </div>
+
                             </div>
-                        </a>
+                        </div>
                     </div>
 
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-3 col-12 layout-spacing">
-                        <a href="marks_entry.php">
-                            <div class="widget widget-card-four">
-                                <div class="widget-content">
-                                    <div class="w-content">
-                                        <div class="w-info">
-                                            <h6 class="value">Exam Marks Entry</h6>
-                                        </div>
-                                        <div class="">
-                                            <div class="w-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-activity">
-                                                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                                                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                                                </svg>
-                                            </div>
-                                        </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+                        <div class="widget widget-card-four">
+                            <div class="widget-content">
+                                <div class="w-content">
+                                    <div class="w-info">
+                                        <h6 class="value"><?php echo $lecs;?></h6>
+                                        <p class="">Paid Fees</p>
                                     </div>
-
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-3 col-12 layout-spacing">
-                        <a href="user_profile.php">
-                            <div class="widget widget-card-four">
-                                <div class="widget-content">
-                                    <div class="w-content">
-                                        <div class="w-info">
-                                            <h6 class="value">My Profile</h6>
-                                        </div>
-                                        <div class="">
-                                            <div class="w-icon">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
-                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                                    <circle cx="12" cy="7" r="4"></circle>
-                                                </svg>
-                                            </div>
+                                    <div class="">
+                                        <div class="w-icon">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                            </svg>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
-                        </a>
+                        </div>
                     </div>
 
                     <div class="col-xl-12 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
