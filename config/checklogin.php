@@ -29,13 +29,14 @@ function staff()
 }
 
 /* Studets Check Login */
-function student_checklogin()
+function student()
 {
-	if ((strlen($_SESSION['id']) == 0)) {
+	if ((strlen($_SESSION['id']) == 0) && (strlen($_SESSION['admno']) == '0')) {
 		$host = $_SERVER['HTTP_HOST'];
 		$uri  = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
 		$extra = "index.php";
 		$_SESSION["id"] = "";
+		$_SESSION["admno"] = "";
 		header("Location: http://$host$uri/$extra");
 	}
 }
