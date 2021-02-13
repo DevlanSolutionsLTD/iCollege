@@ -65,7 +65,7 @@ require_once('../partials/head.php');
 
                 <div class="row layout-top-spacing">
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <a href="reports_students_enrollments.php">
+                        <a href="enrollments.php">
                             <div class="card">
                                 <img src="../public/icons/enrollments.svg" class="card-img-top" alt="Enrollments">
                                 <div class="card-body">
