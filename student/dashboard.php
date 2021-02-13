@@ -3,7 +3,7 @@ session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
 student();
-require_once('../partials/analytics.php');
+require_once('../partials/student_analytics.php');
 require_once('../partials/head.php');
 ?>
 
@@ -64,83 +64,46 @@ require_once('../partials/head.php');
             <div class="layout-px-spacing">
 
                 <div class="row layout-top-spacing">
-
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="widget widget-card-four">
-                            <div class="widget-content">
-                                <div class="w-content">
-                                    <div class="w-info">
-                                        <h6 class="value"><?php echo $courses_offered;?></h6>
-                                        <p class="">Enrolled Units</p>
-                                    </div>
-                                    <div class="">
-                                        <div class="w-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                            </svg>
-                                        </div>
-                                    </div>
+                        <a href="reports_students_enrollments.php">
+                            <div class="card">
+                                <img src="../public/icons/enrollments.svg" class="card-img-top" alt="Enrollments">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $enrolled; ?></h5>
+                                    <h5 class="card-title">Enrolled Units</h5>
                                 </div>
-
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="widget widget-card-four">
-                            <div class="widget-content">
-                                <div class="w-content">
-                                    <div class="w-info">
-                                        <h6 class="value"><?php echo $units;?></h6>
-                                        <p class="">Billed Fees</p>
-                                    </div>
-                                    <div class="">
-                                        <div class="w-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                            </svg>
-                                        </div>
-                                    </div>
+                        <a href="fee_statements.php">
+                            <div class="card">
+                                <img src="../public/icons/credited.svg" class="card-img-top" alt="Credited">
+                                <div class="card-body">
+                                    <h5 class="card-title">Ksh <?php echo $billed; ?></h5>
+                                    <h5 class="card-title">Total Billed</h5>
                                 </div>
-
                             </div>
-                        </div>
+                        </a>
                     </div>
 
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <div class="widget widget-card-four">
-                            <div class="widget-content">
-                                <div class="w-content">
-                                    <div class="w-info">
-                                        <h6 class="value"><?php echo $lecs;?></h6>
-                                        <p class="">Paid Fees</p>
-                                    </div>
-                                    <div class="">
-                                        <div class="w-icon">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                            </svg>
-                                        </div>
-                                    </div>
+                        <a href="fee_statements.php">
+                            <div class="card">
+                                <img src="../public/icons/debited.svg" class="card-img-top" alt="Debited">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?php echo $paid; ?></h5>
+                                    <h5 class="card-title">Total Paid</h5>
                                 </div>
-
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-12 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <!-- Draw Something Here -->
+                        </a>
                     </div>
                 </div>
             </div>
-
             <?php require_once('../partials/footer.php'); ?>
         </div>
         <!--  END CONTENT PART  -->
-
     </div>
     <!-- END MAIN CONTAINER -->
     <?php require_once('../partials/scripts.php'); ?>
