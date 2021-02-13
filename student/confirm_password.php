@@ -20,7 +20,7 @@ if (isset($_POST['ChangePassword'])) {
 
     if (!$error) {
         $email = $_SESSION['email'];
-        $sql = "SELECT * FROM  iCollege_lecturers  WHERE email = '$email'";
+        $sql = "SELECT * FROM  iCollege_students  WHERE email = '$email'";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
@@ -28,7 +28,7 @@ if (isset($_POST['ChangePassword'])) {
                 $err = "Password Does Not Match";
             } else {
                 $email = $_SESSION['email'];
-                $query = "UPDATE iCollege_lecturers SET  password =? WHERE email =?";
+                $query = "UPDATE iCollege_students SET  password =? WHERE email =?";
                 $stmt = $mysqli->prepare($query);
                 $rc = $stmt->bind_param('ss', $new_password, $email);
                 $stmt->execute();
@@ -54,7 +54,7 @@ require_once('../partials/head.php');
                     <div class="form-content">
                         <?php
                         $email  = $_SESSION['email'];
-                        $ret = "SELECT * FROM  iCollege_lecturers  WHERE email = '$email'";
+                        $ret = "SELECT * FROM  iCollege_students  WHERE email = '$email'";
                         $stmt = $mysqli->prepare($ret);
                         $stmt->execute(); //ok
                         $res = $stmt->get_result();

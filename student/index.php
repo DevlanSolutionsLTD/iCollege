@@ -4,15 +4,15 @@ include('../config/config.php');
 
 if (isset($_POST['login'])) {
 
-    $email = $_POST['email'];
+    $admno = $_POST['admno'];
     $password = sha1(md5($_POST['password'])); //double encrypt to increase security
-    $stmt = $mysqli->prepare("SELECT email, password, number, id  FROM iCollege_lecturers  WHERE email =? AND password =?");
-    $stmt->bind_param('ss', $email, $password); //bind fetched parameters
+    $stmt = $mysqli->prepare("SELECT admno, password, id  FROM iCollege_students  WHERE admno =? AND password =?");
+    $stmt->bind_param('ss', $admno, $password); //bind fetched parameters
     $stmt->execute(); //execute bind 
-    $stmt->bind_result($email, $password, $number, $id); //bind result
+    $stmt->bind_result($admno, $password, $id); //bind result
     $rs = $stmt->fetch();
     $_SESSION['id'] = $id;
-    $_SESSION['number'] = $number;
+    $_SESSION['admno'] = $admno;
     if ($rs) {
         header("location:dashboard.php");
     } else {
@@ -39,7 +39,7 @@ require_once('../partials/head.php');
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                         <circle cx="12" cy="7" r="4"></circle>
                                     </svg>
-                                    <input id="username" name="email" type="text" class="form-control" placeholder="Email">
+                                    <input id="username" name="admno" type="text" class="form-control" placeholder="Admission Number">
                                 </div>
 
                                 <div id="password-field" class="field-wrapper input mb-2">
