@@ -94,7 +94,7 @@ require_once('../partials/head.php');
         <div class="search-overlay"></div>
         <!--  BEGIN SIDEBAR  -->
         <?php
-        require_once('../partials/staff_sidebar.php');
+        require_once('../partials/student_sidebar.php');
         $id = $_SESSION['id'];
         $ret = "SELECT * FROM `iCollege_students` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
