@@ -49,7 +49,7 @@ require_once '../partials/head.php';
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once '../partials/admin_sidebar.php'; ?>
+        <?php require_once '../partials/student_sidebar.php'; ?>
         <!--  END SIDEBAR  -->
 
         <!--  BEGIN CONTENT AREA  -->
@@ -74,7 +74,8 @@ require_once '../partials/head.php';
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret = 'SELECT * FROM `iCollege_enrollments`';
+                                        $admission = $_SESSION['admno'];
+                                        $ret = "SELECT * FROM `iCollege_enrollments` WHERE std_regno = '$admission'";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
