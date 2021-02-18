@@ -2,7 +2,7 @@
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
-admin_check_login();
+student();
 require_once '../config/codeGen.php';
 require_once '../partials/head.php';
 ?>
