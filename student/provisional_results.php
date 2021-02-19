@@ -102,7 +102,7 @@ require_once '../partials/head.php';
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-                                                                        Single Unit Provisional Results
+                                                                        <?php echo $marks->unit_name; ?> <?php echo $marks->unit_code; ?> Provisional Results
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
