@@ -23,7 +23,8 @@ iCollege (Learners' Records Information System) is a lightweight college informa
     > Academic Requisitions
 
 4. Web Mails Intergrations
-    > Inbuild Mailing System
+    > Inbuild Mailing System - Intergrated RainLoop As Default WebMail   
+    
 
 5. Examinations Module
     > Bulk Marks Entry 
@@ -37,6 +38,9 @@ iCollege (Learners' Records Information System) is a lightweight college informa
 # Tasks Assigns
 
 To view your assigned tasks, kindly log on <a target="_blank" href="http://pm.wcf.co.ke/">Here</a>
+
+# WebMail
+<a target="_blank" href="https://https://www.rainloop.net/">RainLoop Web Mail</a>
 
 # Glance
 <img src="https://raw.githubusercontent.com/Trans-DevLan/iCollege/main/Glance.png">
