@@ -55,7 +55,71 @@ if (isset($_POST['Save_System_Details'])) {
     }
 }
 
-/* System Contact Details */
+
+if (isset($_POST['Save_Contact_Details'])) {
+
+    /* System Contact Details */
+    $error = 0;
+    if (isset($_POST['sys_mail']) && !empty($_POST['sys_mail'])) {
+        $sys_mail = mysqli_real_escape_string($mysqli, trim($_POST['sys_mail']));
+    } else {
+        $error = 1;
+        $err = 'System Mail Cannot Be  Empty';
+    }
+
+    if (isset($_POST['sys_phone_contact']) && !empty($_POST['sys_phone_contact'])) {
+        $sys_phone_contact = mysqli_real_escape_string($mysqli, trim($_POST['sys_phone_contact']));
+    } else {
+        $error = 1;
+        $err = 'System Phone Number Cannot  Be Empty';
+    }
+
+    if (isset($_POST['sys_fb']) && !empty($_POST['sys_fb'])) {
+        $sys_fb = mysqli_real_escape_string($mysqli, trim($_POST['sys_fb']));
+    } else {
+        $error = 1;
+        $err = 'System Facebook Page Url Cannot Be Empty';
+    }
+
+    if (isset($_POST['sys_ig']) && !empty($_POST['sys_ig'])) {
+        $sys_ig = mysqli_real_escape_string($mysqli, trim($_POST['sys_ig']));
+    } else {
+        $error = 1;
+        $err = 'System Instagram Page Url Cannot Be Empty';
+    }
+
+    if (isset($_POST['sys_twitter']) && !empty($_POST['sys_twitter'])) {
+        $sys_twitter = mysqli_real_escape_string($mysqli, trim($_POST['sys_twitter']));
+    } else {
+        $error = 1;
+        $err = 'System Twitter Username Cannot Be Empty';
+    }
+
+    if (isset($_POST['sys_googlemap']) && !empty($_POST['sys_googlemap'])) {
+        $sys_googlemap = mysqli_real_escape_string($mysqli, trim($_POST['sys_googlemap']));
+    } else {
+        $error = 1;
+        $err = 'System Google Map Embed URL Cannot Be Empty';
+    }
+
+    if (isset($_POST['sys_id']) && !empty($_POST['sys_id'])) {
+        $sys_id = mysqli_real_escape_string($mysqli, trim($_POST['sys_id']));
+    } else {
+        $error = 1;
+        $err = 'System ID Cannot Be Empty';
+    }
+
+    $query = 'UPDATE iCollege_Settings  SET  sys_mail =?, sys_phone_contact =?, sys_fb =?, sys_ig =?, sys_twitter =?, sys_googlemap =?  WHERE sys_id =?';
+    $stmt = $conn->prepare($query);
+    $rc = $stmt->bind_param('sssssss', $sys_mail, $sys_phone_contact, $sys_fb, $sys_ig, $sys_twitter, $sys_googlemap, $sys_id);
+    $stmt->execute();
+    if ($stmt) {
+        $success = 'System Settings Updated' && header('refresh:1; url=settings.php');
+    } else {
+        //inject alert that task failed
+        $info = 'Please Try Again Or Try Later';
+    }
+}
 require_once '../partials/head.php';
 ?>
 
@@ -192,7 +256,7 @@ require_once '../partials/head.php';
                                                                 <label for="">Email Address</label>
                                                                 <input type="text" required name="sys_mail" value="<?php echo $sys->sys_mail; ?>" class="form-control">
                                                                 <!-- Hide This -->
-                                                                <input type="hidden" required name="id" value="<?php echo $sys->sys_id; ?>" class="form-control">
+                                                                <input type="hidden" required name="sys_id" value="<?php echo $sys->sys_id; ?>" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="">Mobile Phone Number</label>
