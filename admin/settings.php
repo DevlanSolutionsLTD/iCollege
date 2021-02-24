@@ -42,9 +42,9 @@ if (isset($_POST['Save_System_Details'])) {
     /* Load System Logo */
     $sys_logo = $_FILES['sys_logo']['name'];
     move_uploaded_file($_FILES["sys_logo"]["tmp_name"], "../public/uploads/sys_logo/" . $_FILES["sys_logo"]["name"]);
-    
+
     $query = 'UPDATE iCollege_Settings  SET  sys_name =?, sys_logo =?, sys_tagline =?, sys_about =?  WHERE sys_id =?';
-    $stmt = $conn->prepare($query);
+    $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('sssss', $sys_name, $sys_logo, $sys_tagline, $sys_about, $sys_id);
     $stmt->execute();
     if ($stmt) {
@@ -110,7 +110,7 @@ if (isset($_POST['Save_Contact_Details'])) {
     }
 
     $query = 'UPDATE iCollege_Settings  SET  sys_mail =?, sys_phone_contact =?, sys_fb =?, sys_ig =?, sys_twitter =?, sys_googlemap =?  WHERE sys_id =?';
-    $stmt = $conn->prepare($query);
+    $stmt = $mysqli->prepare($query);
     $rc = $stmt->bind_param('sssssss', $sys_mail, $sys_phone_contact, $sys_fb, $sys_ig, $sys_twitter, $sys_googlemap, $sys_id);
     $stmt->execute();
     if ($stmt) {
@@ -120,6 +120,7 @@ if (isset($_POST['Save_Contact_Details'])) {
         $info = 'Please Try Again Or Try Later';
     }
 }
+
 require_once '../partials/head.php';
 ?>
 
@@ -280,7 +281,7 @@ require_once '../partials/head.php';
 
                                                             <div class="form-group col-md-12">
                                                                 <label for="exampleInputPassword1">Google Maps Embed Map Url</label>
-                                                                <textarea required name="sys_googlemap" rows="4" class="form-control"></textarea>
+                                                                <textarea required name="sys_googlemap" rows="4" class="form-control"><?php echo $sys->sys_googlemap;?></textarea>
                                                             </div>
 
                                                         </div>
