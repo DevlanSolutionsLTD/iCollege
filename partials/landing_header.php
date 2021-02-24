@@ -24,17 +24,16 @@
                 <button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
             </div>
             <div class="navbar-collapse collapse" id="navbar">
-                <form class="navbar-form navbar-right">
-                    <input type="text" placeholder="Search Now" class="form-control">
-                    <button class="search-btn"><span class="icon-search-icon"></span></button>
-                </form>
+                
                 <ul class="nav navbar-nav">
                     <li> <a href="index.php">Home</a></li>
                     <li> <a href="about.php">About</a></li>
                     <li> <a href="contact.php">Contact Us</a></li>
-                    <li> <a href="courses.php">Courses</a></li>
-                    <li> <a href="modules.php">Modules</a></li>
                     <li> <a href="../admin/" target="_blank">Admin Portal</a></li>
+                    <li> <a href="../staff/" target="_blank">Staff Portal</a></li>
+                    <li> <a href="../student/" target="_blank">Student Portal</a></li>
+                    <li> <a href="../webmail/" target="_blank">WebMail</a></li>
+
                 </ul>
             </div>
         </div>
