@@ -35,6 +35,8 @@
     <link rel="stylesheet" type="text/css" href="../public/plugins/table/datatable/dt-global_style.css">
     <!-- Animate -->
     <link href="../public/plugins/animate/animate.css" rel="stylesheet" type="text/css" />
+    <!-- Tabs -->
+    <link href="../public/css/components/tabs-accordian/custom-tabs.css" rel="stylesheet" type="text/css" />
     <!-- CustomModals -->
     <link href="../public/css/scrollspyNav.css" rel="stylesheet" type="text/css" />
     <link href="../public/css/components/custom-modal.css" rel="stylesheet" type="text/css" />
