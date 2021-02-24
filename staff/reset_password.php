@@ -39,6 +39,12 @@ if (isset($_POST['reset_password'])) {
 }
 
 require_once('../partials/head.php');
+/* Load System Settings */
+$ret = 'SELECT * FROM `iCollege_Settings`';
+$stmt = $mysqli->prepare($ret);
+$stmt->execute(); //ok
+$res = $stmt->get_result();
+while ($sys = $res->fetch_object()) {
 ?>
 
 <body class="form">
@@ -48,7 +54,7 @@ require_once('../partials/head.php');
             <div class="form-form-wrap">
                 <div class="form-container">
                     <div class="form-content">
-                        <h1 class="">Reset Your <a href=""><span class="brand-name">iCampus</span></a> Password</h1>
+                        <h1 class="">Reset Your <a href=""><span class="brand-name"><?php echo $sys->sys_name; ?></span></a> Password</h1>
                         <form class="text-left" method="POST">
                             <div class="form">
                                 <div id="username-field" class="field-wrapper input">
@@ -69,14 +75,15 @@ require_once('../partials/head.php');
 
                             </div>
                         </form>
-                        <p class="terms-conditions">© 2021 - <?php echo date('Y'); ?> iCampus All Rights Reserved. A <a href="https://devlan.martdev.info">Devlan Inc</a> Production.</p>
+                        <p class="terms-conditions">© 2021 - <?php echo date('Y'); ?> <?php echo $sys->sys_name; ?> All Rights Reserved. A <a href="https://devlan.martdev.info">Devlan Inc</a> Production.</p>
 
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-image">
-            <div class="l-image">
+            <div class="">
+                <img src="../public/uploads/sys_logo/<?php echo $sys->sys_logo; ?>" alt="System Logo" height="700" width="700">
             </div>
         </div>
     </div>
