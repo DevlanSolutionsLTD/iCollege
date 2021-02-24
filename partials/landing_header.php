@@ -1,5 +1,5 @@
 <header>
-    
+
     <!-- Start Header Middle -->
     <div class="container header-middle">
         <div class="row"> <span class="col-xs-6 col-sm-3"><a href="index.php"><img src="../public/uploads/sys_data/images/logo.png" class="img-responsive" alt=""></a></span>
@@ -29,12 +29,12 @@
                     <button class="search-btn"><span class="icon-search-icon"></span></button>
                 </form>
                 <ul class="nav navbar-nav">
-                    <li> <a href="contact.html">Home</a></li>
-                    <li> <a href="contact.html">About</a></li>
-                    <li> <a href="contact.html">Contact Us</a></li>
-                    <li> <a href="contact.html">Courses</a></li>
-                    <li> <a href="contact.html">Modules</a></li>
-                    <li> <a href="contact.html">Admin Portal</a></li>
+                    <li> <a href="index.php">Home</a></li>
+                    <li> <a href="about.php">About</a></li>
+                    <li> <a href="contact.php">Contact Us</a></li>
+                    <li> <a href="courses.php">Courses</a></li>
+                    <li> <a href="modules.php">Modules</a></li>
+                    <li> <a href="../admin/" target="_blank">Admin Portal</a></li>
                 </ul>
             </div>
         </div>

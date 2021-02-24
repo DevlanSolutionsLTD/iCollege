@@ -614,14 +614,9 @@ textarea:focus::placeholder {
   height: 588px;
 }
 .banner-outer .slide1 {
-  background: url(../images/banner1.jpg) no-repeat center top / cover;
+  background: url(../../public/uploads/sys_data/images/banner1.jpg) no-repeat center top / cover;
 }
-.banner-outer .slide2 {
-  background: url(../images/banner2.jpg) no-repeat center top / cover;
-}
-.banner-outer .slide3 {
-  background: url(../images/banner3.jpg) no-repeat center top / cover;
-}
+
 .banner-outer .content {
   display: table-cell;
   vertical-align: middle;
@@ -752,7 +747,7 @@ textarea:focus::placeholder {
   display: block;
   position: relative;
   padding: 222px 0 100px 0;
-  background: url(../images/about-bg.jpg) no-repeat center bottom;
+  background: url(../../public/uploads/sys_data/images/about-bg.jpg) no-repeat center bottom;
 }
 .about ul.our-links {
   display: block;
