@@ -6,7 +6,6 @@ admin_check_login();
 require_once '../config/codeGen.php';
 /* Inject System Settings BackEnd Logic */
 
-
 if (isset($_POST['Save_System_Details'])) {
 
     /* System Settings */
@@ -43,7 +42,8 @@ if (isset($_POST['Save_System_Details'])) {
     /* Load System Logo */
     $sys_logo = $_FILES['sys_logo']['name'];
     move_uploaded_file($_FILES["sys_logo"]["tmp_name"], "../public/uploads/sys_logo/" . $_FILES["sys_logo"]["name"]);
-    $query = 'UPDATE iCollege_Settings  SET  sys_name =? ,sys_logo =? ,sys_tagline =?, sys_about =?  WHERE sys_id =?';
+    
+    $query = 'UPDATE iCollege_Settings  SET  sys_name =?, sys_logo =?, sys_tagline =?, sys_about =?  WHERE sys_id =?';
     $stmt = $conn->prepare($query);
     $rc = $stmt->bind_param('sssss', $sys_name, $sys_logo, $sys_tagline, $sys_about, $sys_id);
     $stmt->execute();
@@ -218,13 +218,13 @@ require_once '../partials/head.php';
                                                                 <label for="">System Name</label>
                                                                 <input type="text" required name="sys_name" value="<?php echo $sys->sys_name; ?>" class="form-control">
                                                                 <!-- Hide This -->
-                                                                <input type="hidden" required name="id" value="<?php echo $sys->sys_id; ?>" class="form-control">
+                                                                <input type="hidden" required name="sys_id" value="<?php echo $sys->sys_id; ?>" class="form-control">
                                                             </div>
                                                             <div class="form-group col-md-6">
                                                                 <label for="exampleInputFile">System Logo</label>
                                                                 <div class="input-group">
                                                                     <div class="custom-file">
-                                                                        <input required name="file" accept=".png, .svg, .jpeg, .jpg" type="sys_logo" class="custom-file-input" id="exampleInputFile">
+                                                                        <input required name="sys_logo" accept=".png, .svg, .jpeg, .jpg" type="file" class="custom-file-input" id="exampleInputFile">
                                                                         <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                                                                     </div>
                                                                 </div>
