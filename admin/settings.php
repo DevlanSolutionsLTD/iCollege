@@ -3,53 +3,9 @@ session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
 admin_check_login();
-
-if (isset($_POST['update'])) {
-
-    //Error Handling and prevention of posting double entries
-    $error = 0;
-    if (isset($_POST['code']) && !empty($_POST['code'])) {
-        $code = mysqli_real_escape_string($mysqli, trim($_POST['code']));
-    } else {
-        $error = 1;
-        $err = 'Course code Missing';
-    }
-
-    if (isset($_POST['name']) && !empty($_POST['name'])) {
-        $name = mysqli_real_escape_string($mysqli, trim($_POST['name']));
-    } else {
-        $error = 1;
-        $err = 'Course Name Cannot Be Empty';
-    }
-
-    if (isset($_POST['hod']) && !empty($_POST['hod'])) {
-        $hod = mysqli_real_escape_string($mysqli, trim($_POST['hod']));
-    } else {
-        $error = 1;
-        $err = 'HOD  Cannot Be Empty';
-    }
-
-    if (isset($_POST['details']) && !empty($_POST['details'])) {
-        $details = mysqli_real_escape_string($mysqli, trim($_POST['details']));
-    } else {
-        $error = 1;
-        $err = 'Course detail Cannot Be Empty';
-    }
-
-    $query =
-        'UPDATE iCollege_courses  SET  name =? ,hod =? ,details =?  WHERE code =?';
-    $stmt = $conn->prepare($query);
-    $rc = $stmt->bind_param('ssss', $name, $hod, $details, $code);
-    $stmt->execute();
-    if ($stmt) {
-        $success = 'Course Updated' && header('refresh:1; url=courses.php');
-    } else {
-        //inject alert that task failed
-        $info = 'Please Try Again Or Try Later';
-    }
-}
-
-require_once '../partials/head.php'; ?>
+require_once '../config/codeGen.php';
+require_once '../partials/head.php';
+?>
 
 <body>
 
@@ -72,9 +28,9 @@ require_once '../partials/head.php'; ?>
 
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Settings</span></li>
+                                <li class="breadcrumb-item"><a href="dashboard.php">Reports</a></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>System Settings</span></li>
                             </ol>
                         </nav>
 
@@ -101,8 +57,103 @@ require_once '../partials/head.php'; ?>
 
                 <div class="row layout-top-spacing">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
-                        <div class="widget-content widget-content-area br-6">
-                            
+
+                        <div id="tabsWithIcons" class="col-lg-12 col-12 layout-spacing">
+                            <div class="statbox widget box box-shadow">
+                                <div class="widget-header">
+                                    <div class="row">
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                            <h4>System Settings And Landing Pages Customization</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget-content widget-content-area rounded-pills-icon">
+
+                                    <ul class="nav nav-pills mb-4 mt-3  justify-content-center" id="rounded-pills-icon-tab" role="tablist">
+                                        <li class="nav-item ml-2 mr-2">
+                                            <a class="nav-link mb-2 active text-center" id="rounded-pills-icon-home-tab" data-toggle="pill" href="#rounded-pills-icon-home" role="tab" aria-controls="rounded-pills-icon-home" aria-selected="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
+                                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                                </svg> Home</a>
+                                        </li>
+                                        <li class="nav-item ml-2 mr-2">
+                                            <a class="nav-link mb-2 text-center" id="rounded-pills-icon-profile-tab" data-toggle="pill" href="#rounded-pills-icon-profile" role="tab" aria-controls="rounded-pills-icon-profile" aria-selected="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user">
+                                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                                    <circle cx="12" cy="7" r="4"></circle>
+                                                </svg> Profile</a>
+                                        </li>
+                                        <li class="nav-item ml-2 mr-2">
+                                            <a class="nav-link mb-2 text-center" id="rounded-pills-icon-contact-tab" data-toggle="pill" href="#rounded-pills-icon-contact" role="tab" aria-controls="rounded-pills-icon-contact" aria-selected="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone">
+                                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                                </svg> Contact</a>
+                                        </li>
+
+                                        <li class="nav-item ml-2 mr-2">
+                                            <a class="nav-link mb-2 text-center" id="rounded-pills-icon-settings-tab" data-toggle="pill" href="#rounded-pills-icon-settings" role="tab" aria-controls="rounded-pills-icon-settings" aria-selected="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings">
+                                                    <circle cx="12" cy="12" r="3"></circle>
+                                                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                                                </svg> System </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="rounded-pills-icon-tabContent">
+                                        <div class="tab-pane fade show active" id="rounded-pills-icon-home" role="tabpanel" aria-labelledby="rounded-pills-icon-home-tab">
+
+                                        </div>
+
+                                        <div class="tab-pane fade" id="rounded-pills-icon-profile" role="tabpanel" aria-labelledby="rounded-pills-icon-profile-tab">
+
+                                        </div>
+
+                                        <div class="tab-pane fade" id="rounded-pills-icon-contact" role="tabpanel" aria-labelledby="rounded-pills-icon-contact-tab">
+                                            <form method="post" enctype="multipart/form-data">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Email Address</label>
+                                                            <input type="text" required name="sys_mail" value="<?php echo $sys->sys_mail; ?>" class="form-control">
+                                                            <!-- Hide This -->
+                                                            <input type="hidden" required name="id" value="<?php echo $sys->sys_id; ?>" class="form-control">
+                                                        </div>
+                                                        <div class="form-group col-md-6">
+                                                            <label for="">Mobile Phone Number</label>
+                                                            <input type="text" required name="sys_phone_contact" value="<?php echo $sys->sys_phone_contact; ?>" class="form-control">
+                                                        </div>
+
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Facebook Page Url / Username</label>
+                                                            <input type="text" required name="sys_fb" value="<?php echo $sys->sys_fb; ?>" class="form-control">
+                                                        </div>
+
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Instagram Page Url / Username</label>
+                                                            <input type="text" required name="sys_ig" value="<?php echo $sys->sys_ig; ?>" class="form-control">
+                                                        </div>
+
+                                                        <div class="form-group col-md-4">
+                                                            <label for="">Twitter Username</label>
+                                                            <input type="text" required name="sys_twitter" value="<?php echo $sys->sys_twitter; ?>" class="form-control">
+                                                        </div>
+                                                        
+                                                        <div class="form-group col-md-12">
+                                                            <label for="exampleInputPassword1">Google Maps Embed Map Url</label>
+                                                            <textarea required name="sys_googlemap" rows="4" class="form-control"></textarea>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="text-right">
+                                                    <button type="submit" name="Save_Contact_Details" class="btn btn-primary">Submit</button>
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        <div class="tab-pane fade" id="rounded-pills-icon-settings" role="tabpanel" aria-labelledby="rounded-pills-icon-settings-tab">
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
