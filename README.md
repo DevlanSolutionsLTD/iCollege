@@ -44,3 +44,19 @@ To view your assigned tasks, kindly log on <a target="_blank" href="http://pm.wc
 
 # Glance
 <img src="https://raw.githubusercontent.com/Trans-DevLan/iCollege/main/Glance.png">
+
+# Demo Auth Credentials
+```
+1. System Administrator
+    Email:     sysadmin@iCollege.org
+    Password:  demo
+
+2. Staff
+    Email:     lec001@icollege.001
+    Password:  demo
+
+3. Student
+    Admission Number:  N0OY5-73169
+    Password:          demo
+
+```
