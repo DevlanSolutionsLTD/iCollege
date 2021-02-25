@@ -2,13 +2,13 @@
 
     <!-- Start Header Middle -->
     <div class="container header-middle">
-        <div class="row"> <span class="col-xs-6 col-sm-3"><a href="index.php"><img src="../public/uploads/sys_data/images/logo.png" class="img-responsive" alt=""></a></span>
+        <div class="row"> <span class="col-xs-6 col-sm-3"><a href="index.php"><img src="../public/uploads/sys_logo/<?php echo $sys->sys_logo; ?>" height="100"  width="100" class="img-responsive" alt=""></a></span>
             <div class="col-xs-6 col-sm-3"></div>
             <div class="col-xs-6 col-sm-9">
                 <div class="contact clearfix">
                     <ul class="hidden-xs">
-                        <li> <span>Email</span> <a href="mailto:info@edumart.org">info@edumart.org</a> </li>
-                        <li> <span>Toll Free</span> 1800 000 0000 </li>
+                        <li> <span>Email</span> <a href="mailto:<?php echo $sys->sys_mail;?>"><?php echo $sys->sys_mail;?></a> </li>
+                        <li> <span>Toll Free</span> <?php echo $sys->sys_phone_contact;?> </li>
                     </ul>
                     <a href="../staff/" target="_blank" class="login">Staff Portal <span class="icon-more-icon"></span></a>
                     <a href="../student/" target="_blank" class="login">Student Portal <span class="icon-more-icon"></span></a>
