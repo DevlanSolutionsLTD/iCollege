@@ -1,4 +1,25 @@
 <?php
+/*
+ * Created on Thu Jul 08 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
@@ -315,9 +336,6 @@ require_once '../partials/head.php'; ?>
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -340,23 +358,22 @@ require_once '../partials/head.php'; ?>
                                             <form method="post" enctype="multipart/form-data">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-6">
                                                             <label for="">Course Code</label>
                                                             <input type="text" required name="code" value="<?php echo $a; ?>-<?php echo $b; ?>" class="form-control">
                                                             <!-- Hide This -->
                                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-6">
                                                             <label for="">Course Name</label>
                                                             <input type="text" required name="name" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-4">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">HOD Name</label>
-                                                            <select type="text" required name="hod" class="form-control ">
-
+                                                            <select type="text" required name="hod" style="width: 100%;" class="form-control basic">
                                                                 <option>Select HOD</option>
                                                                 <?php
-                                                                $ret ='SELECT * FROM `iCollege_lecturers`';
+                                                                $ret = 'SELECT * FROM `iCollege_lecturers`';
                                                                 $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
@@ -378,15 +395,11 @@ require_once '../partials/head.php'; ?>
                                             </form>
                                         </div>
 
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- End Course Modal -->
 
-                            <!-- End Course Modal -->
 
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="default-ordering" class="table" style="width:100%">
@@ -400,7 +413,7 @@ require_once '../partials/head.php'; ?>
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret ='SELECT * FROM `iCollege_courses`';
+                                        $ret = 'SELECT * FROM `iCollege_courses`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -419,7 +432,7 @@ require_once '../partials/head.php'; ?>
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-                                                                        Course View
+                                                                        Course Details
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
@@ -427,7 +440,6 @@ require_once '../partials/head.php'; ?>
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     <form method="post" enctype="multipart/form-data">
-
                                                                         <div class="card-body">
                                                                             <div class="row">
                                                                                 <div class="form-group col-md-4">
@@ -448,13 +460,7 @@ require_once '../partials/head.php'; ?>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-
-
                                                                     </form>
-
-                                                                </div>
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -466,7 +472,7 @@ require_once '../partials/head.php'; ?>
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-                                                                        Course Update
+                                                                        Update Course 
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
@@ -499,12 +505,7 @@ require_once '../partials/head.php'; ?>
                                                                         <div class="text-right">
                                                                             <button type="submit" name="update" class="btn btn-primary">Update</button>
                                                                         </div>
-
                                                                     </form>
-
-                                                                </div>
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </div>

@@ -103,10 +103,13 @@
     });
 </script>
 <!-- Select -->
-<script src="../public/plugins/select2/select2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-    var ss = $(".basic").select2({
-        tags: true,
+    $(document).ready(function() {
+        $('.basic').select2({
+            theme: "classic"
+        });
+        
     });
 </script>
 <!-- Sweet Alerts -->
