@@ -197,7 +197,7 @@ if (isset($_POST['add_parent'])) {
 }
 
 //update
-if (isset($_POST['add_parent'])) {
+if (isset($_POST['update_parent'])) {
     /* Add Course */
     //Error Handling and prevention of posting double entries
     $error = 0;
@@ -236,22 +236,13 @@ if (isset($_POST['add_parent'])) {
         $err = ' Address Cannot Be Empty';
     }
 
-    if (isset($_POST['password']) && !empty($_POST['password'])) {
-        $password = mysqli_real_escape_string(
-            $mysqli,
-            trim(sha1(md5($_POST['password'])))
-        );
-    } else {
-        $error = 1;
-        $err = ' Password  Cannot Be Empty';
-    }
-
+   
 
     if (isset($_POST['id']) && !empty($_POST['id'])) {
         $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
     } else {
         $error = 1;
-        $err = 'Parent Id Cannot Be Empty';
+        $err = ' ID Cannot Be Empty';
     }
 
 
@@ -264,13 +255,13 @@ if (isset($_POST['add_parent'])) {
             $idno,
             $phone,
             $email,
-            $password,
-            $adr
+            $adr,
+            $id
         );
         $stmt->execute();
         if ($stmt) {
             $success =
-                'Parent Account Added' && header('refresh:1; url=parents.php');
+                'Parent Account updated' && header('refresh:1; url=parents.php');
         } else {
             $info = 'Please Try Again Or Try Later';
         }
@@ -464,7 +455,7 @@ require_once '../partials/head.php';
                                             <th>Phone Number</th>
                                             <th>Email</th>
                                             <th>Address</th>
-                                            <th>Manage Lec</th>
+                                            <th>Manage Parent</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -523,7 +514,7 @@ require_once '../partials/head.php';
                                                                             </div>
                                                                         </div>
                                                                         <div class="text-right">
-                                                                            <button type="submit" name="update" class="btn btn-primary">Save changes</button>
+                                                                            <button type="submit" name="update_parent" class="btn btn-primary">Save changes</button>
                                                                         </div>
                                                                     </form>
                                                                 </div>
