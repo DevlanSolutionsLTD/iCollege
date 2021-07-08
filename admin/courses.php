@@ -293,11 +293,12 @@ require_once '../partials/head.php'; ?>
         <!--  BEGIN CONTENT AREA  -->
         <div id="content" class="main-content">
             <div class="layout-px-spacing">
-
                 <div class="row layout-top-spacing">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
-                            <div class="text-right">
+                            <div class="text-center">
+                                <br>
+                                <h1 class="text-bold">Courses</h1>
                                 <button data-toggle="modal" data-target="#import_courses" class="btn btn-outline-primary mb-2">Import Courses </button>
                                 <button data-toggle="modal" data-target="#add_course" class="btn btn-outline-secondary mb-2">Add Course</button>
                             </div>
@@ -442,17 +443,17 @@ require_once '../partials/head.php'; ?>
                                                                     <form method="post" enctype="multipart/form-data">
                                                                         <div class="card-body">
                                                                             <div class="row">
-                                                                                <div class="form-group col-md-4">
+                                                                                <div class="form-group col-md-6">
                                                                                     <label for="">Course Code</label>
                                                                                     <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>" class="form-control">
                                                                                 </div>
-                                                                                <div class="form-group col-md-4">
+                                                                                <div class="form-group col-md-6">
                                                                                     <label for="">Course Name</label>
                                                                                     <input type="text" required readonly name="name" value="<?php echo $courses->name; ?>" class="form-control">
                                                                                 </div>
-                                                                                <div class="form-group col-md-4">
+                                                                                <div class="form-group col-md-12">
                                                                                     <label for="">HOD Name</label>
-                                                                                    <input type="text" required readonly name="hod" value="<?php echo $courses->hod; ?>" class="form-control basic">
+                                                                                    <input type="text" required readonly name="hod" value="<?php echo $courses->hod; ?>" class="form-control">
                                                                                 </div>
                                                                                 <div class="form-group col-md-12">
                                                                                     <label for="exampleInputPassword1">Course Details</label>
@@ -472,7 +473,7 @@ require_once '../partials/head.php'; ?>
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
                                                                     <h4 class="text-center">
-                                                                        Update Course 
+                                                                        Update Course
                                                                     </h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
@@ -483,17 +484,17 @@ require_once '../partials/head.php'; ?>
 
                                                                         <div class="card-body">
                                                                             <div class="row">
-                                                                                <div class="form-group col-md-4">
+                                                                                <div class="form-group col-md-6">
                                                                                     <label for="">Course Code</label>
                                                                                     <input type="text" readonly required name="code" value="<?php echo $courses->code; ?>" class="form-control">
                                                                                 </div>
-                                                                                <div class="form-group col-md-4">
+                                                                                <div class="form-group col-md-6">
                                                                                     <label for="">Course Name</label>
                                                                                     <input type="text" required name="name" value="<?php echo $courses->name; ?>" class="form-control">
                                                                                 </div>
-                                                                                <div class="form-group col-md-4">
+                                                                                <div class="form-group col-md-12">
                                                                                     <label for="">HOD Name</label>
-                                                                                    <input type="text" required name="hod" value="<?php echo $courses->hod; ?>" class="form-control basic">
+                                                                                    <input type="text" required name="hod" value="<?php echo $courses->hod; ?>" class="form-control">
                                                                                 </div>
                                                                                 <div class="form-group col-md-12">
                                                                                     <label for="exampleInputPassword1">Course Details</label>
