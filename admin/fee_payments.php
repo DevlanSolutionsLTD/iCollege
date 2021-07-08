@@ -1,4 +1,25 @@
 <?php
+/*
+ * Created on Thu Jul 08 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
@@ -382,7 +403,10 @@ require_once '../partials/head.php';
                 <div class="row layout-top-spacing">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
-                            <div class="text-right">
+                            <div class="text-center">
+                                <br>
+                                <h1 class="text-center">School Fees Payments</h1>
+
                                 <button data-toggle="modal" data-target="#import_modal" class="btn btn-outline-primary mb-2">Import Payment Records </button>
                                 <button data-toggle="modal" data-target="#add_modal" class="btn btn-outline-secondary mb-2">Add Fee Payment</button>
                             </div>
@@ -429,7 +453,6 @@ require_once '../partials/head.php';
                             </div>
                             <!-- End Import Modal -->
 
-                            <!-- Add Course Modal -->
                             <div class="modal animated zoomInUp custo-zoomInUp" id="add_modal" role="dialog">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
@@ -446,10 +469,10 @@ require_once '../partials/head.php';
                                             <form method="post" enctype="multipart/form-data">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Student Admission Number</label>
                                                             <!-- Ajax To Get Student Details -->
-                                                            <select onchange="getStudentDetails(this.value)" id="AdmissionNumber" name="std_regno" class="form-control">
+                                                            <select style="width: 100%;" onchange="getStudentDetails(this.value)" id="AdmissionNumber" name="std_regno" class="form-control basic">
                                                                 <option> Select Student Admission Number</option>
                                                                 <?php
                                                                 $ret =
@@ -469,7 +492,7 @@ require_once '../partials/head.php';
                                                         </div>
                                                         <!-- Hide This -->
                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Student Name</label>
                                                             <input type="text" readonly id="StudentName" required name="std_name" class="form-control">
                                                         </div>
@@ -506,16 +529,10 @@ require_once '../partials/head.php';
                                                 </div>
                                             </form>
                                         </div>
-
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Course Modal -->
 
-                            <!-- End Course Modal -->
 
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="default-ordering" class="table" style="width:100%">
@@ -580,15 +597,15 @@ require_once '../partials/head.php';
                                                                                     <input type="text" readonly id="StudentName" required name="std_name" value="<?php echo $payments->std_name; ?>" class="form-control">
                                                                                 </div>
 
-                                                                                <div class="form-group col-md-6">
+                                                                                <div class="form-group col-md-4">
                                                                                     <label for="">Amount Billed</label>
                                                                                     <input type="text" required name="amt_billed" value="<?php echo $payments->amt_billed; ?>" class="form-control">
                                                                                 </div>
-                                                                                <div class="form-group col-md-6">
+                                                                                <div class="form-group col-md-4">
                                                                                     <label for="">Amount Paid</label>
                                                                                     <input type="text" required name="amt_paid" value="<?php echo $payments->amt_paid; ?>" class="form-control">
                                                                                 </div>
-                                                                                <div class="form-group col-md-6">
+                                                                                <div class="form-group col-md-4">
                                                                                     <label for="">Payment Means</label>
                                                                                     <select type="text" required name="payment_means" class="form-control">
                                                                                         <option selected><?php echo $payments->payment_means; ?></option>
@@ -609,10 +626,6 @@ require_once '../partials/head.php';
                                                                             <button type="submit" name="update" class="btn btn-primary">Save changes</button>
                                                                         </div>
                                                                     </form>
-                                                                </div>
-
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </div>

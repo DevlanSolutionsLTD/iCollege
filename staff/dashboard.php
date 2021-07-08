@@ -1,4 +1,25 @@
 <?php
+/*
+ * Created on Thu Jul 08 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 session_start();
 require_once('../config/config.php');
 require_once('../config/checklogin.php');
@@ -41,16 +62,6 @@ require_once('../partials/head.php');
                                 <li class="breadcrumb-item active" aria-current="page"><span>Dashboard</span></li>
                             </ol>
                         </nav>
-
-                    </div>
-                </li>
-            </ul>
-            <ul class="navbar-nav flex-row ml-auto ">
-                <li class="nav-item more-dropdown">
-                    <div class="dropdown  custom-dropdown-icon">
-                        <a class="dropdown-toggle btn" href="#" role="button" id="customDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Short Links</span> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg></a>
 
                     </div>
                 </li>
@@ -172,7 +183,33 @@ require_once('../partials/head.php');
                     </div>
 
                     <div class="col-xl-12 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
-                        <!-- Draw Something Here -->
+                        <div class="widget widget-card-four">
+                            <div class="text-center">
+                                <h1 class="text-bold">Overall School Term Dates</h1>
+                            </div>
+                            <table id="export" class="table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $ret = 'SELECT * FROM `iCollege_termdates`';
+                                    $stmt = $mysqli->prepare($ret);
+                                    $stmt->execute(); //ok
+                                    $res = $stmt->get_result();
+                                    while ($dates = $res->fetch_object()) { ?>
+                                        <tr>
+                                            <td><?php echo date('d-M-Y', strtotime($dates->date)); ?></td>
+                                            <td><?php echo $dates->details; ?></td>
+                                        </tr>
+                                    <?php }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

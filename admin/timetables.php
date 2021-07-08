@@ -1,4 +1,25 @@
 <?php
+/*
+ * Created on Thu Jul 08 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
@@ -385,10 +406,11 @@ require_once '../partials/head.php';
                 <div class="row layout-top-spacing">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
-                            <div class="text-right">
+                            <div class="text-center">
+                            <br>
+                            <h1 class="text-bold">Overall School Time Table</h1>
                                 <button data-toggle="modal" data-target="#import" class="btn btn-outline-primary mb-2">Import Classes </button>
                                 <button data-toggle="modal" data-target="#add" class="btn btn-outline-secondary mb-2">Add Class To TimeTable</button>
-                               
                             </div>
                             <hr>
                             <!-- Import Modals -->
@@ -425,9 +447,6 @@ require_once '../partials/head.php';
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -450,21 +469,16 @@ require_once '../partials/head.php';
                                             <form method="post" enctype="multipart/form-data">
                                                 <div class="card-body">
                                                     <div class="row">
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Unit Code</label>
-                                                            <select name="unit_code" onchange="getUnitDetails(this.value);" id="UnitCode" class="form-control">
+                                                            <select name="unit_code" style="width: 100%;" onchange="getUnitDetails(this.value);" id="UnitCode" class="form-control basic">
                                                                 <option>Select Unit Code</option>
                                                                 <?php
-                                                                $ret =
-                                                                    'SELECT * FROM `iCollege_units`';
-                                                                $stmt = $mysqli->prepare(
-                                                                    $ret
-                                                                );
+                                                                $ret ='SELECT * FROM `iCollege_units`';
+                                                                $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while (
-                                                                    $unit = $res->fetch_object()
-                                                                ) { ?>
+                                                                while ($unit = $res->fetch_object()) { ?>
                                                                     <option><?php echo $unit->code; ?></option>
                                                                 <?php }
                                                                 ?>
@@ -472,53 +486,43 @@ require_once '../partials/head.php';
                                                         </div>
                                                         <!-- Hide This -->
                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Unit Name</label>
-                                                            <input type="text" required name="unit_name" id="UnitName" class="form-control">
+                                                            <input type="text" readonly required name="unit_name" id="UnitName" class="form-control">
                                                         </div>
 
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Course Name</label>
-                                                            <select name="course_name" class="form-control">
+                                                            <select name="course_name" style="width: 100%;" class="form-control basic">
                                                                 <option>Select Course</option>
                                                                 <?php
-                                                                $ret =
-                                                                    'SELECT * FROM `iCollege_courses`';
-                                                                $stmt = $mysqli->prepare(
-                                                                    $ret
-                                                                );
+                                                                $ret ='SELECT * FROM `iCollege_courses`';
+                                                                $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while (
-                                                                    $course = $res->fetch_object()
-                                                                ) { ?>
+                                                                while ($course = $res->fetch_object()) { ?>
                                                                     <option><?php echo $course->name; ?></option>
                                                                 <?php }
                                                                 ?>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Lecturer Name</label>
-                                                            <select name="lec_name" class="form-control">
+                                                            <select name="lec_name" style="width: 100%;" class="form-control basic">
                                                                 <option>Select Lecturer Name</option>
                                                                 <?php
-                                                                $ret =
-                                                                    'SELECT * FROM `iCollege_lecturers`';
-                                                                $stmt = $mysqli->prepare(
-                                                                    $ret
-                                                                );
+                                                                $ret ='SELECT * FROM `iCollege_lecturers`';
+                                                                $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while (
-                                                                    $lec = $res->fetch_object()
-                                                                ) { ?>
+                                                                while ($lec = $res->fetch_object()) { ?>
                                                                     <option><?php echo $lec->name; ?></option>
                                                                 <?php }
                                                                 ?>
                                                             </select>
                                                         </div>
 
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-4">
                                                             <label for="">Day</label>
                                                             <select name="day" class="form-control">
                                                                 <option>Monday</option>
@@ -546,10 +550,6 @@ require_once '../partials/head.php';
                                                     </div>
                                                 </div>
                                             </form>
-                                        </div>
-
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -650,10 +650,6 @@ require_once '../partials/head.php';
                                                                             </div>
                                                                         </div>
                                                                     </form>
-                                                                </div>
-
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </div>
