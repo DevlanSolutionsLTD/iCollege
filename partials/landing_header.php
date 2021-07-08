@@ -10,9 +10,7 @@
                         <li> <span>Email</span> <a href="mailto:<?php echo $sys->sys_mail; ?>"><?php echo $sys->sys_mail; ?></a> </li>
                         <li> <span>Toll Free</span> <?php echo $sys->sys_phone_contact; ?> </li>
                     </ul>
-                    <a href="../staff/" target="_blank" class="login">Staff Portal <span class="icon-more-icon"></span></a>
-                    <a href="../parent/" target="_blank" class="login">Parent Portal <span class="icon-more-icon"></span></a>
-                    <a href="../student/" target="_blank" class="login">Student Portal <span class="icon-more-icon"></span></a>
+                    <a href="../webmail/" target="_blank" class="login">WebMail <span class="icon-more-icon"></span></a>
                 </div>
             </div>
         </div>
@@ -34,8 +32,6 @@
                     <li> <a href="../staff/" target="_blank">Staff Portal</a></li>
                     <li> <a href="../parent/" target="_blank">Parent Portal</a></li>
                     <li> <a href="../student/" target="_blank">Student Portal</a></li>
-                    <li> <a href="../webmail/" target="_blank">WebMail</a></li>
-
                 </ul>
             </div>
         </div>

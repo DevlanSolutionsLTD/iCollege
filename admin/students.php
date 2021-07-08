@@ -613,8 +613,7 @@ require_once '../partials/head.php';
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret =
-                                            'SELECT * FROM `iCollege_students`';
+                                        $ret ='SELECT * FROM `iCollege_students`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
