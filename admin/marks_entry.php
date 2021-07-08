@@ -1,4 +1,25 @@
 <?php
+/*
+ * Created on Thu Jul 08 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
@@ -309,7 +330,9 @@ require_once '../partials/head.php';
                 <div class="row layout-top-spacing">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
-                            <div class="text-right">
+                            <div class="text-center">
+                                <br>
+                                <h1 class="text-bold">Students Marks Entry</h1>
                                 <button data-toggle="modal" data-target="#add_modal" class="btn btn-outline-secondary mb-2">Add Marks</button>
                             </div>
                             <hr>
@@ -334,19 +357,14 @@ require_once '../partials/head.php';
                                                         <div class="form-group col-md-6">
                                                             <label for="">Course Name</label>
                                                             <!-- Ajax To Get Course Details -->
-                                                            <select onchange="getCourseDetails(this.value)" id="CourseName" name="course_name" class="form-control">
+                                                            <select style="width: 100%;" onchange="getCourseDetails(this.value)" id="CourseName" name="course_name" class="form-control basic">
                                                                 <option> Select Course</option>
                                                                 <?php
-                                                                $ret =
-                                                                    'SELECT * FROM `iCollege_courses`';
-                                                                $stmt = $mysqli->prepare(
-                                                                    $ret
-                                                                );
+                                                                $ret ='SELECT * FROM `iCollege_courses`';
+                                                                $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while (
-                                                                    $courses = $res->fetch_object()
-                                                                ) { ?>
+                                                                while ($courses = $res->fetch_object()) { ?>
                                                                     <option><?php echo $courses->name; ?></option>
                                                                 <?php }
                                                                 ?>
@@ -358,19 +376,14 @@ require_once '../partials/head.php';
                                                         <div class="form-group col-md-6">
                                                             <label for="">Student Admission Number</label>
                                                             <!-- Ajax To Get Student Details -->
-                                                            <select onchange="getStudentDetails(this.value)" id="AdmissionNumber" name="std_regno" class="form-control">
+                                                            <select style="width:100%" onchange="getStudentDetails(this.value)" id="AdmissionNumber" name="std_regno" class="form-control basic">
                                                                 <option> Select Student Admission Number</option>
                                                                 <?php
-                                                                $ret =
-                                                                    'SELECT * FROM `iCollege_students`';
-                                                                $stmt = $mysqli->prepare(
-                                                                    $ret
-                                                                );
+                                                                $ret ='SELECT * FROM `iCollege_students`';
+                                                                $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while (
-                                                                    $std = $res->fetch_object()
-                                                                ) { ?>
+                                                                while ($std = $res->fetch_object()) { ?>
                                                                     <option><?php echo $std->admno; ?></option>
                                                                 <?php }
                                                                 ?>
@@ -378,50 +391,40 @@ require_once '../partials/head.php';
                                                         </div>
                                                         <!-- Hide This -->
                                                         <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Student Name</label>
                                                             <input type="text" readonly id="StudentName" required name="std_name" class="form-control">
                                                         </div>
 
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Unit Code</label>
-                                                            <select name="unit_code" onchange="getUnitDetails(this.value)" id="UnitCode" class="form-control">
+                                                            <select style="width: 100%" name="unit_code" onchange="getUnitDetails(this.value)" id="UnitCode" class="form-control basic">
                                                                 <option>Select Unit Code</option>
                                                                 <?php
-                                                                $ret =
-                                                                    'SELECT * FROM `iCollege_units` ';
-                                                                $stmt = $mysqli->prepare(
-                                                                    $ret
-                                                                );
+                                                                $ret ='SELECT * FROM `iCollege_units` ';
+                                                                $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while (
-                                                                    $units = $res->fetch_object()
-                                                                ) { ?>
+                                                                while ($units = $res->fetch_object()) { ?>
                                                                     <option><?php echo $units->code; ?></option>
                                                                 <?php }
                                                                 ?>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for=""> Unit Name</label>
-                                                            <input type="text" required name="unit_name" id="UnitName" class="form-control">
+                                                            <input type="text" readonly required name="unit_name" id="UnitName" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
                                                             <label for="">Semester Enrolled</label>
-                                                            <select name="semester_enrolled" class="form-control">
+                                                            <select name="semester_enrolled" style="width: 100%" class="form-control basic">
                                                                 <option>Select Semester Enrolled</option>
                                                                 <?php
-                                                                $ret =
-                                                                    'SELECT * FROM `iCollege_enrollments` ';
-                                                                $stmt = $mysqli->prepare(
-                                                                    $ret
-                                                                );
+                                                                $ret ='SELECT * FROM `iCollege_enrollments` ';
+                                                                $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while (
-                                                                    $sem = $res->fetch_object()
-                                                                ) { ?>
+                                                                while ($sem = $res->fetch_object()) { ?>
                                                                     <option><?php echo $sem->semester_enrolled; ?></option>
                                                                 <?php }
                                                                 ?>
@@ -430,25 +433,20 @@ require_once '../partials/head.php';
 
                                                         <div class="form-group col-md-6">
                                                             <label for="">Academic Year</label>
-                                                            <select name="academic_year" class=" form-control">
+                                                            <select name="academic_year" style="width: 100%;" class=" form-control basic">
                                                                 <option>Select Academic Year</option>
                                                                 <?php
-                                                                $ret =
-                                                                    'SELECT * FROM `iCollege_enrollments` ';
-                                                                $stmt = $mysqli->prepare(
-                                                                    $ret
-                                                                );
+                                                                $ret ='SELECT * FROM `iCollege_enrollments` ';
+                                                                $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while (
-                                                                    $year = $res->fetch_object()
-                                                                ) { ?>
+                                                                while ($year = $res->fetch_object()) { ?>
                                                                     <option><?php echo $year->academic_year_enrolled; ?></option>
                                                                 <?php }
                                                                 ?>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Marks</label>
                                                             <input type="text" required name="marks" class="form-control">
                                                         </div>
@@ -458,10 +456,6 @@ require_once '../partials/head.php';
                                                     </div>
                                                 </div>
                                             </form>
-                                        </div>
-
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -485,8 +479,7 @@ require_once '../partials/head.php';
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $ret =
-                                            'SELECT * FROM `iCollege_exammarks`';
+                                        $ret ='SELECT * FROM `iCollege_exammarks`';
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();
@@ -546,12 +539,7 @@ require_once '../partials/head.php';
                                                                         <div class="text-right">
                                                                             <button type="submit" name="update" class="btn btn-primary">Update</button>
                                                                         </div>
-
                                                                     </form>
-
-                                                                </div>
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </div>

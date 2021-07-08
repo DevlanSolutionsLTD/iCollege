@@ -259,7 +259,6 @@ require_once '../partials/head.php';
                                             <tr>
                                                 <td><?php echo date('d-M-Y', strtotime($dates->date)); ?></td>
                                                 <td><?php echo $dates->details; ?></td>
-
                                                 <td>
                                                     <a href="#update-<?php echo $dates->id; ?>" data-toggle="modal" class="badge outline-badge-success">Update</a>
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $dates->id; ?>" role="dialog">
@@ -280,6 +279,7 @@ require_once '../partials/head.php';
                                                                                 <div class="form-group col-md-12">
                                                                                     <label for="">Date</label>
                                                                                     <input type="date" required value="<?php echo $dates->date;?>" name="date" class="form-control">
+                                                                                    <input type="hidden" required value="<?php echo $dates->id;?>" name="id" class="form-control">
                                                                                 </div>
 
                                                                                 <div class="form-group col-md-12">
