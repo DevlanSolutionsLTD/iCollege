@@ -1,4 +1,25 @@
 <?php
+/*
+ * Created on Thu Jul 08 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
@@ -30,11 +51,11 @@ require_once '../partials/head.php';
 
                         <nav class="breadcrumb-one" aria-label="breadcrumb">
                             <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Reports</a></li>
                                 <li class="breadcrumb-item"><a href="academic_reports.php">Academic Reports</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Student  Performance Report</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Student Performance Report</span></li>
                             </ol>
                         </nav>
 
@@ -62,14 +83,8 @@ require_once '../partials/head.php';
                 <div class="row layout-top-spacing">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
-                            
-                            <hr>
-
-                           
-
                             <div class="table-responsive mb-4 mt-4">
-                            <table id="export" class="table" style="width:100%">
-                                
+                                <table id="export" class="table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Course</th>
@@ -100,47 +115,32 @@ require_once '../partials/head.php';
                                                 <td><?php echo $marks->academic_year; ?></td>
                                                 <td><?php echo $marks->marks; ?></td>
                                                 <td>
-                                                <?php
-                                                                                            $workScore = $marks->marks;
+                                                    <?php
+                                                    $workScore = $marks->marks;
 
-                                                                                            switch ($workScore) {
-                                                                                                case $workScore >= 70 and $workScore <= 100:
-                                                                                                    echo 'A';
-                                                                                                    break;
-                                                                                                case $workScore >= 60 and $workScore <= 69:
-                                                                                                    echo 'B';
-                                                                                                    break;
-                                                                                                case $workScore >= 50 and $workScore <= 59:
-                                                                                                    echo 'C';
-                                                                                                    break;
-                                                                                                case $workScore >= 40 and $workScore <= 49:
-                                                                                                    echo 'D';
-                                                                                                    break;
-                                                                                                case $workScore >= 0 and $workScore <= 39:
-                                                                                                    echo 'E';
-                                                                                                    break;
-                                                                                                default:
-                                                                                                    echo 'N/A';
-                                                                                            }
-                                                                                            ?>
-                                                                                        </td>
-                                                                                        </td>
-                                                                                    </tr>
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                        
-                                                                    </div>
-                                                                </div>
-                                                              
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- End Modal -->
+                                                    switch ($workScore) {
+                                                        case $workScore >= 70 and $workScore <= 100:
+                                                            echo 'A';
+                                                            break;
+                                                        case $workScore >= 60 and $workScore <= 69:
+                                                            echo 'B';
+                                                            break;
+                                                        case $workScore >= 50 and $workScore <= 59:
+                                                            echo 'C';
+                                                            break;
+                                                        case $workScore >= 40 and $workScore <= 49:
+                                                            echo 'D';
+                                                            break;
+                                                        case $workScore >= 0 and $workScore <= 39:
+                                                            echo 'E';
+                                                            break;
+                                                        default:
+                                                            echo 'N/A';
+                                                    }
+                                                    ?>
                                                 </td>
                                             </tr>
-                                        <?php }
-                                        ?>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -148,9 +148,10 @@ require_once '../partials/head.php';
                     </div>
                 </div>
             </div>
-            <?php require_once '../partials/footer.php'; ?>
         </div>
-        <!--  END CONTENT AREA  -->
+        <?php require_once '../partials/footer.php'; ?>
+    </div>
+    <!--  END CONTENT AREA  -->
     </div>
     <!-- END MAIN CONTAINER -->
     <?php require_once '../partials/scripts.php'; ?>
