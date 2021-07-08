@@ -678,20 +678,13 @@ require_once '../partials/head.php';
                                                                                     <label for=""> Email Address</label>
                                                                                     <input type="text" required name="email" readonly value="<?php echo $student->email; ?>" class="form-control">
                                                                                 </div>
-
                                                                                 <div class="form-group col-md-4">
                                                                                     <label for="">Course Name</label>
                                                                                     <input type="text" required name="course_name" readonly value="<?php echo $student->course_name; ?>" class="form-control">
                                                                                 </div>
-
                                                                             </div>
                                                                         </div>
-
                                                                     </form>
-                                                                </div>
-
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -761,10 +754,6 @@ require_once '../partials/head.php';
                                                                             <button type="submit" name="update" class="btn btn-primary">Save changes</button>
                                                                         </div>
                                                                     </form>
-                                                                </div>
-
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </div>
