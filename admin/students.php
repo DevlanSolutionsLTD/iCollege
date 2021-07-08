@@ -1,4 +1,25 @@
 <?php
+/*
+ * Created on Thu Jul 08 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
@@ -241,12 +262,14 @@ if (isset($_POST['add_student'])) {
                 $_FILES['dpic']['tmp_name'],
                 '../public/uploads/std_img/' . $_FILES['dpic']['name']
             );
+            $parent_id = $_POST['parent_id'];
             $query =
-                'INSERT INTO iCollege_students (id, admno, name, phone, idno, adr, sex, email, password, dpic, course_name) VALUES(?,?,?,?,?,?,?,?,?,?,?)';
+                'INSERT INTO iCollege_students (id, parent_id, admno, name, phone, idno, adr, sex, email, password, dpic, course_name) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)';
             $stmt = $mysqli->prepare($query);
             $rc = $stmt->bind_param(
-                'sssssssssss',
+                'ssssssssssss',
                 $id,
+                $parent_id,
                 $admno,
                 $name,
                 $phone,
@@ -423,7 +446,8 @@ require_once '../partials/head.php';
                 <div class="row layout-top-spacing">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
-                            <div class="text-right">
+                            <div class="text-center">
+                                <h1 class="text-bold">Students</h1>
                                 <button data-toggle="modal" data-target="#import_student" class="btn btn-outline-primary mb-2">Import Students </button>
                                 <button data-toggle="modal" data-target="#add_student" class="btn btn-outline-secondary mb-2">Add Student</button>
                             </div>
@@ -462,9 +486,6 @@ require_once '../partials/head.php';
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -497,6 +518,22 @@ require_once '../partials/head.php';
                                                             <label for="">Name</label>
                                                             <input type="text" required name="name" class="form-control">
                                                         </div>
+                                                        <div class="form-group col-md-12">
+                                                            <label for="">Parent Name</label>
+                                                            <select id="ParentName" style="width: 100%;" onchange="GetParentDetails(this.value);" class="form-control basic">
+                                                                <option>Select Parent Name</option>
+                                                                <?php
+                                                                $ret = 'SELECT * FROM `iCollege_parents`';
+                                                                $stmt = $mysqli->prepare($ret);
+                                                                $stmt->execute(); //ok
+                                                                $res = $stmt->get_result();
+                                                                while ($parents = $res->fetch_object()) { ?>
+                                                                    <option><?php echo $parents->name; ?></option>
+                                                                <?php }
+                                                                ?>
+                                                            </select>
+                                                            <input type="hidden" required name="parent_id" id="ParentID" class="form-control">
+                                                        </div>
 
                                                         <div class="form-group col-md-4">
                                                             <label for="">National ID Number</label>
@@ -525,20 +562,15 @@ require_once '../partials/head.php';
                                                             <label for="">Password</label>
                                                             <input type="text" required name="password" class="form-control">
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="">Course Name</label>
-                                                            <select name="course_name" class="form-control">
+                                                            <select name="course_name" class="form-control basic">
                                                                 <?php
-                                                                $ret =
-                                                                    'SELECT * FROM `iCollege_courses`';
-                                                                $stmt = $mysqli->prepare(
-                                                                    $ret
-                                                                );
+                                                                $ret = 'SELECT * FROM `iCollege_courses`';
+                                                                $stmt = $mysqli->prepare($ret);
                                                                 $stmt->execute(); //ok
                                                                 $res = $stmt->get_result();
-                                                                while (
-                                                                    $courses = $res->fetch_object()
-                                                                ) { ?>
+                                                                while ($courses = $res->fetch_object()) { ?>
                                                                     <option><?php echo $courses->name; ?></option>
                                                                 <?php }
                                                                 ?>
@@ -605,147 +637,147 @@ require_once '../partials/head.php';
                                                     <a href="#view-<?php echo $student->id; ?>" data-toggle="modal" class="badge outline-badge-success">View</a>
                                                     <!-- View Modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="view-<?php echo $student->id; ?>" role="dialog">
-                                <div class="modal-dialog modal-xl" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="text-center">
-                                                Student info
-                                            </h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Form -->
-                                            <form method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Admission Number</label>
-                                                            <input type="text" required name="admno" readonly value="<?php echo $student->admno; ?>" class="form-control">
-                                                         
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Name</label>
-                                                            <input type="text" required name="name" readonly value="<?php echo $student->name; ?>" class="form-control">
-                                                        </div>
+                                                        <div class="modal-dialog modal-xl" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="text-center">
+                                                                        Student info
+                                                                    </h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <!-- Form -->
+                                                                    <form method="post" enctype="multipart/form-data">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Admission Number</label>
+                                                                                    <input type="text" required name="admno" readonly value="<?php echo $student->admno; ?>" class="form-control">
 
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">National ID Number</label>
-                                                            <input type="text" required name="idno" readonly value="<?php echo $student->idno; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Name</label>
+                                                                                    <input type="text" required name="name" readonly value="<?php echo $student->name; ?>" class="form-control">
+                                                                                </div>
+
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">National ID Number</label>
+                                                                                    <input type="text" required name="idno" readonly value="<?php echo $student->idno; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Phone Number</label>
+                                                                                    <input type="text" required name="phone" readonly value="<?php echo $student->phone; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Sex</label>
+                                                                                    <input type="text" required name="phone" readonly value="<?php echo $student->sex; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Address</label>
+                                                                                    <input type="text" required name="adr" readonly value="<?php echo $student->adr; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for=""> Email Address</label>
+                                                                                    <input type="text" required name="email" readonly value="<?php echo $student->email; ?>" class="form-control">
+                                                                                </div>
+
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Course Name</label>
+                                                                                    <input type="text" required name="course_name" readonly value="<?php echo $student->course_name; ?>" class="form-control">
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </form>
+                                                                </div>
+
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Phone Number</label>
-                                                            <input type="text" required name="phone" readonly value="<?php echo $student->phone; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Sex</label>
-                                                            <input type="text" required name="phone" readonly value="<?php echo $student->sex; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Address</label>
-                                                            <input type="text" required name="adr" readonly value="<?php echo $student->adr; ?>"class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for=""> Email Address</label>
-                                                            <input type="text" required name="email" readonly value="<?php echo $student->email; ?>" class="form-control">
-                                                        </div>
-                                                        
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Course Name</label>
-                                                            <input type="text" required name="course_name" readonly value="<?php echo $student->course_name; ?>" class="form-control">
-                                                        </div>
-                                                        
                                                     </div>
-                                                </div>
-                                                
-                                            </form>
-                                        </div>
-
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                                                     <!-- View Modal -->
                                                     <a href="#update-<?php echo $student->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
                                                     <!-- Update Modal -->
-                            <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $student->id; ?>" role="dialog">
-                                <div class="modal-dialog modal-xl" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h4 class="text-center">
-                                               Update <?php echo $student->name; ?> info
-                                            </h4>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Form -->
-                                            <form method="post" enctype="multipart/form-data">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Admission Number</label>
-                                                            <input type="text" required name="admno" readonly value="<?php echo $student->admno; ?>" class="form-control">
-                                                         
-                                                        </div>
-                                                        <div class="form-group col-md-6">
-                                                            <label for="">Name</label>
-                                                            <input type="text" required name="name"  value="<?php echo $student->name; ?>" class="form-control">
-                                                        </div>
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $student->id; ?>" role="dialog">
+                                                        <div class="modal-dialog modal-xl" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="text-center">
+                                                                        Update <?php echo $student->name; ?> info
+                                                                    </h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <!-- Form -->
+                                                                    <form method="post" enctype="multipart/form-data">
+                                                                        <div class="card-body">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Admission Number</label>
+                                                                                    <input type="text" required name="admno" readonly value="<?php echo $student->admno; ?>" class="form-control">
 
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">National ID Number</label>
-                                                            <input type="text" required name="idno"  value="<?php echo $student->idno; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-6">
+                                                                                    <label for="">Name</label>
+                                                                                    <input type="text" required name="name" value="<?php echo $student->name; ?>" class="form-control">
+                                                                                </div>
+
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">National ID Number</label>
+                                                                                    <input type="text" required name="idno" value="<?php echo $student->idno; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Phone Number</label>
+                                                                                    <input type="text" required name="phone" value="<?php echo $student->phone; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Sex</label>
+                                                                                    <select name="sex" class="form-control">
+                                                                                        <option selected><?php echo $student->sex; ?></option>
+                                                                                        <option>Male</option>
+                                                                                        <option>Female</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Address</label>
+                                                                                    <input type="text" required name="adr" value="<?php echo $student->adr; ?>" class="form-control">
+                                                                                </div>
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for=""> Email Address</label>
+                                                                                    <input type="text" required name="email" value="<?php echo $student->email; ?>" class="form-control">
+                                                                                </div>
+
+                                                                                <div class="form-group col-md-4">
+                                                                                    <label for="">Course Name</label>
+                                                                                    <input type="text" required name="course_name" value="<?php echo $student->course_name; ?>" class="form-control">
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="text-right">
+                                                                            <button type="submit" name="update" class="btn btn-primary">Save changes</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Phone Number</label>
-                                                            <input type="text" required name="phone"  value="<?php echo $student->phone; ?>" class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Sex</label>
-                                                            <select name="sex" class="form-control">
-                                                                <option selected><?php echo $student->sex; ?></option>
-                                                                <option>Male</option>
-                                                                <option>Female</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Address</label>
-                                                            <input type="text" required name="adr"  value="<?php echo $student->adr; ?>"class="form-control">
-                                                        </div>
-                                                        <div class="form-group col-md-4">
-                                                            <label for=""> Email Address</label>
-                                                            <input type="text" required name="email"  value="<?php echo $student->email; ?>" class="form-control">
-                                                        </div>
-                                                        
-                                                        <div class="form-group col-md-4">
-                                                            <label for="">Course Name</label>
-                                                            <input type="text" required name="course_name"  value="<?php echo $student->course_name; ?>" class="form-control">
-                                                        </div>
-                                                        
                                                     </div>
-                                                </div>
-                                                <div class="text-right">
-                                                    <button type="submit" name="update" class="btn btn-primary">Save changes</button>
-                                                </div>
-                                            </form>
-                                        </div>
-
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                             <!-- Update Modal -->
+                                                    <!-- Update Modal -->
                                                     <a href="#delete-<?php echo $student->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
- <!-- Delete Modal -->
- <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $student->id; ?>" role="dialog">
+                                                    <!-- Delete Modal -->
+                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $student->id; ?>" role="dialog">
                                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">

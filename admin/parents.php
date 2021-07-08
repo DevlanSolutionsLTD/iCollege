@@ -1,4 +1,25 @@
 <?php
+/*
+ * Created on Thu Jul 08 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
@@ -236,7 +257,7 @@ if (isset($_POST['update_parent'])) {
         $err = ' Address Cannot Be Empty';
     }
 
-   
+
 
     if (isset($_POST['id']) && !empty($_POST['id'])) {
         $id = mysqli_real_escape_string($mysqli, trim($_POST['id']));
@@ -340,7 +361,9 @@ require_once '../partials/head.php';
                 <div class="row layout-top-spacing">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
-                            <div class="text-right">
+                            <div class="text-center">
+                                <br>
+                                <h1 class="text-bold">Parents</h1>
                                 <button data-toggle="modal" data-target="#import_lec" class="btn btn-outline-primary mb-2">Import Parents </button>
                                 <button data-toggle="modal" data-target="#add_lec" class="btn btn-outline-secondary mb-2">Add Parent</button>
                             </div>
@@ -378,9 +401,6 @@ require_once '../partials/head.php';
                                                     <button type="submit" name="upload" class="btn btn-primary">Upload File</button>
                                                 </div>
                                             </form>
-                                        </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -435,16 +455,9 @@ require_once '../partials/head.php';
                                                 </div>
                                             </form>
                                         </div>
-
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Course Modal -->
-
-                            <!-- End Course Modal -->
 
                             <div class="table-responsive mb-4 mt-4">
                                 <table id="default-ordering" class="table" style="width:100%">
@@ -473,6 +486,7 @@ require_once '../partials/head.php';
                                                 <td><?php echo $parent->email; ?></td>
                                                 <td><?php echo $parent->adr; ?>
                                                 <td>
+
                                                     <a href="#update-<?php echo $parent->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
                                                     <!-- Button trigger modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $parent->id; ?>" role="dialog">
@@ -525,8 +539,6 @@ require_once '../partials/head.php';
                                                         </div>
                                                     </div>
 
-
-
                                                     <a href="#delete-<?php echo $parent->id; ?>" data-toggle="modal" class="badge outline-badge-danger">Delete</a>
                                                     <!-- Delete Modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="delete-<?php echo $parent->id; ?>" role="dialog">
@@ -547,6 +559,7 @@ require_once '../partials/head.php';
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                 </td>
                                             </tr>
                                         <?php }

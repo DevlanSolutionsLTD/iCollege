@@ -206,7 +206,7 @@ require_once('../partials/head.php');
                                     <div class="w-content">
                                         <div class="w-info">
                                             <h6 class="value"><?php echo $lecs; ?></h6>
-                                            <p class="">Lecturers</p>
+                                            <p class="">Instructors</p>
                                         </div>
                                         <div class="">
                                             <div class="w-icon">

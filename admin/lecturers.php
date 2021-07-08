@@ -1,4 +1,25 @@
 <?php
+/*
+ * Created on Thu Jul 08 2021
+ *
+ * The MIT License (MIT)
+ * Copyright (c) 2021 MartDevelopers Inc
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ * and associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so,
+ * subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or substantial
+ * portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED
+ * TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+ * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
 session_start();
 require_once '../config/config.php';
 require_once '../config/checklogin.php';
@@ -324,7 +345,7 @@ require_once '../partials/head.php';
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="javascript:void(0);">Home</a></li>
                                 <li class="breadcrumb-item"><a href="dashboard.php">Dashboard</a></li>
-                                <li class="breadcrumb-item active" aria-current="page"><span>Lecturers</span></li>
+                                <li class="breadcrumb-item active" aria-current="page"><span>Instructors</span></li>
                             </ol>
                         </nav>
 
@@ -352,9 +373,11 @@ require_once '../partials/head.php';
                 <div class="row layout-top-spacing">
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
-                            <div class="text-right">
-                                <button data-toggle="modal" data-target="#import_lec" class="btn btn-outline-primary mb-2">Import Lecturers </button>
-                                <button data-toggle="modal" data-target="#add_lec" class="btn btn-outline-secondary mb-2">Add Lecturer</button>
+                            <div class="text-center">
+                                <br>
+                                <h1 class="text-bold">Instructors</h1>
+                                <button data-toggle="modal" data-target="#import_lec" class="btn btn-outline-primary mb-2">Import Instructors </button>
+                                <button data-toggle="modal" data-target="#add_lec" class="btn btn-outline-secondary mb-2">Add Instructor</button>
                             </div>
                             <hr>
                             <!-- Import Modals -->
@@ -391,9 +414,6 @@ require_once '../partials/head.php';
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -417,33 +437,33 @@ require_once '../partials/head.php';
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Number</label>
+                                                            <label for="">Number</label>
                                                             <input type="text" required name="number" value="<?php echo $a; ?>-<?php echo $b; ?>" class="form-control">
                                                             <!-- Hide This -->
                                                             <input type="hidden" required name="id" value="<?php echo $ID; ?>" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Name</label>
+                                                            <label for="">Name</label>
                                                             <input type="text" required name="name" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Lecturer National ID Number</label>
+                                                            <label for="">National ID Number</label>
                                                             <input type="text" required name="idno" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Phone Number</label>
+                                                            <label for="">Phone Number</label>
                                                             <input type="text" required name="phone" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Email Address</label>
+                                                            <label for="">Email Address</label>
                                                             <input type="text" required name="email" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-6">
-                                                            <label for="">Lecturer Password</label>
+                                                            <label for="">Password</label>
                                                             <input type="text" required name="password" class="form-control">
                                                         </div>
                                                         <div class="form-group col-md-12">
-                                                            <label for="exampleInputFile">Lecturer Passport</label>
+                                                            <label for="exampleInputFile">Passport</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
                                                                     <input required name="dpic" type="file" class="custom-file-input" id="exampleInputFile">
@@ -457,10 +477,6 @@ require_once '../partials/head.php';
                                                     <button type="submit" name="add_lec" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>
-                                        </div>
-
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -496,55 +512,6 @@ require_once '../partials/head.php';
                                                 <td><?php echo $lec->phone; ?></td>
                                                 <td><?php echo $lec->email; ?></td>
                                                 <td>
-                                                    <a href="#view-<?php echo $lec->id; ?>" data-toggle="modal" class="badge outline-badge-success">View</a>
-                                                    <!-- View Course Modal -->
-                                                    <div class="modal animated zoomInUp custo-zoomInUp" id="view-<?php echo $lec->id; ?>" role="dialog">
-                                                        <div class="modal-dialog modal-lg" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h4 class="text-center">
-                                                                    </h4>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form method="post" enctype="multipart/form-data">
-                                                                        <div class="card-body">
-                                                                            <div class="row">
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Lecturer Number</label>
-                                                                                    <input type="text" readonly required name="number" value="<?php echo $lec->number; ?>" class="form-control">
-                                                                                </div>
-
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Lecturer Name</label>
-                                                                                    <input type="text" readonly required name="name" readonly value="<?php echo $lec->name; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Lecturer National ID Number</label>
-                                                                                    <input type="text" required name="idno" readonly value="<?php echo $lec->idno; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Lecturer Phone Number</label>
-                                                                                    <input type="text" required name="phone" readonly value="<?php echo $lec->phone; ?>" class="form-control">
-                                                                                </div>
-                                                                                <div class="form-group col-md-6">
-                                                                                    <label for="">Lecturer Email Address</label>
-                                                                                    <input type="text" required name="email" readonly value="<?php echo $lec->email; ?>" class="form-control">
-                                                                                </div>
-
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                     <a href="#update-<?php echo $lec->id; ?>" data-toggle="modal" class="badge outline-badge-warning">Update</a>
                                                     <!-- Button trigger modal -->
                                                     <div class="modal animated zoomInUp custo-zoomInUp" id="update-<?php echo $lec->id; ?>" role="dialog">
@@ -562,38 +529,29 @@ require_once '../partials/head.php';
                                                                     <form method="post" enctype="multipart/form-data">
                                                                         <div class="card-body">
                                                                             <div class="row">
-
-
-
                                                                                 <input type="text" hidden required name="id" value="<?php echo $lec->id; ?>" class="form-control">
-
                                                                                 <div class="form-group col-md-6">
-                                                                                    <label for="">Lecturer Name</label>
+                                                                                    <label for="">Name</label>
                                                                                     <input type="text" required name="name" value="<?php echo $lec->name; ?>" class="form-control">
                                                                                 </div>
                                                                                 <div class="form-group col-md-6">
-                                                                                    <label for="">Lecturer National ID Number</label>
+                                                                                    <label for="">National ID Number</label>
                                                                                     <input type="text" required name="idno" value="<?php echo $lec->idno; ?>" class="form-control">
                                                                                 </div>
                                                                                 <div class="form-group col-md-6">
-                                                                                    <label for="">Lecturer Phone Number</label>
+                                                                                    <label for="">Phone Number</label>
                                                                                     <input type="text" required name="phone" value="<?php echo $lec->phone; ?>" class="form-control">
                                                                                 </div>
                                                                                 <div class="form-group col-md-6">
-                                                                                    <label for="">Lecturer Email Address</label>
+                                                                                    <label for="">Email Address</label>
                                                                                     <input type="text" required name="email" value="<?php echo $lec->email; ?>" class="form-control">
                                                                                 </div>
-
-
                                                                             </div>
                                                                         </div>
                                                                         <div class="text-right">
                                                                             <button type="submit" name="update" class="btn btn-primary">Save changes</button>
                                                                         </div>
                                                                     </form>
-                                                                </div>
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                                                 </div>
                                                             </div>
                                                         </div>

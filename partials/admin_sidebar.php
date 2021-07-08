@@ -79,7 +79,7 @@
                             <circle cx="8.5" cy="7" r="4"></circle>
                             <polyline points="17 11 19 13 23 9"></polyline>
                         </svg>
-                        <span>Lecturers</span>
+                        <span>Instructors</span>
                     </div>
                 </a>
             </li>
@@ -111,10 +111,6 @@
                     </div>
                 </a>
             </li>
-
-
-
-
 
             <!-- Allocations -->
             <li class="menu">
