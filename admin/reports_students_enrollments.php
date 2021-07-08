@@ -82,7 +82,7 @@ require_once '../partials/head.php';
                     <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                         <div class="widget-content widget-content-area br-6">
                             <div class="table-responsive mb-4 mt-4">
-                                <table id="default-ordering" class="table" style="width:100%">
+                                <table id="export" class="table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>Admn No</th>
