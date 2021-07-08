@@ -35,10 +35,6 @@ iCollege (Learners' Records Information System) is a lightweight college informa
 6. Reports
 ```
 
-# Tasks Assigns
-
-To view your assigned tasks, kindly log on <a target="_blank" href="http://pm.wcf.co.ke/">Here</a>
-
 # WebMail
 <a target="_blank" href="https://https://www.rainloop.net/">RainLoop Web Mail</a>
 
@@ -50,13 +46,5 @@ To view your assigned tasks, kindly log on <a target="_blank" href="http://pm.wc
 1. System Administrator
     Email:     sysadmin@iCollege.org
     Password:  demo
-
-2. Staff
-    Email:     lec001@icollege.001
-    Password:  demo
-
-3. Student
-    Admission Number:  N0OY5-73169
-    Password:          demo
 
 ```
