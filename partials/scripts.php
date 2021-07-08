@@ -180,6 +180,18 @@
             }
         });
     }
+    function getParentDetails(val) {
+        $.ajax({
+
+            type: "POST",
+            url: "../partials/ajax.php",
+            data: 'ParentName=' + val,
+            success: function(data) {
+                //alert(data);
+                $('#ParentID').val(data);
+            }
+        });
+    }
 </script>
 <!-- Print Contents Inside A Div -->
 <script>

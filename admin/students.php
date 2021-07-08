@@ -520,7 +520,7 @@ require_once '../partials/head.php';
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label for="">Parent Name</label>
-                                                            <select id="ParentName" style="width: 100%;" onchange="GetParentDetails(this.value);" class="form-control basic">
+                                                            <select id="ParentName" style="width: 100%;" onchange="getParentDetails(this.value);" class="form-control basic">
                                                                 <option>Select Parent Name</option>
                                                                 <?php
                                                                 $ret = 'SELECT * FROM `iCollege_parents`';
@@ -564,7 +564,7 @@ require_once '../partials/head.php';
                                                         </div>
                                                         <div class="form-group col-md-12">
                                                             <label for="">Course Name</label>
-                                                            <select name="course_name" class="form-control basic">
+                                                            <select name="course_name" style="width: 100%;" class="form-control basic">
                                                                 <?php
                                                                 $ret = 'SELECT * FROM `iCollege_courses`';
                                                                 $stmt = $mysqli->prepare($ret);
@@ -576,7 +576,7 @@ require_once '../partials/head.php';
                                                                 ?>
                                                             </select>
                                                         </div>
-                                                        <div class="form-group col-md-6">
+                                                        <div class="form-group col-md-12">
                                                             <label for="exampleInputFile">Passport</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
@@ -591,10 +591,6 @@ require_once '../partials/head.php';
                                                     <button type="submit" name="add_student" class="btn btn-primary">Submit</button>
                                                 </div>
                                             </form>
-                                        </div>
-
-                                        <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
                                 </div>
