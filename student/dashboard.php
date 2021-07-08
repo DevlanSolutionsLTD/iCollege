@@ -120,7 +120,37 @@ require_once('../partials/head.php');
                             </div>
                         </a>
                     </div>
+                    <div class="col-xl-12 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+                        <div class="card">
+                            <div class="text-center">
+                                <h1 class="text-bold">Overall School Term Dates</h1>
+                            </div>
+                            <table id="export" class="table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $ret = 'SELECT * FROM `iCollege_termdates`';
+                                    $stmt = $mysqli->prepare($ret);
+                                    $stmt->execute(); //ok
+                                    $res = $stmt->get_result();
+                                    while ($dates = $res->fetch_object()) { ?>
+                                        <tr>
+                                            <td><?php echo date('d-M-Y', strtotime($dates->date)); ?></td>
+                                            <td><?php echo $dates->details; ?></td>
+                                        </tr>
+                                    <?php }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
+
             </div>
             <?php require_once('../partials/footer.php'); ?>
         </div>
