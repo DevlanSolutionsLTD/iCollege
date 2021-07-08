@@ -269,6 +269,75 @@ require_once('../partials/head.php');
                         </a>
                     </div>
 
+                    <!-- -->
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+                        <a href="calendar.php">
+                            <div class="widget widget-card-four">
+                                <div class="widget-content">
+                                    <div class="w-content">
+                                        <div class="w-info">
+                                            <h6 class="value"></h6>
+                                            <p class="">Academic Dates</p>
+                                        </div>
+                                        <div class="">
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-calendar-range-fill" viewBox="0 0 16 16">
+                                                    <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4V.5zM16 7V5H0v5h5a1 1 0 1 1 0 2H0v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9h-6a1 1 0 1 1 0-2h6z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+                        <a href="allocations.php">
+                            <div class="widget widget-card-four">
+                                <div class="widget-content">
+                                    <div class="w-content">
+                                        <div class="w-info">
+                                            <h6 class="value"></h6>
+                                            <p class="">Teaching Allocations</p>
+                                        </div>
+                                        <div class="">
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-file-earmark-person" viewBox="0 0 16 16">
+                                                    <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                                    <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5v2z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+                        <a href="timetables.php">
+                            <div class="widget widget-card-four">
+                                <div class="widget-content">
+                                    <div class="w-content">
+                                        <div class="w-info">
+                                            <h6 class="value"></h6>
+                                            <p class="">Time Table</p>
+                                        </div>
+                                        <div class="">
+                                            <div class="w-icon">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+                                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
                     <div class="col-xl-12 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
                         <!-- Draw Something Here -->
                     </div>
