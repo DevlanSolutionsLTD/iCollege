@@ -72,7 +72,7 @@ require_once '../partials/head.php';
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once '../partials/student_sidebar.php'; ?>
+        <?php require_once '../partials/parent_sidebar.php'; ?>
         <!--  END SIDEBAR  -->
 
         <!--  BEGIN CONTENT AREA  -->
@@ -100,8 +100,15 @@ require_once '../partials/head.php';
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $admission = $_SESSION['admno'];
-                                        $ret = "SELECT * FROM `iCollege_exammarks` WHERE std_regno = '$admission' ";
+                                        $id = $_SESSION['id'];
+                                        $ret = "SELECT * FROM `iCollege_students` WHERE parent_id = '$id' ";
+                                        $stmt = $mysqli->prepare($ret);
+                                        $stmt->execute(); //ok
+                                        $res = $stmt->get_result();
+                                        while ($student = $res->fetch_object()) {
+                                            $admno = $student->admno;
+                                        }
+                                        $ret = "SELECT * FROM `iCollege_exammarks` WHERE std_regno = '$admno' ";
                                         $stmt = $mysqli->prepare($ret);
                                         $stmt->execute(); //ok
                                         $res = $stmt->get_result();

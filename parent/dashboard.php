@@ -77,7 +77,7 @@ require_once('../partials/head.php');
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <?php require_once('../partials/student_sidebar.php'); ?>
+        <?php require_once('../partials/parent_sidebar.php'); ?>
         <!--  END SIDEBAR  -->
 
         <!--  BEGIN CONTENT PART  -->
@@ -85,7 +85,7 @@ require_once('../partials/head.php');
             <div class="layout-px-spacing">
 
                 <div class="row layout-top-spacing">
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
                         <a href="fee_statements.php">
                             <div class="card">
                                 <img src="../public/icons/credited.svg" height="150" width="150" class="card-img-top" alt="Credited">
@@ -97,7 +97,7 @@ require_once('../partials/head.php');
                         </a>
                     </div>
 
-                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-12 layout-spacing">
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 layout-spacing">
                         <a href="fee_statements.php">
                             <div class="card">
                                 <img src="../public/icons/debited.svg" height="150" width="150" class="card-img-top" alt="Debited">

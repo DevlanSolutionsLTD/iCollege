@@ -28,7 +28,7 @@ if (isset($_POST['login'])) {
     $email = $_POST['email'];
     $password = sha1(md5($_POST['password'])); //double encrypt to increase security
     $stmt = $mysqli->prepare("SELECT email, password, id  FROM iCollege_parents  WHERE email =? AND password =?");
-    $stmt->bind_param('ss', $admno, $password); //bind fetched parameters
+    $stmt->bind_param('ss', $email, $password); //bind fetched parameters
     $stmt->execute(); //execute bind 
     $stmt->bind_result($email, $password, $id); //bind result
     $rs = $stmt->fetch();

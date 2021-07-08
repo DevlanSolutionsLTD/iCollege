@@ -27,7 +27,7 @@ if (isset($_POST['update_password'])) {
 
     if (!$error) {
         $id = $_SESSION['id'];
-        $sql = "SELECT * FROM  iCollege_students  WHERE id = '$id'";
+        $sql = "SELECT * FROM  iCollege_parents  WHERE id = '$id'";
         $res = mysqli_query($mysqli, $sql);
         if (mysqli_num_rows($res) > 0) {
             $row = mysqli_fetch_assoc($res);
@@ -36,7 +36,7 @@ if (isset($_POST['update_password'])) {
             } elseif ($new_password != $confirm_password) {
                 $err = "Confirmation Password Does Not Match";
             } else {
-                $query = "UPDATE iCollege_students SET password =? WHERE id =?";
+                $query = "UPDATE iCollege_parents SET password =? WHERE id =?";
                 $stmt = $mysqli->prepare($query);
                 $rc = $stmt->bind_param('ss', $new_password, $id);
                 $stmt->execute();
@@ -94,9 +94,9 @@ require_once('../partials/head.php');
         <div class="search-overlay"></div>
         <!--  BEGIN SIDEBAR  -->
         <?php
-        require_once('../partials/student_sidebar.php');
+        require_once('../partials/parent_sidebar.php');
         $id = $_SESSION['id'];
-        $ret = "SELECT * FROM `iCollege_students` WHERE id ='$id' ";
+        $ret = "SELECT * FROM `iCollege_parents` WHERE id ='$id' ";
         $stmt = $mysqli->prepare($ret);
         $stmt->execute(); //ok
         $res = $stmt->get_result();
